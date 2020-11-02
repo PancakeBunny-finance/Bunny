@@ -1,12 +1,25 @@
 # Bunny
-### Presale
-- November 4th, 12:00 SGT on https://pancakebunny.finance
+## PancakeBunny.finance Contracts
+BunnyToken: [0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51](https://bscscan.com/address/0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51)
+
+## Presale
+- Wednesday 4th November 12:00 SGT ~ Tuesday 17th November 12:00 SGT  
+- on https://pancakebunny.finance 
+
+#### Presale Contracts 
+RocketBunny: [0x795272DF9d0c101D41650Aa8A99AB6b09a82A454](https://bscscan.com/address/0x795272DF9d0c101D41650Aa8A99AB6b09a82A454)
+
+BUNNY Pre-sale Beneficiary: [0x641414e2a04c8f8EbBf49eD47cc87dccbA42BF07](https://bscscan.com/address/0x641414e2a04c8f8EbBf49eD47cc87dccbA42BF07)
+
+| Step      | Description                                                   |
+| ---       | ---                                                           |
+| Create    | Creating an auction to pre-sell tokens                        |
+| Engage    | Users participate in pre-sale                                 |
+| Archive   | The Auction is archived and the funds raised are transferred  |
+| Claim     | Receive rewards directly or distribute rewards by beneficiary |
+
 
 ### Launching
-- Farming starts on November 20th, 12:00 SGT 
+- Farming starts on 20th November 12:00 SGT 
 
-### Contracts
-Bunny Token: [0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51](https://bscscan.com/token/0xc9849e6fdb743d08faee3e34dd2d1bc69ea11a51)
-
-Working in Progress..
-
+Work in progress more contracts.
