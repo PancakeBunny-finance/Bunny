@@ -3,8 +3,8 @@
 BunnyToken: [0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51](https://bscscan.com/address/0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51)
 
 ## Presale
-- Wednesday 4th November 12:00 SGT ~ Tuesday 17th November 12:00 SGT  
-- on https://pancakebunny.finance 
+- Wednesday 4th November 12:00 SGT ~ Tuesday 17th November 12:00 SGT
+- More details on https://bit.ly/bunny_presale 
 
 #### Presale Contracts 
 RocketBunny: [0x795272DF9d0c101D41650Aa8A99AB6b09a82A454](https://bscscan.com/address/0x795272DF9d0c101D41650Aa8A99AB6b09a82A454)
