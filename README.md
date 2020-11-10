@@ -11,6 +11,7 @@
 #### Auto Compounding FARM Contracts 
 |     |      Contract Address |
 |-----------|--------------|
+| CAKE | [0x85537e99f5E535EdC72463e568CB3196130D1275](https://bscscan.com/address/0x85537e99f5E535EdC72463e568CB3196130D1275)|
 | CAKE-BNB | [0xed9BdC2E991fbEc75f0dD18b4110b8d49C79c5a9](https://bscscan.com/address/0xed9BdC2E991fbEc75f0dD18b4110b8d49C79c5a9)|
 | BUSD-BNB | [0x70368F425DCC37710a9982b4A4CE95fcBd009049](https://bscscan.com/address/0x70368F425DCC37710a9982b4A4CE95fcBd009049)|
 | USDT-BNB | [0x655d5325C7510521c801E8F5ea074CDc1c9a3B71](https://bscscan.com/address/0x655d5325C7510521c801E8F5ea074CDc1c9a3B71)|
