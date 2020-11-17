@@ -20,7 +20,7 @@ import sphinx_rtd_theme
 # -- Project information -----------------------------------------------------
 
 project = 'PancakeBunny Docs'
-copyright = '© Copyright 2020, Bunny'
+copyright = '2020'
 author = 'Bunny'
 
 
