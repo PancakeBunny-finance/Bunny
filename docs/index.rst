@@ -19,7 +19,7 @@ Bunny, like other yield aggregators on BSC, uses Pancake Swap since it is the mo
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    faq
    guide
