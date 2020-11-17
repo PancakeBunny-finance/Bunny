@@ -17,6 +17,12 @@ A key difference in Yield Farming on Binance Smart Chain is the low gas fee. Thi
 
 Bunny, like other yield aggregators on BSC, uses Pancake Swap since it is the most prominent platform for Yield Farming. Bunny is continuously striving to create innovative new Yield Optimization Strategies. Currently we have BUNNY, CAKE, BUNNY-BNB, CAKE-BNB BUSD-BNB, USDT-BNB, DAI-BNB, USDC-BNB Pools, however we are planning on rolling out many more vaults in the future. One Strategy we have in mind is allowing users to deposit into a pool such as USDC-BNB and then putting the CAKE that comes out into the CAKE compounding pool, giving users a much greater return, while protecting the principal.
 
+Contact Us
+==========================================================
+Twitter: @pancakebunnyfin
+Telegram: https://t.me/pancake_bunny
+Email: hello@pancakebunny.finance
+Github:
 
 .. toctree::
    :maxdepth: 1
@@ -24,4 +30,4 @@ Bunny, like other yield aggregators on BSC, uses Pancake Swap since it is the mo
    faq
    guide
    governance
-
+   contracts
