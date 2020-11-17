@@ -14,6 +14,7 @@ Introduction to Pancake Bunny
 
 .. image:: /images/awesome.png
   :width: 600
+  :align: center
   :alt: Awesome Bunny
 
 Compound Yields with Bunny
