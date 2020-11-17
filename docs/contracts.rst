@@ -8,7 +8,7 @@ PancakeBunny.finance Contracts
 BunnyToken: 0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51
 
 .. list-table:: Auto Compounding FARM Contracts
-   :widths: 40 40
+   :widths: 20 40
    :header-rows: 1
 
    * -
