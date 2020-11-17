@@ -3,7 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. # define a hard line break for HTML
 .. |br| raw:: html
+
+   <br />
 
 ************************
 Introduction to Pancake Bunny
@@ -25,9 +28,9 @@ Bunny, like other yield aggregators on BSC, uses Pancake Swap since it is the mo
 
 Contact Us
 ==========================================================
-Twitter:`pancakebunnyfin<https://twitter.com/PancakeBunnyFin>`_ <br>
-Telegram: https://t.me/pancake_bunny <br>
-Email: hello@pancakebunny.finance <br>
+Twitter: @PancakeBunnyFin https://twitter.com/PancakeBunnyFin |br|
+Telegram: https://t.me/pancake_bunny |br|
+Email: hello@pancakebunny.finance |br|
 GitHub: https://github.com/PancakeBunny-finance/
 
 .. toctree::
