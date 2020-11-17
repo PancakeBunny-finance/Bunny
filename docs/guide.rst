@@ -19,6 +19,7 @@ Walkthrough
 ================================================
 
 1. Go to pancakebunny.finance/ and click "Connect Wallet"
+
 .. image:: guide_1.png
   :width: 500
   :alt: Connect Wallet
