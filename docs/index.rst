@@ -3,9 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. |br| raw:: html
+
 ************************
 Introduction to Pancake Bunny
 ************************
+
+.. image:: /images/awesome.png
+  :width: 600
+  :alt: Awesome Bunny
 
 Compound Yields with Bunny
 ==========================================================
@@ -19,12 +25,9 @@ Bunny, like other yield aggregators on BSC, uses Pancake Swap since it is the mo
 
 Contact Us
 ==========================================================
-Twitter:`@pancakebunnyfin<https://twitter.com/PancakeBunnyFin>`_
-
-Telegram: https://t.me/pancake_bunny
-
-Email: hello@pancakebunny.finance
-
+Twitter:`pancakebunnyfin<https://twitter.com/PancakeBunnyFin>`_ <br>
+Telegram: https://t.me/pancake_bunny <br>
+Email: hello@pancakebunny.finance <br>
 GitHub: https://github.com/PancakeBunny-finance/
 
 .. toctree::
