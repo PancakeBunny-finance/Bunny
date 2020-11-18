@@ -17,7 +17,7 @@
 | USDT-BNB | [0x655d5325C7510521c801E8F5ea074CDc1c9a3B71](https://bscscan.com/address/0x655d5325C7510521c801E8F5ea074CDc1c9a3B71)|
 | DAI-BNB | [0x8a5766863286789Ad185fd6505dA42a41137A044](https://bscscan.com/address/0x8a5766863286789Ad185fd6505dA42a41137A044)|
 | USDC-BNB | [0x828627292eD0A14C6b75Fa4ce9aa6fd859f20408](https://bscscan.com/address/0x828627292eD0A14C6b75Fa4ce9aa6fd859f20408)|
-
+| USDT-BUSD | [0x59E2a69c775991Ba1cb5540058428C28bE48da19](https://bscscan.com/address/0x59E2a69c775991Ba1cb5540058428C28bE48da19)|
 
 #### Presale Contracts 
 - RocketBunny: [0x795272DF9d0c101D41650Aa8A99AB6b09a82A454](https://bscscan.com/address/0x795272DF9d0c101D41650Aa8A99AB6b09a82A454)
@@ -29,8 +29,6 @@
 | Engage    | Users participate in pre-sale                                 |
 | Archive   | The Auction is archived and the funds raised are transferred  |
 | Claim     | Receive rewards directly or distribute rewards by beneficiary |
-
-#### Farming starts on 20th November 12:00 SGT 
 
 Work in progress more contracts.
 
