@@ -1,9 +1,3 @@
-# $BUNNY TOKEN PRESALE https://bit.ly/bunny_presale
-#### 📣 Wednesday 4th November 12:00 SGT ~ Tuesday 17th November 12:00 SGT
-- More details on 👉https://bit.ly/bunny_presale 
-
----
-
 # Pancake Bunny
 #### PancakeBunny.finance Contracts
 - BunnyToken: [0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51](https://bscscan.com/address/0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51)
@@ -20,6 +14,8 @@
 | USDT-BUSD | [0x59E2a69c775991Ba1cb5540058428C28bE48da19](https://bscscan.com/address/0x59E2a69c775991Ba1cb5540058428C28bE48da19)|
 
 #### Presale Contracts 
+BUNNY Token Presale ended. 
+- Presale details on 👉https://bit.ly/bunny_presale 
 - RocketBunny: [0x795272DF9d0c101D41650Aa8A99AB6b09a82A454](https://bscscan.com/address/0x795272DF9d0c101D41650Aa8A99AB6b09a82A454)
 - BUNNY Pre-sale Beneficiary: [0x641414e2a04c8f8EbBf49eD47cc87dccbA42BF07](https://bscscan.com/address/0x641414e2a04c8f8EbBf49eD47cc87dccbA42BF07)
 
