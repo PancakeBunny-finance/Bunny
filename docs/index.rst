@@ -39,7 +39,7 @@ GitHub: https://github.com/PancakeBunny-finance/
 
    faq
    guide
-   vault
+   tokenomics
+   aprapy
    governance
-   presale
    contracts
