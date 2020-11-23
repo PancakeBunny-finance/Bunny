@@ -40,4 +40,5 @@ GitHub: https://github.com/PancakeBunny-finance/
    faq
    guide
    governance
+   presale
    contracts
