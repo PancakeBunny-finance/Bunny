@@ -8,8 +8,6 @@ Allocation: 10,000 BNB
 
 returns: 10,000 BNB worth of FLIP tokens + locked up 50,000 BUNNY tokens
 
-Link to Join: [https://pancakebunny.finance](https://pancakebunny.finance/)
-
 Launch: 11/20
 
 Reward Payout: 11/21
@@ -20,6 +18,7 @@ Reward Payout: 11/21
 **Intended Uses**
 
 1. Liquidity Pool
+
 - Once the pool is created, 5,000 BNB and 50,000 BUNNY will be put in the Pancake Swap Liquidity Pool (Est. Value: $300,000).
 - LP Tokens will be given to presale participants according to their share.
 
@@ -44,5 +43,4 @@ Reward Payout: 11/21
 
     Almost all of these fees will ultimately go towards staking BUNNY, thereby ensuring the sustainability and longevity of our project and benefitting BUNNY supporters/holders.
 
-- Click on the following spreadsheet link to understand the detailed tokenomics breakdown.
-http://bit.ly/bunny_tokenomics
+- Click on the following spreadsheet link to understand the detailed tokenomics breakdown. http://bit.ly/bunny_tokenomics

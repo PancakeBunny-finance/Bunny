@@ -39,6 +39,7 @@ GitHub: https://github.com/PancakeBunny-finance/
 
    faq
    guide
+   vault
    governance
    presale
    contracts
