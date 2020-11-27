@@ -2,11 +2,10 @@
 Contracts
 ************************
 
-PancakeBunny.finance Contracts
-================================================
-
 BunnyToken: 0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51
+
 BUNNY Pool: 0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D
+
 BUNNY-BNB Pool: 0xc80eA568010Bca1Ad659d1937E17834972d66e0D
 
 .. list-table:: Auto Compounding FARM Contracts
