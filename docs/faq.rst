@@ -36,9 +36,11 @@ What are the risks of Farming on Bunny?
 ================================================
 
 Systematic Risk
+
 The Systematic Risk would be the decrease of monetary value of assets deposited, be in BNB, CAKE, etc. For example BNB could be $30 when you deposit and $25 when you withdraw
 
 Idiosyncratic Risk
+
 The Idiosyncratic Risk would be risks associated with our actual project. Although our code is not externally audited at the moment, we are planning to get an official audit in the coming months! As with all Projects we have seen in the past, from Harvest, Akropolis, and many more, there are always risks that projects will fall victim to malicious hackers. That being said, our Bunny developers account for the security risks of smart contracts and only will interact with contracts that meet the security threshold.
 
 How to Determine Daily % Gains?
@@ -51,8 +53,11 @@ What is the Fee Structure?
 ================================================
 
 Withdrawal Fee
+
 There is a 0.5% withdrawal fee from Farms only if withdrawal happens within 72 hours of deposit. This fee exists to maintain the smooth flow of the ecosystem and to prevent possible exploitation from individuals acting under bad faith. For example if there was no 0.5% withdrawal fee within the 72 hours, someone could keep depositing right before the compounding takes place and withdraw right after and still reap the same benefits and continuous long-term holders.
+
 Performance Fee
+
 We have a 30% performance fee on our farms, but the majority of the profit from these fees goes back to go rewards for staking BUNNY, thereby ensuring the sustainability and longevity of our project and benefitting BUNNY supporters/holders.
 
 
