@@ -1,4 +1,6 @@
-# Pancake Bunny
+# [Pancake Bunny](https://pancakebunny.finance)
+dapp: https://pancakebunny.finance
+
 #### PancakeBunny.finance Contracts
 - BunnyToken: [0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51](https://bscscan.com/address/0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51)
 - BUNNY Pool: [0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D](https://bscscan.com/address/0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D)
