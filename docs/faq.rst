@@ -10,7 +10,7 @@ PancakeBunny is a new and rapidly growing DeFi yield aggregator that is used for
 What is the Reason for launching Pancake Bunny?
 ================================================
 
-We wanted to create a platform that automatically compounds yields for all individuals, no matter how small your stake may be. Our goal is to expand the DeFi ecosystem, specifically on the Balance Smart Chain, while providing users with various strategies to maximize returns while minimizing risk.
+We wanted to create a platform that automatically compounds yields for all individuals, no matter how small your stake may be. Our goal is to expand the DeFi ecosystem, specifically on the Binance Smart Chain, while providing users with various strategies to maximize returns while minimizing risk.
 
 How do Bunny Farms Work?
 ================================================
