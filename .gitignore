@@ -106,3 +106,5 @@ dist
 .idea
 build
 .openzeppelin
+
+docs/.DS_Store

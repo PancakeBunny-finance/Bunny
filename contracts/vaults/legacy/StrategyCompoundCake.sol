@@ -33,16 +33,15 @@ pragma experimental ABIEncoderV2;
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
 
-import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/access/Ownable.sol";
 
-import "./IStrategy.sol";
-import "./IMasterChef.sol";
-import "../IBunnyMinter.sol";
-import "./IStrategyHelper.sol";
+import "../../interfaces/IMasterChef.sol";
+import "../../interfaces/IBunnyMinter.sol";
+import "../../interfaces/legacy/IStrategyHelper.sol";
+import "../../interfaces/legacy/IStrategyLegacy.sol";
 
-contract StrategyCompoundCake is IStrategy, Ownable {
+contract StrategyCompoundCake is IStrategyLegacy, Ownable {
     using SafeBEP20 for IBEP20;
     using SafeMath for uint256;
 

@@ -7,19 +7,18 @@ import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-import "./RewardsDistributionRecipient.sol";
-import "../interfaces/IStakingRewards.sol";
-import "./Pausable.sol";
-import "../strategy/IStrategy.sol";
-import "../strategy/IStrategyHelper.sol";
-import "../interfaces/IPancakeRouter02.sol";
+import "../../library/legacy/RewardsDistributionRecipient.sol";
+import "../../library/legacy/Pausable.sol";
+import "../../interfaces/legacy/IStrategyHelper.sol";
+import "../../interfaces/IPancakeRouter02.sol";
+import "../../interfaces/legacy/IStrategyLegacy.sol";
 
 interface IPresale {
     function totalBalance() view external returns(uint);
     function flipToken() view external returns(address);
 }
 
-contract BunnyPool is IStrategy, RewardsDistributionRecipient, ReentrancyGuard, Pausable {
+contract BunnyPool is IStrategyLegacy, RewardsDistributionRecipient, ReentrancyGuard, Pausable {
     using SafeMath for uint256;
     using SafeBEP20 for IBEP20;
 

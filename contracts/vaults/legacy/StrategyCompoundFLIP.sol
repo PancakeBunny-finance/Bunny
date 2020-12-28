@@ -33,18 +33,17 @@ pragma experimental ABIEncoderV2;
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
 
-import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/access/Ownable.sol";
 
-import "../interfaces/IPancakeRouter02.sol";
-import "../interfaces/IPancakePair.sol";
-import "./IStrategy.sol";
-import "./IMasterChef.sol";
-import "../IBunnyMinter.sol";
-import "./IStrategyHelper.sol";
+import "../../interfaces/IPancakeRouter02.sol";
+import "../../interfaces/IPancakePair.sol";
+import "../../interfaces/IMasterChef.sol";
+import "../../interfaces/IBunnyMinter.sol";
+import "../../interfaces/legacy/IStrategyHelper.sol";
+import "../../interfaces/legacy/IStrategyLegacy.sol";
 
-contract StrategyCompoundFLIP is IStrategy, Ownable {
+contract StrategyCompoundFLIP is IStrategyLegacy, Ownable {
     using SafeBEP20 for IBEP20;
     using SafeMath for uint256;
 
@@ -67,7 +66,7 @@ contract StrategyCompoundFLIP is IStrategy, Ownable {
     mapping (address => uint) public depositedAt;
 
     IBunnyMinter public minter;
-    IStrategyHelper public helper = IStrategyHelper(0xc1d2D7C19c031C71FeF22A4B5Ff2DB003b466d29);
+    IStrategyHelper public helper = IStrategyHelper(0x154d803C328fFd70ef5df52cb027d82821520ECE);
 
     constructor(uint _pid) public {
         if (_pid != 0) {

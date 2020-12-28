@@ -7,16 +7,15 @@ import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-import "../../pool/RewardsDistributionRecipient.sol";
-import "../../pool/Pausable.sol";
-import "../../interfaces/IStakingRewards.sol";
-import "..//IStrategy.sol";
-import "../IStrategyHelper.sol";
-import "../IMasterChef.sol";
-import "./ICakeVault.sol";
-import "../../IBunnyMinter.sol";
+import "../../library/legacy/RewardsDistributionRecipient.sol";
+import "../../library/legacy/Pausable.sol";
+import "../../interfaces/legacy/IStrategyHelper.sol";
+import "../../interfaces/IMasterChef.sol";
+import "../../interfaces/legacy/ICakeVault.sol";
+import "../../interfaces/IBunnyMinter.sol";
+import "../../interfaces/legacy/IStrategyLegacy.sol";
 
-contract CakeFlipVault is IStrategy, RewardsDistributionRecipient, ReentrancyGuard, Pausable {
+contract CakeFlipVault is IStrategyLegacy, RewardsDistributionRecipient, ReentrancyGuard, Pausable {
     using SafeMath for uint256;
     using SafeBEP20 for IBEP20;
 
@@ -25,7 +24,7 @@ contract CakeFlipVault is IStrategy, RewardsDistributionRecipient, ReentrancyGua
     IBEP20 public stakingToken;
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
-    uint256 public rewardsDuration = 2 hours;
+    uint256 public rewardsDuration = 24 hours;
     uint256 public lastUpdateTime;
     uint256 public rewardPerTokenStored;
 

@@ -5,10 +5,10 @@ import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/access/Ownable.sol";
-import "./IBunnyMinter.sol";
-import "./interfaces/IStakingRewards.sol";
+import "../interfaces/IBunnyMinter.sol";
+import "../interfaces/legacy/IStakingRewards.sol";
 import "./PancakeSwap.sol";
-import "./strategy/IStrategyHelper.sol";
+import "../interfaces/legacy/IStrategyHelper.sol";
 
 contract BunnyMinter is IBunnyMinter, Ownable, PancakeSwap {
     using SafeMath for uint;
@@ -18,13 +18,13 @@ contract BunnyMinter is IBunnyMinter, Ownable, PancakeSwap {
     address public constant dev = 0xe87f02606911223C2Cf200398FFAF353f60801F7;
     IBEP20 private constant WBNB = IBEP20(0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c);
 
-    uint public WITHDRAWAL_FEE_FREE_PERIOD = 3 days;
-    uint public WITHDRAWAL_FEE = 50;
+    uint public override WITHDRAWAL_FEE_FREE_PERIOD = 3 days;
+    uint public override WITHDRAWAL_FEE = 50;
     uint public constant FEE_MAX = 10000;
 
     uint public PERFORMANCE_FEE = 3000; // 30%
 
-    uint public bunnyPerProfitBNB;
+    uint public override bunnyPerProfitBNB;
     uint public bunnyPerBunnyBNBFlip;
 
     address public constant bunnyPool = 0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D;
@@ -61,7 +61,7 @@ contract BunnyMinter is IBunnyMinter, Ownable, PancakeSwap {
         WITHDRAWAL_FEE_FREE_PERIOD = _period;
     }
 
-    function setMinter(address minter, bool canMint) external onlyOwner {
+    function setMinter(address minter, bool canMint) external override onlyOwner {
         if (canMint) {
             _minters[minter] = canMint;
         } else {
