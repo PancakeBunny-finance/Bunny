@@ -30,7 +30,7 @@ Bunny, like other yield aggregators on BSC, uses Pancake Swap since it is the mo
 Contact Us
 ==========================================================
 Twitter: @PancakeBunnyFin https://twitter.com/PancakeBunnyFin |br|
-Telegram: https://t.me/pancake_bunny |br|
+Telegram: https://t.me/pancakebunny_fin |br|
 Email: hello@pancakebunny.finance |br|
 GitHub: https://github.com/PancakeBunny-finance/
 
