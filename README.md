@@ -34,5 +34,5 @@ dapp: https://pancakebunny.finance
 
 # Contact Us
 - Twitter: [@pancakebunnyfin](https://twitter.com/pancakebunnyfin)
-- Telegram: [https://t.me/pancake_bunny](https://t.me/pancake_bunny)
+- Telegram: [https://t.me/pancakebunny_fin](https://t.me/pancakebunny_fin)
 - Email: [hello@pancakebunny.finance](mailto:hello@pancakebunny.finance)
