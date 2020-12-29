@@ -34,6 +34,7 @@ pragma experimental ABIEncoderV2;
 */
 
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
+import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
 
 import "../interfaces/IPancakeRouter02.sol";
 import "../interfaces/IPancakePair.sol";
@@ -46,6 +47,9 @@ import "../library/Whitelist.sol";
 
 abstract contract VaultController is IVaultController, PausableUpgradeable, Whitelist {
     using SafeBEP20 for IBEP20;
+
+    /* ========== CONSTANT VARIABLES ========== */
+    BEP20 private constant BUNNY = BEP20(0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51);
 
     /* ========== STATE VARIABLES ========== */
 
@@ -101,6 +105,7 @@ abstract contract VaultController is IVaultController, PausableUpgradeable, Whit
         // can zero
         _minter = newMinter;
         if (address(newMinter) != address(0)) {
+            require(address(newMinter) == BUNNY.getOwner(), 'VaultController: not bunny minter');
             _stakingToken.safeApprove(address(newMinter), 0);
             _stakingToken.safeApprove(address(newMinter), uint(~0));
         }
