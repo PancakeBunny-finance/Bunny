@@ -2,13 +2,7 @@
 How-to Guides
 ************************
 
-How to Farm using Bunny
-================================================
-
--step by step guide making the experience as user friendly as possible
-
-
-PancakeBunny Project Overview
+How-to Video
 ================================================
 
 .. raw:: html
