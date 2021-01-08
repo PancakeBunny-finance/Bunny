@@ -9,7 +9,7 @@
    <br />
 
 ************************
-Introduction to Pancake Bunny
+Introduction
 ************************
 
 .. image:: /images/awesome.png
@@ -25,7 +25,7 @@ Yield Optimization Strategies with PancakeBunny.Finance
 ==========================================================
 A key difference in Yield Farming on Binance Smart Chain is the low gas fee. This makes it much easier for small players and ordinary individuals to enter the DeFi space and still get a good share of the crops with small amounts of capital. Through automation, Bunny allows individuals to reap the benefits of compounding without any additional steps. Bunny calculates the most optimal compounding frequency and automatically compounds your tokens through smart contracts.
 
-Bunny, like other yield aggregators on BSC, uses Pancake Swap since it is the most prominent platform for Yield Farming. Bunny is continuously striving to create innovative new Yield Optimization Strategies. Currently we have BUNNY, CAKE, BUNNY-BNB, CAKE-BNB BUSD-BNB, USDT-BNB, DAI-BNB, USDC-BNB, USDT-BUSD Pools, however we are planning on rolling out many more vaults in the future. One Strategy we have in mind is allowing users to deposit into a pool such as USDC-BNB and then putting the CAKE that comes out into the CAKE compounding pool, giving users a much greater return, while protecting the principal.
+Bunny, like other yield aggregators on BSC, uses Pancake Swap since it is the most prominent platform for Yield Farming. Bunny is continuously striving to create innovative new Yield Optimization Strategies. Currently we have BUNNY, CAKE, BUNNY-BNB, CAKE-BNB BUSD-BNB, USDT-BNB, DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD Pools. Furthermore, on our website, you can see we have the maximizer vaults. These strategies allow users to get the profits from certain pools and these profits are automatically auto compounded into the CAKE compounding pool, giving users a much greater return, while protecting the principal. We are currently launching our cross chain project, which will allow ETH-BSC cross chain, bringing more ETH users on bsc yield farming as well.
 
 Contact Us
 ==========================================================
@@ -37,11 +37,11 @@ GitHub: https://github.com/PancakeBunny-finance/
 .. toctree::
    :maxdepth: 1
 
-   faq
+   index
    guide
-   videos
+   bunnytoken
    vaults
-   tokenomics
-   aprapy
+   zap
    governance
+   faq
    contracts
