@@ -37,7 +37,6 @@ GitHub: https://github.com/PancakeBunny-finance/
 .. toctree::
    :maxdepth: 1
 
-   index
    guide
    bunnytoken
    vaults

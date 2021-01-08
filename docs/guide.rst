@@ -1,5 +1,5 @@
 ************************
-Step-By-Step Guides
+How-to Guides
 ************************
 
 How to Farm using Bunny
