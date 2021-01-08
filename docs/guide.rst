@@ -44,19 +44,27 @@ Walkthrough
   :align: center
   :alt: Select Farm
 
-4. You need Flip Tokens (LP Tokens) (CAKE-BNB Flip, BUSD-BNB Flip, etc)
+4. You need LP Tokens (LP Tokens) (CAKE-BNB LP, BUSD-BNB LP, etc)
 
 .. image:: /images/guide_4.png
   :width: 640
   :align: center
-  :alt: Add Flip Tokens
+  :alt: Add LP Tokens
 
-5. After receiving FLIP Tokens, enter the amount of tokens you want to deposit and click "Deposit"
+You can also use our Zap feature to provide LP tokens with just one click.
+
+.. image:: /images/guide_4-1.png
+  :width: 640
+  :align: center
+  :alt: ZAP into LP
+
+
+5. After receiving LP Tokens, enter the amount of tokens you want to deposit and click "Deposit"
 
 .. image:: /images/guide_5.png
   :width: 640
   :align: center
-  :alt: Deposit Flip Tokens
+  :alt: Deposit LP Tokens
 
 6. Confirm the transaction with Metamask or WalletConnect
 

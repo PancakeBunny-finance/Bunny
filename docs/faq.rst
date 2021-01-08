@@ -30,7 +30,7 @@ BUNNY Token is our native governance token. BUNNY holders govern our ecosystem a
 Which Bunny Farm do I pick?
 ================================================
 
-Every Farm requires a different Flip Token. Furthermore the different Farms represent different risk tolerances for Bunny users. A high APY usually means more volatility in the underlying token price. For example, BUSD-BNB has a much lower compounded APY than CAKE-BNB, since BUSD is a stable coin which is pegged to the dollar and does not experience volatility.
+Every Farm requires a different LP Token. Furthermore the different Farms represent different risk tolerances for Bunny users. A high APY usually means more volatility in the underlying token price. For example, BUSD-BNB has a much lower compounded APY than CAKE-BNB, since BUSD is a stable coin which is pegged to the dollar and does not experience volatility.
 
 What are the risks of Farming on Bunny?
 ================================================
