@@ -48,6 +48,25 @@ How to Determine Daily % Gains?
 
 Because the APY is constantly changing on Pancake Swap, the Compounded APY on the Bunny Platform is constantly changing. Furthermore, because this APY is calculated via compounded (exponential growth), it cannot be calculated in a linear manner (i.e. APY/365) So long as you hold your tokens in our farms for an extended period of time, your assets will continue to grow exponentially.
 
+Where does CAKE or LP come from in the rewards?
+================================================
+
+CAKE or the LP tokens are all used from Pancakeswap, we automatically compound yields via Pancakeswap.
+
+Where does BUNNY come from?
+================================================
+
+BUNNY is minted via smart contracts. For every 1bnb earned in peformance fees, 10 BUNNY is newly minted and distributed.
+
+Where does Swap % come from?
+================================================
+
+This comes from PancakeSwap
+
+Which rewards get compounded?
+================================================
+
+Currently all the farms get compounded except for the BUNNY Staking farm and the BUNNY/BNB farm.
 
 What is the Fee Structure?
 ================================================
