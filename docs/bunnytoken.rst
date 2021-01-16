@@ -7,7 +7,7 @@ BUNNY token
   :align: center
   :alt: Tokenomics
 
-The BUNNY token doesn’t have a max supply. For every 1 bnb earned in the performance fees, 10 BUNNY is minted, so supply is not capped at the moment. We may establish new strategies to limit the cap or burn some tokens, however currently we are focused on the growth of the BUNNY token. You can earn BUNNY by using the farms, or you can buy BUNNY through our zap function. Roughly 13% of all BUNNY mints will go towards development to ensure rapid innovation.
+The BUNNY token doesn’t have a max supply. For every 1 BNB earned in the performance fees, 10 BUNNY is minted, so supply is not capped at the moment. We may establish new strategies to limit the cap or burn some tokens, however currently we are focused on the growth of the BUNNY token. You can earn BUNNY by using the farms, or you can buy BUNNY through our zap function. Roughly 13% of all BUNNY mints will go towards development to ensure rapid innovation.
 
 - Honest $cake Farmers: Deposit CAKE-BNB LP and reap the benefits of the compounding effect. With Simple Interest, the APY is 150% for CAKE-BNB, however, if this gets compounded it becomes 347% APY. The assumptions are the following: 1) initial capital is $1m, 2) transaction cost: $1, 3)Compounded Once Daily. The transaction cost assumes it takes 4-5 steps for Pancake Bunny to compound deposits. Around 25% of Bunny’s profits will be bonuses. Some percent of the farming profits will be saved as BNB in the BUNNY Reward Pool.
 
@@ -21,7 +21,7 @@ The BUNNY token doesn’t have a max supply. For every 1 bnb earned in the perfo
 
     2) 0.5% withdrawal fee if withdrawal happens within 72 hours of deposit
 
-    For further clarification the 30% performance fee is collected and given to the BUNNY stakers. For every 1 bnb earned through performance fees, 10 BUNNY is minted and given to respective users. So long as the price of  BUNNY stays above 1BNB/10, users are actually earning money through this performance fee system. All of these fees will ultimately go towards staking BUNNY, thereby ensuring the sustainability and longevity of our project and benefitting BUNNY supporters/holders.
+    For further clarification the 30% performance fee is collected and given to the BUNNY stakers. For every 1 BNB earned through performance fees, 10 BUNNY is minted and given to respective users. So long as the price of  BUNNY stays above 1BNB/10, users are actually earning money through this performance fee system. All of these fees will ultimately go towards staking BUNNY, thereby ensuring the sustainability and longevity of our project and benefitting BUNNY supporters/holders.
 
 
 - Click on the following spreadsheet link to understand the detailed tokenomics breakdown. http://bit.ly/bunny_tokenomics

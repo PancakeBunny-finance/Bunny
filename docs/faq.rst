@@ -66,7 +66,7 @@ This comes from PancakeSwap
 Which rewards get compounded?
 ================================================
 
-Currently all the farms get compounded except for the BUNNY Staking farm and the BUNNY/BNB farm.
+Currently all the farms get compounded except for the BUNNY Staking farm and the BUNNY/BNB farm. The BUNNY rewards that come out of all pools, currently are not compounded. Only the CAKE and flip rewards are auto-compounded.
 
 What is the Fee Structure?
 ================================================
