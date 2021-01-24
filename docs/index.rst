@@ -44,3 +44,4 @@ GitHub: https://github.com/PancakeBunny-finance/
    governance
    faq
    contracts
+   audits
