@@ -53,7 +53,8 @@ latex_engine = 'pdflatex'
 latex_elements = {
     'preamble': r'''
         \documentclass{article}
-        \usepackage[main=vietnamese,english]{babel}
+        \usepackage[utf8]{vietnam}
+        # \usepackage[main=vietnamese,english]{babel}
         \usepackage[utf8]{inputenc}
         '''
 }
