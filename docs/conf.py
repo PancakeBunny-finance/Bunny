@@ -51,8 +51,8 @@ gettext_uuid = True
 
 latex_elements = {
     'preamble': "".join((
-        '\usepackage[utf8x]{inputenc}',
-        '\documentclass{article}',
+        '\ddocumentclass{article}',
+        '\usepackage[utf8]{inputenc}',
         '\usepackage[vietnamese]{babel}',
         '\usepackage{lmodern}'
     ))
