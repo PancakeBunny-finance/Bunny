@@ -1,0 +1,158 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020
+# This file is distributed under the same license as the PancakeBunny Docs package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PancakeBunny Docs \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 09:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../bunnytoken.rst:3
+# f5acbd7dd96041af89f9101fda9b8711
+msgid "BUNNY token"
+msgstr ""
+
+#: ../../bunnytoken.rst:10
+# 2f23b2cadb7845f0b573a49b1cda8d30
+msgid "The BUNNY token doesn’t have a max supply. For every 1 BNB earned in the performance fees, 10 BUNNY is minted, so supply is not capped at the moment. We may establish new strategies to limit the cap or burn some tokens, however currently we are focused on the growth of the BUNNY token. You can earn BUNNY by using the farms, or you can buy BUNNY through our zap function. Roughly 13% of all BUNNY mints will go towards development to ensure rapid innovation."
+msgstr ""
+
+#: ../../bunnytoken.rst:12
+# 024e094f013b4ccb8c7314472851d912
+msgid "Honest $cake Farmers: Deposit CAKE-BNB LP and reap the benefits of the compounding effect. With Simple Interest, the APY is 150% for CAKE-BNB, however, if this gets compounded it becomes 347% APY. The assumptions are the following: 1) initial capital is $1m, 2) transaction cost: $1, 3)Compounded Once Daily. The transaction cost assumes it takes 4-5 steps for Pancake Bunny to compound deposits. Around 25% of Bunny’s profits will be bonuses. Some percent of the farming profits will be saved as BNB in the BUNNY Reward Pool."
+msgstr ""
+
+#: ../../bunnytoken.rst:14
+# 7666068979c04013b99fb1b782a0d633
+msgid "Degens: Buy BUNNY at the start of launch. Sell when the price becomes high enough to fulfill your greedy desire. The Probability of BUNNY dropping below the initial price of $3 is very low. 1) Presale Participants bought BUNNY at $3 and will not sell below that price at a loss. 2) As BUNNY Price goes up, Bunny issued volume will decrease."
+msgstr ""
+
+#: ../../bunnytoken.rst:16
+# 4ae12d462fbb48b5bc808511a62213ff
+msgid "Smart Investors: Stake BUNNY long-term. The APY of BUNNY Pool is amazing and real! The meaning of BUNNY Pool’s APY 100% is if you buy $10 worth of BUNNY now and stake it for 1 year, you will receive $10 worth of BNB. If you sell the remaining BUNNY on the market, you can also capitalize on profits there. If you are a wise investor, you would meticulously analyze the APY of the staking pool and earn profits not only from the BNB rewards, but also from selling the BUNNY as well."
+msgstr ""
+
+#: ../../bunnytoken.rst:18
+# 4be734c14e2543afba1a0c4f36a7ff38
+msgid "We are starting off with the following fee structure:"
+msgstr ""
+
+#: ../../bunnytoken.rst:20
+# a209885c9c794ee395c63b6e96bb3582
+msgid "30% Performance fee"
+msgstr ""
+
+#: ../../bunnytoken.rst:22
+# 87dba6518e624d848a2618147ae3a29e
+msgid "0.5% withdrawal fee if withdrawal happens within 72 hours of deposit"
+msgstr ""
+
+#: ../../bunnytoken.rst:24
+# 1411a8bdca4242ac9f37ac23f4bf6ca0
+msgid "For further clarification the 30% performance fee is collected and given to the BUNNY stakers. For every 1 BNB earned through performance fees, 10 BUNNY is minted and given to respective users. So long as the price of  BUNNY stays above 1BNB/10, users are actually earning money through this performance fee system. All of these fees will ultimately go towards staking BUNNY, thereby ensuring the sustainability and longevity of our project and benefitting BUNNY supporters/holders."
+msgstr ""
+
+#: ../../bunnytoken.rst:27
+# 1477c59547c64475a0ad8cca576a1872
+msgid "Click on the following spreadsheet link to understand the detailed tokenomics breakdown. http://bit.ly/bunny_tokenomics"
+msgstr ""
+
+#: ../../bunnytoken.rst:31
+# 63336c8fef67498d96f18bdefbe6e49c
+msgid "Presale (Ended)"
+msgstr ""
+
+#: ../../bunnytoken.rst:33
+# b0eff8d2466e4677a26585e02f92f6c3
+msgid "Date: 11/4 SGT 12:00 ~ 11/17 SGT 12:00"
+msgstr ""
+
+#: ../../bunnytoken.rst:35
+# 02ebe2cd98334af3bc3455ded8ebfc47
+msgid "Allocation: 10,000 BNB"
+msgstr ""
+
+#: ../../bunnytoken.rst:37
+# e463de502918489b96a5938ad4d6f92c
+msgid "returns: 10,000 BNB worth of LP tokens + locked up 50,000 BUNNY tokens"
+msgstr ""
+
+#: ../../bunnytoken.rst:39
+# 738d7d4dee2047dabfe888c75ce465dc
+msgid "Launch: 11/20"
+msgstr ""
+
+#: ../../bunnytoken.rst:41
+# 7e14a89b9b0a4f7e8d3c8df5eecacaad
+msgid "Reward Payout: 11/21"
+msgstr ""
+
+#: ../../bunnytoken.rst:43
+# 851f725dccc84ddc83ef8b367709c014
+msgid "10 BUNNY Tokens are given per 1 BNB. If all 10,000 BNB gets sold and allocated a total of 100,000 BUNNY will be issued."
+msgstr ""
+
+#: ../../bunnytoken.rst:44
+# b7c0b826dd064878989b28471fbb9dfc
+msgid "Participants of the presale are eligible to withdraw BUNNY-BNB LP following the launch."
+msgstr ""
+
+#: ../../bunnytoken.rst:46
+# bf74591c3ee944eeba5dc1e0698c5676
+msgid "**Intended Uses**"
+msgstr ""
+
+#: ../../bunnytoken.rst:48
+# d978717b795d4ae1849c301234d5cf62
+msgid "Liquidity Pool"
+msgstr ""
+
+#: ../../bunnytoken.rst:50
+# 90cbb2a580b54415b120a3bd3e616104
+msgid "Once the pool is created, 5,000 BNB and 50,000 BUNNY will be put in the Pancake Swap Liquidity Pool (Est. Value: $300,000)."
+msgstr ""
+
+#: ../../bunnytoken.rst:51
+# 1df0bcbf0a9d41f5bac1a91b3b53fc37
+msgid "LP Tokens will be given to presale participants according to their share."
+msgstr ""
+
+#: ../../bunnytoken.rst:53
+# cdf86eb6baaa485ba6e71378483948d3
+msgid "BUNNY Reward Pool"
+msgstr ""
+
+#: ../../bunnytoken.rst:55
+# 6df01e3f402041208210cf54a4fe4684
+msgid "The BUNNY Reward pool is a type of reward pool that issues BNB as a reward for staking BUNNY."
+msgstr ""
+
+#: ../../bunnytoken.rst:56
+# 7549af5a286f43c7a8aeb44f043ff141
+msgid "When the pool gets created the presale participants’ 50,000 BUNNY will get staked."
+msgstr ""
+
+#: ../../bunnytoken.rst:57
+# 71c666c2176541afae0674180dbb6536
+msgid "5,000 BNB will get accumulated as rewards and will get distributed over 365 days."
+msgstr ""
+
+#: ../../bunnytoken.rst:58
+# 2af9bf5d71ab4ee6a9ac0fb9d906a2a5
+msgid "There will be a BUNNY lockup for Presale Participants. Following the launch, the presale BUNNY tokens will be unlocked equally according to the amount of new BUNNY tokens issued."
+msgstr ""
+
+#: ../../bunnytoken.rst:59
+# 63c5ef9ef7f44b37b59d68b272c0d5c3
+msgid "1 Year of continuous staking will allow for a full withdrawal of 5,000 BNB without any fees."
+msgstr ""
+

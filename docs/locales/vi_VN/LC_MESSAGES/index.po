@@ -1,0 +1,121 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020
+# This file is distributed under the same license as the PancakeBunny Docs
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PancakeBunny Docs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 09:38+0900\n"
+"PO-Revision-Date: 2021-01-30 10:17+0900\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: vi_VN\n"
+"X-Generator: Poedit 2.4.2\n"
+
+# 6ad7c350d97b417c9ada2ab171f8e148
+#: ../../index.rst:13
+msgid "Introduction"
+msgstr "Giới thiệu"
+
+# ed99a505d2d04a09be7ff2886aa4d368
+#: ../../index.rst:21
+msgid "Compound Yields with Bunny"
+msgstr "Hợp nhất lợi nhuận bằng Bunny"
+
+# 353ade2d74204ffd94b7364aed6f00eb
+#: ../../index.rst:22
+msgid ""
+"Our Bunny team is dedicated to support the underlying DeFi ecosystem by "
+"providing users with an easy way to automatically compound their yields "
+"through the Binance Smart Chain. The DeFi movement, and more "
+"specifically Yield Aggregators, have seen a huge surge in activity in "
+"2020. The Rise of Yearn, which uses existing protocols such as Compound, "
+"DyDx, and Curve, has influenced the development of various other Yield "
+"Aggregator projects on the Ethereum Network. Our goal is to expand that "
+"same interest through the Binance Smart Chain Ecosystem."
+msgstr ""
+"Đội ngũ Bunny tận tuỵ chúng tôi cung cấp cho người dùng trong hệ sinh "
+"thái nền tảng tài chính phi tập trung (DeFi) một phương thức dễ dàng để "
+"hợp nhất tất cả lợi nhuận (yields) thông qua Binance Smart Chain (BSC). "
+"Năm 2020 đã chứng kiến một làn sóng đổ bộ mạnh mẽ trong hoạt động của "
+"DeFi, đặc biệt là các nền tảng tổng hợp lợi suất (Yield Aggregators). Sự "
+"nổi dậy của yEarn (hệ sinh thái cho phép kết hợp các nền tảng khác nhau "
+"giúp người dùng tối ưu hóa kết quả yield farming của họ) sử dụng những "
+"giao thức hiện có như Compound, DyDx, Curve đã tác động đến sự phát "
+"triển của hàng loạt các dự án Yield Aggregator trên mạng lưới Ethereum. "
+"Cùng chung mối quan tâm, mục tiêu của chúng tôi là mở rộng và phát triển "
+"nền tảng tổng hợp lợi nhuận này nhưng trên hệ sinh thái của Binance "
+"Smart Chain."
+
+# 0645888d6e83405fade216f023c7651c
+#: ../../index.rst:25
+msgid "Yield Optimization Strategies with PancakeBunny.Finance"
+msgstr "Chiến lược tối ưu hoá lợi nhuận với PancakeBunny.Finance"
+
+# b8a19a2833c2417db8d13bf5cfdd2c69
+#: ../../index.rst:26
+msgid ""
+"A key difference in Yield Farming on Binance Smart Chain is the low gas "
+"fee. This makes it much easier for small players and ordinary "
+"individuals to enter the DeFi space and still get a good share of the "
+"crops with small amounts of capital. Through automation, Bunny allows "
+"individuals to reap the benefits of compounding without any additional "
+"steps. Bunny calculates the most optimal compounding frequency and "
+"automatically compounds your tokens through smart contracts."
+msgstr ""
+"Điểm khác biệt mấu chốt khi canh tác lợi nhuận (yield farming) trên "
+"Binance Smart Chain là mức phí giao dịch thấp. Việc này tạo điều kiện "
+"cho những người chơi nhỏ với số vốn khiêm tốn cũng có thể tham gia vào "
+"DeFi và nhận về phần thưởng. Thông qua tự động hoá, Bunny cho phép người "
+"dùng có thể gộp và thu lợi nhuận mà không cần qua nhiều bước. Bunny giúp "
+"tính toán và tối ưu tần suất gộp lợi nhuận mà cụ thể ở đây là các token "
+"của người dùng thông qua smart contract."
+
+# 0e93f21d8c3c46ffac819e5e9cbe0a6b
+#: ../../index.rst:28
+msgid ""
+"Bunny, like other yield aggregators on BSC, uses Pancake Swap since it "
+"is the most prominent platform for Yield Farming. Bunny is continuously "
+"striving to create innovative new Yield Optimization Strategies. "
+"Currently we have BUNNY, CAKE, BUNNY-BNB, CAKE-BNB BUSD-BNB, USDT-BNB, "
+"DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD Pools. Furthermore, on our "
+"website, you can see we have the maximizer vaults. These strategies "
+"allow users to get the profits from certain pools and these profits are "
+"automatically auto compounded into the CAKE compounding pool, giving "
+"users a much greater return, while protecting the principal. We are "
+"currently launching our cross chain project, which will allow ETH-BSC "
+"cross chain, bringing more ETH users on bsc yield farming as well."
+msgstr ""
+"Cũng giống như các Yield Aggregator khác trên BSC, Bunny dùng Pancake "
+"Swap - ứng dụng Yield Farming nổi bật nhất nền tảng này. Bunny không "
+"ngừng nỗ lực tạo ra các chiến lược tối ưu hoá lợi nhuận đổi mới. Hiện "
+"nay chúng tôi có các pool: BUNNY, CAKE, BUNNY-BNB, CAKE-BNB BUSD-BNB, "
+"USDT-BNB, DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD. Hơn thế, người dùng có "
+"thể tìm thấy trên website của chúng tôi các maximizer vaults (tạm dịch: "
+"kho lưu trữ bảo mật tiền mã hoá tối ưu) . Những chiến lược này cho phép "
+"người dùng nhận được lợi nhuận từ các pool nhất định và tự động cộng gộp "
+"những lợi nhuận này vào pool CAKE, mang lại cho người dùng mức lợi nhuận "
+"lớn hơn nhiều nhưng vẫn đồng thời bảo toàn được số tiền đầu tư gốc. Hiện "
+"chúng tôi đang khởi chạy dự án chuỗi chéo (cross chain) của mình, dự án "
+"này cho phép ETH-BSC tương tác và chuyển đổi với nhau, nhằm mang lại "
+"nhiều người dùng ETH hơn trong việc canh tác lợi nhuận trên BSC."
+
+# b77e173d6fe7400d9675678b53be4f5a
+#: ../../index.rst:31
+msgid "Contact Us"
+msgstr "Liên hệ với chúng tôi"
+
+# 512f23bb853a4f0b9be270fa4de548ad
+#: ../../index.rst:32
+msgid ""
+"Twitter: @PancakeBunnyFin https://twitter.com/PancakeBunnyFin |br| "
+"Telegram: https://t.me/pancakebunny_fin |br| Email: hello@pancakebunny."
+"finance |br| GitHub: https://github.com/PancakeBunny-finance/"
+msgstr ""

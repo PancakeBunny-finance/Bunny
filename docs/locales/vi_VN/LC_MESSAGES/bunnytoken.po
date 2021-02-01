@@ -1,0 +1,272 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020
+# This file is distributed under the same license as the PancakeBunny Docs
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PancakeBunny Docs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 09:38+0900\n"
+"PO-Revision-Date: 2021-01-30 10:33+0900\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: vi_VN\n"
+"X-Generator: Poedit 2.4.2\n"
+
+# f5acbd7dd96041af89f9101fda9b8711
+#: ../../bunnytoken.rst:3
+msgid "BUNNY token"
+msgstr "BUNNY token"
+
+# 2f23b2cadb7845f0b573a49b1cda8d30
+#: ../../bunnytoken.rst:10
+#, python-format
+msgid ""
+"The BUNNY token doesn’t have a max supply. For every 1 BNB earned in the "
+"performance fees, 10 BUNNY is minted, so supply is not capped at the moment. "
+"We may establish new strategies to limit the cap or burn some tokens, however "
+"currently we are focused on the growth of the BUNNY token. You can earn BUNNY "
+"by using the farms, or you can buy BUNNY through our zap function. Roughly "
+"13% of all BUNNY mints will go towards development to ensure rapid innovation."
+msgstr ""
+"Không có số lượng token BUNNY phát hành tối đa. Với mỗi 1 BNB reward từ phí "
+"hoạt động (khoản phí trả cho người quản lý khoản đầu tư để tạo ra lợi nhuận "
+"tích cực - performance fee), 10 token BUNNY sẽ được tạo ra, vì vậy số lượng "
+"token phát hành không bị giới hạn tại thời điểm này. Các chiến lược mới để "
+"giới hạn hoặc đốt cháy một lượng token khi cần thiết có thể được xác lập, tuy "
+"nhiên hiện tại chúng tôi đang tập trung gia tăng số lượng token BUNNY. Bạn có "
+"thể kiếm BUNNY qua các farm hoặc mua BUNNY trực tiếp thông qua tính năng ZAP "
+"của chúng tôi. Khoảng 13% trong tổng số BUNNY phát hành sẽ được tái đầu tư vào "
+"việc phát triển hệ thống để đảm bảo sự đổi mới nhanh chóng."
+
+# 024e094f013b4ccb8c7314472851d912
+#: ../../bunnytoken.rst:12
+#, python-format
+msgid ""
+"Honest $cake Farmers: Deposit CAKE-BNB LP and reap the benefits of the "
+"compounding effect. With Simple Interest, the APY is 150% for CAKE-BNB, "
+"however, if this gets compounded it becomes 347% APY. The assumptions are the "
+"following: 1) initial capital is $1m, 2) transaction cost: $1, 3)Compounded "
+"Once Daily. The transaction cost assumes it takes 4-5 steps for Pancake Bunny "
+"to compound deposits. Around 25% of Bunny’s profits will be bonuses. Some "
+"percent of the farming profits will be saved as BNB in the BUNNY Reward Pool."
+msgstr ""
+"Nông dân $cake chân chính: đầu tư theo hình thức gửi CAKE-BNB LP và kiếm lời "
+"từ hiệu ứng lợi nhuận gộp (lãi kép). Với lãi suất đơn, APY (Lãi suất Lợi nhuận "
+"tính theo năm) là 150% cho CAKE-BNB, tuy nhiên, nếu tính lợi nhuận gộp , APY "
+"sẽ đạt mức 347%. Con số này được tính toán dựa trên giả định sau: 1) Số vốn "
+"ban đầu của bạn là 1 triệu đô la, 2) Chi phí giao dịch: 1 đô la, 3) Gộp lợi "
+"nhuận một lần mỗi ngày. Giả sử chi phí giao dịch phải mất 4-5 bước để Pancake "
+"Bunny gộp tất cả các khoản tiền gửi. Khoảng 25% lợi nhuận của Bunny sẽ dùng "
+"làm tiền thưởng. Một phần lợi nhuận từ việc “canh tác” sẽ được lưu dưới dạng "
+"BNB trong BUNNY reward pool."
+
+# 7666068979c04013b99fb1b782a0d633
+#: ../../bunnytoken.rst:14
+msgid ""
+"Degens: Buy BUNNY at the start of launch. Sell when the price becomes high "
+"enough to fulfill your greedy desire. The Probability of BUNNY dropping below "
+"the initial price of $3 is very low. 1) Presale Participants bought BUNNY at "
+"$3 and will not sell below that price at a loss. 2) As BUNNY Price goes up, "
+"Bunny issued volume will decrease."
+msgstr ""
+"Cá voi và những nhà đầu cơ chấp nhận rủi ro (Degens): Mua BUNNY khi vừa được "
+"mở bán. Bán ra tại mức giá tăng đủ cao ứng với tham vọng của bạn. Xác suất để "
+"BUNNY giảm xuống dưới mức giá ban đầu là 3 đô la là rất thấp vì 1) Những người "
+"mua BUNNY vào giai đoạn pre-sale với giá 3 đô la sẽ không bán dưới mức giá đó "
+"để tránh lỗ. 2) Khi Giá BUNNY tăng, lượng BUNNY được phát hành sẽ giảm."
+
+# 4ae12d462fbb48b5bc808511a62213ff
+#: ../../bunnytoken.rst:16
+#, python-format
+msgid ""
+"Smart Investors: Stake BUNNY long-term. The APY of BUNNY Pool is amazing and "
+"real! The meaning of BUNNY Pool’s APY 100% is if you buy $10 worth of BUNNY "
+"now and stake it for 1 year, you will receive $10 worth of BNB. If you sell "
+"the remaining BUNNY on the market, you can also capitalize on profits there. "
+"If you are a wise investor, you would meticulously analyze the APY of the "
+"staking pool and earn profits not only from the BNB rewards, but also from "
+"selling the BUNNY as well."
+msgstr ""
+"Nhà đầu tư thông minh: stake BUNNY dài hạn. APY của pool BUNNY rất cao và hoàn "
+"toàn có thật! APY 100% của pool BUNNY có thể hiểu là nếu bạn đầu tư 10 đô la "
+"mua BUNNY ngay bây giờ và stake trong 1 năm, bạn sẽ nhận được lượng BNB reward "
+"trị giá 10 đô la. Ngoài ra bạn còn có thể kếm thêm lợi nhuận bằng việc bán "
+"lượng BUNNY đã mua ban đầu. Là một nhà đầu tư khôn ngoan, bạn cần phân tích tỉ "
+"mỉ APY của pool mà bạn muốn stake và kiếm lợi nhuận không chỉ từ BNB reward mà "
+"còn từ việc bán BUNNY."
+
+# 4be734c14e2543afba1a0c4f36a7ff38
+#: ../../bunnytoken.rst:18
+msgid "We are starting off with the following fee structure:"
+msgstr "Chúng tôi bắt đầu với cấu trúc phí sau:"
+
+# a209885c9c794ee395c63b6e96bb3582
+#: ../../bunnytoken.rst:20
+msgid "30% Performance fee"
+msgstr "30% phí hoạt động"
+
+# 87dba6518e624d848a2618147ae3a29e
+#: ../../bunnytoken.rst:22
+msgid "0.5% withdrawal fee if withdrawal happens within 72 hours of deposit"
+msgstr "Phí rút token 0,5% nếu rút trong vòng 72 giờ kể từ lúc gửi"
+
+# 1411a8bdca4242ac9f37ac23f4bf6ca0
+#: ../../bunnytoken.rst:24
+msgid ""
+"For further clarification the 30% performance fee is collected and given to "
+"the BUNNY stakers. For every 1 BNB earned through performance fees, 10 BUNNY "
+"is minted and given to respective users. So long as the price of  BUNNY stays "
+"above 1BNB/10, users are actually earning money through this performance fee "
+"system. All of these fees will ultimately go towards staking BUNNY, thereby "
+"ensuring the sustainability and longevity of our project and benefitting BUNNY "
+"supporters/holders."
+msgstr ""
+"Giải thích cụ thể hơn, 30% phí hoạt động được thu và chuyển về cho những người "
+"stake BUNNY. Với mỗi BNB reward nhận được thông qua phí hoạt động, 10 BUNNY "
+"được tạo và trao cho người dùng tương ứng. Miễn là giá BUNNY cao hơn mức "
+"1BNB /10, người dùng sẽ vẫn đang thực sự kiếm tiền thông qua hệ thống phí hoạt "
+"động này. Tất cả các khoản phí này cuối cùng sẽ hướng tới việc stake  BUNNY, "
+"nhờ vậy đảm bảo tính bền vững và lâu dài của dự án chúng tôi đồng thời mang "
+"lại lợi ích cho những người ủng hộ/ chủ sở hữu BUNNY."
+
+# 1477c59547c64475a0ad8cca576a1872
+#: ../../bunnytoken.rst:27
+msgid ""
+"Click on the following spreadsheet link to understand the detailed tokenomics "
+"breakdown. http://bit.ly/bunny_tokenomics"
+msgstr ""
+"Nhấp vào liên kết bảng tính sau để hiểu rõ mô hình kinh tế học của token "
+"(tokenomics). http://bit.ly/bunny_tokenomics"
+
+# 63336c8fef67498d96f18bdefbe6e49c
+#: ../../bunnytoken.rst:31
+msgid "Presale (Ended)"
+msgstr "Đợt mở bán pre-sale (Đã kết thúc)"
+
+# b0eff8d2466e4677a26585e02f92f6c3
+#: ../../bunnytoken.rst:33
+msgid "Date: 11/4 SGT 12:00 ~ 11/17 SGT 12:00"
+msgstr "Ngày: 11/4 SGT 12:00 ~ 17/11 SGT 12:00"
+
+# 02ebe2cd98334af3bc3455ded8ebfc47
+#: ../../bunnytoken.rst:35
+msgid "Allocation: 10,000 BNB"
+msgstr "Phân bổ: 10.000 BNB"
+
+# e463de502918489b96a5938ad4d6f92c
+#: ../../bunnytoken.rst:37
+msgid "returns: 10,000 BNB worth of LP tokens + locked up 50,000 BUNNY tokens"
+msgstr ""
+"Lợi nhuận: mã thông báo LP trị giá 10.000 BNB + bị khóa 50.000 mã thông báo "
+"BUNNY"
+
+# 738d7d4dee2047dabfe888c75ce465dc
+#: ../../bunnytoken.rst:39
+msgid "Launch: 11/20"
+msgstr "Khởi bán: 20/11"
+
+# 7e14a89b9b0a4f7e8d3c8df5eecacaad
+#: ../../bunnytoken.rst:41
+msgid "Reward Payout: 11/21"
+msgstr "Thanh toán phần thưởng: 21/11"
+
+# 851f725dccc84ddc83ef8b367709c014
+#: ../../bunnytoken.rst:43
+msgid ""
+"10 BUNNY Tokens are given per 1 BNB. If all 10,000 BNB gets sold and allocated "
+"a total of 100,000 BUNNY will be issued."
+msgstr ""
+"10 mã BUNNY được trao cho mỗi BNB. Nếu tất cả 10.000 BNB được bán và phân bổ "
+"cho người dùng tổng cộng 100.000 BUNNY sẽ được phát hành."
+
+# b7c0b826dd064878989b28471fbb9dfc
+#: ../../bunnytoken.rst:44
+msgid ""
+"Participants of the presale are eligible to withdraw BUNNY-BNB LP following "
+"the launch."
+msgstr ""
+"Những người tham gia vào đợt mở bán pre-sale có đủ điều kiện rút BUNNY-BNB LP "
+"sau đợt khởi bán."
+
+# bf74591c3ee944eeba5dc1e0698c5676
+#: ../../bunnytoken.rst:46
+msgid "**Intended Uses**"
+msgstr "Mục đích sử dụng"
+
+# d978717b795d4ae1849c301234d5cf62
+#: ../../bunnytoken.rst:48
+msgid "Liquidity Pool"
+msgstr "1) Tạo Liquidity Pool"
+
+# 90cbb2a580b54415b120a3bd3e616104
+#: ../../bunnytoken.rst:50
+msgid ""
+"Once the pool is created, 5,000 BNB and 50,000 BUNNY will be put in the "
+"Pancake Swap Liquidity Pool (Est. Value: $300,000)."
+msgstr ""
+"Khi pool được tạo, 5.000 BNB và 50.000 BUNNY sẽ được đưa vào Pancake Swap "
+"Liquidity Pool (Giá trị ước tính: 300.000 USD)."
+
+# 1df0bcbf0a9d41f5bac1a91b3b53fc37
+#: ../../bunnytoken.rst:51
+msgid "LP Tokens will be given to presale participants according to their share."
+msgstr ""
+"LP token sẽ được phân phối cho những người tham gia vào đợt mở bán pre-sale "
+"với số lượng tương ứng với phần tỉ lệ phần trăm trong pool của họ."
+
+# cdf86eb6baaa485ba6e71378483948d3
+#: ../../bunnytoken.rst:53
+msgid "BUNNY Reward Pool"
+msgstr "2) BUNNY Reward Pool"
+
+# 6df01e3f402041208210cf54a4fe4684
+#: ../../bunnytoken.rst:55
+msgid ""
+"The BUNNY Reward pool is a type of reward pool that issues BNB as a reward for "
+"staking BUNNY."
+msgstr ""
+"BUNNY Reward Pool là pool phát hành BNB làm phần thưởng cho việc stake BUNNY."
+
+# 7549af5a286f43c7a8aeb44f043ff141
+#: ../../bunnytoken.rst:56
+msgid ""
+"When the pool gets created the presale participants’ 50,000 BUNNY will get "
+"staked."
+msgstr ""
+"Khi pool được tạo, 50.000 BUNNY của người tham gia vào đợt mở bán pre-sale sẽ "
+"được stake."
+
+# 71c666c2176541afae0674180dbb6536
+#: ../../bunnytoken.rst:57
+msgid ""
+"5,000 BNB will get accumulated as rewards and will get distributed over 365 "
+"days."
+msgstr ""
+"5.000 BNB sẽ được tích lũy làm phần thưởng và sẽ được phân phối trong 365 ngày."
+
+# 2af9bf5d71ab4ee6a9ac0fb9d906a2a5
+#: ../../bunnytoken.rst:58
+msgid ""
+"There will be a BUNNY lockup for Presale Participants. Following the launch, "
+"the presale BUNNY tokens will be unlocked equally according to the amount of "
+"new BUNNY tokens issued."
+msgstr ""
+"Những người tham gia chương trình mở bán pre-sale sẽ được cung cấp khoá. Sau "
+"đợt khởi bán, lượng mã BUNNY đã được bán vào đợt mở bán pre-sale sẽ được mở "
+"khóa bằng đúng số lượng mã BUNNY mới được phát hành."
+
+# 63c5ef9ef7f44b37b59d68b272c0d5c3
+#: ../../bunnytoken.rst:59
+msgid ""
+"1 Year of continuous staking will allow for a full withdrawal of 5,000 BNB "
+"without any fees."
+msgstr ""
+"Nếu bạn stake liên tục trong 1 năm thì sẽ có quyền rút toàn bộ 5.000 BNB mà "
+"không phải trả bất kỳ khoản phí nào."

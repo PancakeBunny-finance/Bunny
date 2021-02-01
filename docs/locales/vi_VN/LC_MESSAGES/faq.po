@@ -1,0 +1,443 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020
+# This file is distributed under the same license as the PancakeBunny Docs
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PancakeBunny Docs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 09:38+0900\n"
+"PO-Revision-Date: 2021-01-30 10:40+0900\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: vi_VN\n"
+"X-Generator: Poedit 2.4.2\n"
+
+# 0a51ef0642b9408cb83a9ccebe19c1b2
+#: ../../faq.rst:3
+msgid "FAQ"
+msgstr "Câu hỏi thường gặp"
+
+# 7e18976079b340dc828897ce97d9c02c
+#: ../../faq.rst:6
+msgid "What is Pancake Bunny?"
+msgstr "Pancake Bunny là gì?"
+
+# 3cfad6f8784c48c48fe1f0130d041d10
+#: ../../faq.rst:8
+msgid ""
+"PancakeBunny is a new and rapidly growing DeFi yield aggregator that is "
+"used for PancakeSwap. The PancakeBunny protocol empowers farmers to "
+"leverage their yield-seeking tendencies to optimize yield compounding "
+"strategy on BSC. We are providing strategies for the various needs of "
+"farmers from the highest yield seekers to the risk reward optimizing "
+"smart investors."
+msgstr ""
+"PancakeBunny là một nền tảng mới giúp tổng hợp lợi suất trên hệ tài "
+"chính phi tập trung (DeFi yield aggregotor) đang phát triển nhanh chóng, "
+"được sử dụng cho PancakeSwap. Giao thức PancakeBunny cho phép người dùng "
+"tận dụng các xu hướng tìm kiếm lợi nhuận của họ để tối ưu hóa chiến lược "
+"gộp lợi suất trên BSC. Chúng tôi đang cung cấp các chiến lược đáp ứng "
+"nhu cầu của các đối tượng đầu tư khác nhau từ những người tìm kiếm lợi "
+"suất cao nhất đến những nhà đầu tư thông minh muốn kiếm lợi nhuận bằng "
+"việc tối ưu hóa các rủi ro."
+
+# 373557fd8c77418896a84590420a3411
+#: ../../faq.rst:11
+msgid "What is the Reason for launching Pancake Bunny?"
+msgstr "Vì sao Pancake Bunny ra đời?"
+
+# e256c561e6a54aaf977c2e8933ea6a52
+#: ../../faq.rst:13
+msgid ""
+"We wanted to create a platform that automatically compounds yields for "
+"all individuals, no matter how small your stake may be. Our goal is to "
+"expand the DeFi ecosystem, specifically on the Binance Smart Chain, "
+"while providing users with various strategies to maximize returns while "
+"minimizing risk."
+msgstr ""
+"Chúng tôi muốn tạo ra một nền tảng tự động gộp lợi nhuận cho tất cả mọi "
+"người, bất kể số vốn bạn stake nhỏ đến mức nào. Mục tiêu của chúng tôi "
+"là mở rộng hệ sinh thái DeFi, đặc biệt trên Binance Smart Chain, đồng "
+"thời cung cấp cho người dùng các chiến lược khác nhau để tối đa hóa lợi "
+"nhuận và cùng lúc  giảm thiểu rủi ro."
+
+# 9508d46a0b374743a2cf2aab5fc1381c
+#: ../../faq.rst:16
+msgid "How do Bunny Farms Work?"
+msgstr "Cách thức vận hành của các farm Bunny?"
+
+# d7afc6add0c3478ca581ee4749650fb0
+#: ../../faq.rst:18
+msgid ""
+"Currently, the majority of our farms are those that exist on Pancake "
+"Swap. Essentially the farms on our platform get permission from "
+"individuals via smart contracts to automatically compound and reinvest "
+"yields on behalf of individuals."
+msgstr ""
+"Hiện tại, phần lớn các farm của chúng tôi là những farm đang có trên "
+"PancakeSwap. Về cơ bản, các farm trên nền tảng của chúng tôi nhận được "
+"cho phép của các cá nhân thông qua hợp đồng thông minh để thay mặt các "
+"cá nhân này tự động gộp và tái đầu tư lợi nhuận."
+
+# 8b7a66232eb24157b846ea5a26b10652
+#: ../../faq.rst:21
+msgid "Can’t I just compound by myself?"
+msgstr "Tôi có thể tự gộp lợi nhuận được không?"
+
+# 7789cb92a67e4e3ab1f802a60b05a1c6
+#: ../../faq.rst:23
+msgid ""
+"Compounding yourself on PancakeSwap is a very tedious process and it is "
+"often hard to know the optimal frequency and timing of when to compound "
+"and reinvest your yields. Bunny does all of this for you plus saves you "
+"gas fees."
+msgstr ""
+"Tự gộp lợi nhuận trên PancakeSwap là một quá trình rất tẻ nhạt và thường "
+"rất khó để nhận biết được tần suất và thời điểm tối ưu để gộp và tái đầu "
+"tư lợi nhuận của bạn. Bunny sẽ thay bạn làm tất cả những điều này và "
+"giúp bạn tiết kiệm phí giao dịch."
+
+# 8b5e9021215840928e6456911f158efc
+#: ../../faq.rst:26
+msgid "What is the BUNNY Token?"
+msgstr "BUNNY token là gì?"
+
+# e906a583557446418c2c99f7b91ae2ed
+#: ../../faq.rst:28
+msgid ""
+"BUNNY Token is our native governance token. BUNNY holders govern our "
+"ecosystem and receive the majority of farm performance fee profits. "
+"Holding/Staking BUNNY is not only beneficial for individual profits, but "
+"also ensures the Bunny Ecosystem runs smoothly."
+msgstr ""
+"BUNNY là token có chức năng bỏ phiếu quyền quản trị (native governance "
+"token). Những người nắm giữ BUNNY quản lý hệ sinh thái của chúng tôi và "
+"nhận về phần lớn lợi nhuận đến từ phí hoạt động từ các farm. Nắm giữ / "
+"stake BUNNY không chỉ giúp các cá nhân thu  lợi nhuận mà còn giúp đảm "
+"bảo hệ sinh thái của Bunny vận hành trơn tru."
+
+# b365dd97b89e467a9d14cdb7f1cda025
+#: ../../faq.rst:31
+msgid "Which Bunny Farm do I pick?"
+msgstr "Tôi nên chọn farm Bunny nào?"
+
+# 7f71e87bb6604137911fc15b2faf2949
+#: ../../faq.rst:33
+msgid ""
+"Every Farm requires a different LP Token. Furthermore the different "
+"Farms represent different risk tolerances for Bunny users. A high APY "
+"usually means more volatility in the underlying token price. For "
+"example, BUSD-BNB has a much lower compounded APY than CAKE-BNB, since "
+"BUSD is a stable coin which is pegged to the dollar and does not "
+"experience volatility."
+msgstr ""
+"Mỗi farm sẽ yêu cầu một loại LP Token khác nhau. Thêm vào đó, các farm "
+"khác nhau cũng thể hiện mức độ chấp nhận rủi ro khác nhau cho người dùng "
+"Bunny. APY cao thường có nghĩa là giá token cơ bản sẽ biến động nhiều "
+"hơn. Ví dụ: BUSD-BNB có APY gộp thấp hơn nhiều so với CAKE-BNB, vì BUSD "
+"là một stable coin được gắn với đồng đô la và không có biến động lớn về "
+"giá."
+
+# c39c84ab3af046ef8038fecf0d2ffa26
+#: ../../faq.rst:36
+msgid "What are the risks of Farming on Bunny?"
+msgstr "Những rủi ro khi khai thác thanh khoản trên Bunny là gì?"
+
+# 73b6d448844949a9b3ea7f2445a1192c
+#: ../../faq.rst:38
+msgid "Systematic Risk"
+msgstr "Rủi ro hệ thống"
+
+# 00545178526c4d74a3b64aa6a0005cd5
+#: ../../faq.rst:40
+msgid ""
+"The Systematic Risk would be the decrease of monetary value of assets "
+"deposited, be in BNB, CAKE, etc. For example BNB could be $30 when you "
+"deposit and $25 when you withdraw"
+msgstr ""
+"Rủi ro hệ thống (yếu tố rủi ro nằm ngoài công ty, không thể kiểm soát "
+"được, tác động đến toàn thị trường) khi bạn tham gia khai thác thanh "
+"khoản trên Bunny là giá trị tiền tệ của tài sản bạn gửi bằng BNB, CAKE, "
+"v.v.. có thể bị giảm. Ví dụ: giá trị của BNB có thể là 30 đô la khi bạn "
+"gửi và chỉ còn 25 đô la khi bạn rút"
+
+# 9fba8a1dbf164738aa15ee3cc8c5029c
+#: ../../faq.rst:42
+msgid "Idiosyncratic Risk"
+msgstr "Rủi ro độc lập"
+
+# fabe43a3cf364f4086b992f67ada2319
+#: ../../faq.rst:44
+msgid ""
+"The Idiosyncratic Risk would be risks associated with our actual "
+"project. Although our code is not externally audited at the moment, we "
+"are planning to get an official audit in the coming months! As with all "
+"Projects we have seen in the past, from Harvest, Akropolis, and many "
+"more, there are always risks that projects will fall victim to malicious "
+"hackers. That being said, our Bunny developers account for the security "
+"risks of smart contracts and only will interact with contracts that meet "
+"the security threshold."
+msgstr ""
+"Rủi ro độc lập (rủi ro không hêj thống) sẽ là những rủi ro liên quan đến "
+"dự án thực tế của chúng tôi. Mặc dù mã code của chúng tôi hiện chưa được "
+"kiểm định (audit) bởi bên thứ ba, nhưng chúng tôi đang lên kế hoạch để "
+"dự án được chính thức kiểm định trong những tháng tới! Cũng như các dự "
+"án khác trước đây như Harvest, Akropolis, Bunny cũng sẽ có nguy cơ trở "
+"thành nạn nhân của các hacker phá hoại. Để tránh điều này, các nhà phát "
+"triển Bunny của chúng tôi luôn tính đến các rủi ro bảo mật của các hợp "
+"đồng thông minh và sẽ chỉ tương tác với các hợp đồng đáp ứng được ngưỡng "
+"bảo mật."
+
+# c7ce4cf2365640ea907e720f842ac6a5
+#: ../../faq.rst:47
+#, python-format
+msgid "How to Determine Daily % Gains?"
+msgstr "Làm thế nào để xác định % lợi nhuận tăng hàng ngày?"
+
+# bed910b8f9aa4bc8b767c206df20d195
+#: ../../faq.rst:49
+msgid ""
+"Because the APY is constantly changing on Pancake Swap, the Compounded "
+"APY on the Bunny Platform is constantly changing. Furthermore, because "
+"this APY is calculated via compounded (exponential growth), it cannot be "
+"calculated in a linear manner (i.e. APY/365) So long as you hold your "
+"tokens in our farms for an extended period of time, your assets will "
+"continue to grow exponentially."
+msgstr ""
+"Bởi vì APY liên tục thay đổi trên Pancake Swap, APY gộp trên nền tảng "
+"Bunny cũng liên tục thay đổi theo. Hơn nữa, bởi vì APY này được tính "
+"thông qua cộng gộp (tăng trưởng theo cấp số nhân), nó không thể được "
+"tính theo cách tuyến tính (tức là APY / 365) Vì vậy, miễn là bạn giữ "
+"token của mình trong các farm của chúng tôi trong một khoảng thời gian "
+"dài, tài sản của bạn sẽ tiếp tục tăng theo cấp số nhân."
+
+# 0bb7581b4d354dd2b337932c9dac2639
+#: ../../faq.rst:52
+msgid "Where does CAKE or LP come from in the rewards?"
+msgstr "CAKE hoặc LP đến từ đâu trong phần thưởng?"
+
+# ea3c48b002be4504928e294e537f7cf8
+#: ../../faq.rst:54
+msgid ""
+"CAKE or the LP tokens are all used from Pancakeswap, we automatically "
+"compound yields via Pancakeswap."
+msgstr ""
+"CAKE hoặc LP token đều được sử dụng từ Pancakeswap, chúng tôi sẽ tự động "
+"gộp lợi nhuận (sản lượng) thông qua Pancakeswap."
+
+# f8a71a73593242e79613943156b2f7a9
+#: ../../faq.rst:57
+msgid "Where does BUNNY come from?"
+msgstr "BUNNY đến từ đâu?"
+
+# fb2f280f68a6455fa6a33a5d8488507f
+#: ../../faq.rst:59
+msgid ""
+"BUNNY is minted via smart contracts. For every 1bnb earned in peformance "
+"fees, 10 BUNNY is newly minted and distributed."
+msgstr ""
+"BUNNY được tạo ra thông qua hợp đồng thông minh. Đối với mỗi BNB kiếm "
+"được từ phí hoạt động, 10 BUNNY mới được đúc và phân phối."
+
+# b6bfb99deddc4c0792fdc2cc837c52fc
+#: ../../faq.rst:62
+#, python-format
+msgid "Where does Swap % come from?"
+msgstr "% Swap đến từ đâu?"
+
+# 830e24ca97c54f60a3fadcbcce7c1d4c
+#: ../../faq.rst:64
+msgid "This comes from PancakeSwap"
+msgstr "Điều này đến từ PancakeSwap"
+
+# 4c756ffc16c84bc78b878ac60455094c
+#: ../../faq.rst:67
+msgid "Which rewards get compounded?"
+msgstr "Phần thưởng nào nhận được cộng lại?"
+
+# dbcbbdaa84c842479ae28e0684287ab6
+#: ../../faq.rst:69
+msgid ""
+"Currently all the farms get compounded except for the BUNNY Staking farm "
+"and the BUNNY/BNB farm. The BUNNY rewards that come out of all pools, "
+"currently are not compounded. Only the CAKE and flip rewards are auto-"
+"compounded."
+msgstr ""
+"Hiện tại, tất cả các farm đều được cộng gộp ngoại trừ farm BUNNY Staking "
+"và farm BUNNY / BNB. Phần BUNNY reward nhận từ tất cả các farm hiện "
+"không được cộng gộp. Chúng tôi chỉ tự động cộng gộp CAKE và các LP token "
+"reward tương ứng ở các farm. "
+
+# c4425c9ccdc8481280afe780c2770c6f
+#: ../../faq.rst:72
+msgid "What is the Fee Structure?"
+msgstr "Cấu trúc Phí bao gồm những gì?"
+
+# ff97e198bba9466fb55dd6f43afcc992
+#: ../../faq.rst:74
+msgid "Withdrawal Fee"
+msgstr "Phí rút token"
+
+# b298fc5f246f4787a2129872d7ac36da
+#: ../../faq.rst:76
+msgid ""
+"There is a 0.5% withdrawal fee from Farms only if withdrawal happens "
+"within 72 hours of deposit. This fee exists to maintain the smooth flow "
+"of the ecosystem and to prevent possible exploitation from individuals "
+"acting under bad faith. For example if there was no 0.5% withdrawal fee "
+"within the 72 hours, someone could keep depositing right before the "
+"compounding takes place and withdraw right after and still reap the same "
+"benefits and continuous long-term holders."
+msgstr ""
+"Phí rút token sẽ chỉ được tính 0,5% từ các farm nếu việc rút token diễn "
+"ra trong vòng 72 giờ kể từ khi gửi tiền. Phí này tồn tại nhằm duy trì "
+"hoạt động trơn tru của hệ sinh thái và ngăn chặn các các nhân có hành vi "
+"xấu và lợi dụng có thể xảy ra. Ví dụ: nếu không có phí rút token 0,5% "
+"trong vòng 72 giờ, người dùng có hành vi xấu có thể lợi dụng để tiếp tục "
+"gửi token ngay trước khi diễn ra lãi kép và rút token ngay sau đó mà vẫn "
+"gặt hái được những lợi ích tương tự và những người nắm giữ token dài hạn "
+"một cách liên tục."
+
+# c1f2549ee0694ad3bfef5356dbaad203
+#: ../../faq.rst:78
+msgid "Performance Fee"
+msgstr "Phí hoạt động"
+
+# 3dcc5478e8374889aad97dcb1654d359
+#: ../../faq.rst:80
+msgid ""
+"We have a 30% performance fee on our farms, but the majority of the "
+"profit from these fees goes back to go rewards for staking BUNNY, "
+"thereby ensuring the sustainability and longevity of our project and "
+"benefitting BUNNY supporters/holders."
+msgstr ""
+"Chúng tôi tính 30% cho phí hoạt động trên các farm của mình, nhưng phần "
+"lớn lợi nhuận từ các khoản phí này sẽ được sử dụng trở lại để làm phần "
+"thưởng cho những người stake BUNNY, do đó đảm bảo tính bền vững và lâu "
+"dài của dự án của chúng tôi và mang lại lợi ích cho những người ủng hộ / "
+"chủ sở hữu BUNNY."
+
+# ac644c65a27843159446700c898c01df
+#: ../../faq.rst:84
+msgid "What is Bunny’s Roadmap?"
+msgstr "Lộ trình phát triển của Bunny?"
+
+# 0a882b666c774e7a853cab6b95ef108a
+#: ../../faq.rst:86
+msgid ""
+"Please view our roadmap on notion: http://bit.ly/bunny_roadmap We have "
+"plans on expanding the variety of pools available, creating single asset "
+"vaults, arbitrage, and much more!"
+msgstr ""
+"Vui lòng xem lộ trình phát triển tại: http://bit.ly/bunny_roadmap . "
+"Chúng tôi có kế hoạch mở rộng và đa dạng số lượng các pool , tạo các kho "
+"lưu trữ bảo mật tiền mã hoá (vault), kinh doanh chênh lệch giá "
+"(arbitrage) và hơn thế nữa!"
+
+# 94161094c2ea4a78bfc2e31d1c17bceb
+#: ../../faq.rst:90
+msgid "Who is behind Bunny?"
+msgstr "Ai đứng sau Bunny?"
+
+# ab0af054f9fa40d2ac4b5937eed82518
+#: ../../faq.rst:92
+msgid ""
+"The Bunny Project was created by a team of developers and blockchain "
+"specialists! Like all other Yield Aggregator Projects, we believe our "
+"code is who we are! Thus, we will ensure to provide full transparency "
+"and let our code speak for itself."
+msgstr ""
+"Dự án Bunny được tạo ra bởi một nhóm các nhà phát triển và chuyên gia "
+"blockchain. Cũng như các Dự án cộng gộp lợi nhuận khác, chúng tôi tin "
+"rằng cách chúng tôi lập trình sẽ phản ánh chính xác con người của chúng "
+"tôi! Do đó, chúng tôi đảm bảo sẽ cung cấp đầy đủ thông tin minh bạch và "
+"để sản phẩm của chúng tôi tự nói lên điều đó."
+
+# d59d94314dd04d2389037001fafce2d7
+#: ../../faq.rst:95
+msgid "Is Bunny Safe?"
+msgstr "Đầu tư trên Bunny có an toàn không?"
+
+# 00e8da3b9ce44023a0cff5c41c23d3b7
+#: ../../faq.rst:97
+msgid ""
+"Like all DeFi Projects, it is important not to trust but to verify the "
+"legitimacy of each project by confirming the data/code. As such we are "
+"providing full transparency by releasing all the code/data required to "
+"confirm that Bunny runs smoothly. Check out our github: https://github."
+"com/PancakeBunny-finance"
+msgstr ""
+"Giống như tất cả các dự án DeFi, sự tin tưởng quan trọng phải đến từ "
+"việc xác minh tính hợp pháp của từng dự án bằng cách xác thực dữ liệu/ "
+"mã lập trình. Do đó, chúng tôi công khai đầy đủ một cách hoàn toàn minh "
+"bạch tất cả mã/ dữ liệu cần thiết để cộng đồng có thể kiểm tra và xác "
+"nhận khả năng vận hành trơn tru của Bunny. Truy cập vào Github của chúng "
+"tôi: https://github.com/PancakeBunny-finance"
+
+# 9e308d95678c4ab7bee8d0ebaf6796f9
+#: ../../faq.rst:101
+msgid "Is Bunny Audited?"
+msgstr "Bunny đã được audit chưa?"
+
+# a6ce26289af94d74876a4dc7932bbc28
+#: ../../faq.rst:103
+msgid ""
+"We have plans to get our code externally audited in the near future! We "
+"will let the community know when it is done!"
+msgstr ""
+"Chúng tôi đã có kế hoạch để bên thứ ba audit mã lập trình của Bunny "
+"trong tương lai gần và sẽ thông báo cho cộng đồng khi  việc kiểm định "
+"hoàn tất!"
+
+# 420fc6221a2147e28460c2a62fd9167d
+#: ../../faq.rst:107
+msgid "APR & APY"
+msgstr "APY & APR"
+
+# ee2ee382b21b4d4c9a0703b1554ba940
+#: ../../faq.rst:109
+msgid ""
+"Let’s assume the APR of the CAKE farm is 365%. This means that on "
+"average if we divide 365% by 365 days, we get a daily return of 1%. Now "
+"since Bunny compounds this 1%, we can estimate the compounded APR using "
+"the following calculation: (1+0.01)^365 - 1 = 3678% Keep in mind that "
+"this is an assumption that only holds true if the APR of CAKE farm stays "
+"constant through one year. However, this is obviously not the case since "
+"the APY also changes by the second. We can use the same calculation for "
+"the rest of the Farms as well! Just divide the APR by 365, which would "
+"be the average daily yield. (1+daily yield)^365 -1 = Compounded APY."
+msgstr ""
+"Giả sử APR của farm CAKE là 365%. Điều này có nghĩa là nếu chúng ta chia "
+"trung bình 365% cho 365 ngày thì lợi nhuận hàng ngày nhận được sẽ là 1%. "
+"Vì Bunny cộng lãi gộp 1% này, chúng tôi có thể ước tính APR cộng lãi gộp "
+"qua phép tính sau: (1 + 0,01) ^ 365 - 1 = 3678% Lưu ý giả định này chỉ "
+"đúng nếu APR của farm CAKE là hằng số giữ nguyên không đổi trong một "
+"năm. Tuy nhiên, thực tế điều sẽ không xảy ra vì APY sẽ luôn thay đổi mỗi "
+"giây. Chúng ta cũng có thể sử dụng cách tính tương tự cho các farm! Chỉ "
+"cần chia APR cho 365, đây sẽ là lợi suất trung bình hàng ngày. (1 + lợi "
+"nhuận hàng ngày) ^ 365 -1 = APY gộp lãi kép."
+
+# 92fec102b91f464fb7e9710527e952ca
+#: ../../faq.rst:111
+msgid ""
+"The new maximizer farms put the daily yields from the Farms, into the "
+"CAKE compounding pools. The Stable Coin-BNB Farms have a current APY of "
+"30%, but if we use the maximizer farms the APY increases to about 150%. "
+"This strategy is truly unique and advantageous since the principal "
+"investment does not get touched, and only the extra yields from the farm "
+"get invested in the more volatile, high risk-high reward CAKE pool."
+msgstr ""
+"Các farm tối đa hóa lọi nhuận mới sẽ gom lợi nhuận hàng ngày từ các farm "
+"và cộng gộp vào farm CAKE. Các farm stabe Coin-BNB có APY hiện tại là "
+"30%, nhưng nếu sử dụng các farm tối đa hóa lợi nhuận thì APY sẽ tăng lên "
+"khoảng 150%. Chiến lược này thực sự độc đáo và có lợi vì khoản tiền đầu "
+"tư gốc vẫn được bảo toàn, chỉ phần lợi nhuận canh tác từ các farm được "
+"lấy đầu tư vào pool CAKE có phần thưởng cao đi kèm rủi ro cao và nhiều "
+"biến động."

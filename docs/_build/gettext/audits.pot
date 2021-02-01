@@ -1,0 +1,33 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020
+# This file is distributed under the same license as the PancakeBunny Docs package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PancakeBunny Docs \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 09:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../audits.rst:3
+# 66648af464494e4c9f56880dadccddd5
+msgid "Audits"
+msgstr ""
+
+#: ../../audits.rst:5
+# 7fe8872ff8134d2f8d2494f70076bd6e
+msgid "Haechi labs has completed the first audit. The results were extremely positive! The audit highlighted no critical or major issues, and two minor issues. One of the minor issues has been found on most well-known governance tokens and will not expose much issue/security risk to normal end-users. The other minor issue is an intended behavior."
+msgstr ""
+
+#: ../../audits.rst:7
+# 5a6b2911b4a2445584a900602d2d900b
+msgid "Please see the report `here <https://github.com/PancakeBunny-finance/Bunny/blob/main/audits/%5BHAECHI%20AUDIT%5D%20PancakeBunny%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf>`_"
+msgstr ""
+

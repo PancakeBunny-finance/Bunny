@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020
+# This file is distributed under the same license as the PancakeBunny Docs package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PancakeBunny Docs \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 09:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../index.rst:13
+# 6ad7c350d97b417c9ada2ab171f8e148
+msgid "Introduction"
+msgstr ""
+
+#: ../../index.rst:21
+# ed99a505d2d04a09be7ff2886aa4d368
+msgid "Compound Yields with Bunny"
+msgstr ""
+
+#: ../../index.rst:22
+# 353ade2d74204ffd94b7364aed6f00eb
+msgid "Our Bunny team is dedicated to support the underlying DeFi ecosystem by providing users with an easy way to automatically compound their yields through the Binance Smart Chain. The DeFi movement, and more specifically Yield Aggregators, have seen a huge surge in activity in 2020. The Rise of Yearn, which uses existing protocols such as Compound, DyDx, and Curve, has influenced the development of various other Yield Aggregator projects on the Ethereum Network. Our goal is to expand that same interest through the Binance Smart Chain Ecosystem."
+msgstr ""
+
+#: ../../index.rst:25
+# 0645888d6e83405fade216f023c7651c
+msgid "Yield Optimization Strategies with PancakeBunny.Finance"
+msgstr ""
+
+#: ../../index.rst:26
+# b8a19a2833c2417db8d13bf5cfdd2c69
+msgid "A key difference in Yield Farming on Binance Smart Chain is the low gas fee. This makes it much easier for small players and ordinary individuals to enter the DeFi space and still get a good share of the crops with small amounts of capital. Through automation, Bunny allows individuals to reap the benefits of compounding without any additional steps. Bunny calculates the most optimal compounding frequency and automatically compounds your tokens through smart contracts."
+msgstr ""
+
+#: ../../index.rst:28
+# 0e93f21d8c3c46ffac819e5e9cbe0a6b
+msgid "Bunny, like other yield aggregators on BSC, uses Pancake Swap since it is the most prominent platform for Yield Farming. Bunny is continuously striving to create innovative new Yield Optimization Strategies. Currently we have BUNNY, CAKE, BUNNY-BNB, CAKE-BNB BUSD-BNB, USDT-BNB, DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD Pools. Furthermore, on our website, you can see we have the maximizer vaults. These strategies allow users to get the profits from certain pools and these profits are automatically auto compounded into the CAKE compounding pool, giving users a much greater return, while protecting the principal. We are currently launching our cross chain project, which will allow ETH-BSC cross chain, bringing more ETH users on bsc yield farming as well."
+msgstr ""
+
+#: ../../index.rst:31
+# b77e173d6fe7400d9675678b53be4f5a
+msgid "Contact Us"
+msgstr ""
+
+#: ../../index.rst:32
+# 512f23bb853a4f0b9be270fa4de548ad
+msgid "Twitter: @PancakeBunnyFin https://twitter.com/PancakeBunnyFin |br| Telegram: https://t.me/pancakebunny_fin |br| Email: hello@pancakebunny.finance |br| GitHub: https://github.com/PancakeBunny-finance/"
+msgstr ""
+

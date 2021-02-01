@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020
+# This file is distributed under the same license as the PancakeBunny Docs
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PancakeBunny Docs \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 09:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+# 7b7ebc6a7b5c4919b40e61564bc793a7
+#: ../../contracts.rst:3
+msgid "Contracts"
+msgstr ""
+
+# 157a0c46e9c14e0491254a49ae297b79
+#: ../../contracts.rst:5
+msgid "BunnyToken: 0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51"
+msgstr ""
+
+# e212b1ef8fdd4ceebafe52e09f68be64
+#: ../../contracts.rst:7
+msgid "BUNNY Pool: 0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D"
+msgstr ""
+
+# c437af069b4045bdb52612ce80633964
+#: ../../contracts.rst:9
+msgid "BUNNY-BNB Pool: 0xc80eA568010Bca1Ad659d1937E17834972d66e0D"
+msgstr ""
+
+# 0c855e8cc1804184a79907a1447fffef
+#: ../../contracts.rst:11
+msgid "Auto Compounding FARM Contracts"
+msgstr ""
+
+# e1c90c13dbee49a5a4fe40e32d698fd5
+# f795741525a44ac49338d1adc6bf8214
+#: ../../contracts.rst:16 ../../contracts.rst:37
+msgid "Contract Address"
+msgstr ""
+
+# 8aad309e30f044028aa06bad4a053a57
+#: ../../contracts.rst:17
+msgid "CAKE"
+msgstr ""
+
+# 6ad234a87b5e42f68bea2ee2e9bc925d
+#: ../../contracts.rst:18
+msgid "0x85537e99f5E535EdC72463e568CB3196130D1275"
+msgstr ""
+
+# bc1e1660397b47e2b8963dcc413de1b0
+# 62ba6dc9859b4223911b8161853c3a70
+#: ../../contracts.rst:19 ../../contracts.rst:38
+msgid "CAKE-BNB"
+msgstr ""
+
+# c8b422620cc8444d8d25e37b8f7e8906
+#: ../../contracts.rst:20
+msgid "0xed9BdC2E991fbEc75f0dD18b4110b8d49C79c5a9"
+msgstr ""
+
+# c7414f105dce4e7ba0326ab98c3d3f1e
+# d081f7d9b89543b594ad52e589bf7330
+#: ../../contracts.rst:21 ../../contracts.rst:40
+msgid "BUSD-BNB"
+msgstr ""
+
+# bf848a35dd534798b99f0510b0d174d8
+#: ../../contracts.rst:22
+msgid "0x70368F425DCC37710a9982b4A4CE95fcBd009049"
+msgstr ""
+
+# e6c9cf8634134319ac7d1c0d1d5877f4
+# a4e7b02c7e30440b8658bb1f353feedd
+#: ../../contracts.rst:23 ../../contracts.rst:42
+msgid "USDT-BNB"
+msgstr ""
+
+# 21ae60073db14aa2a94971554c43b51a
+#: ../../contracts.rst:24
+msgid "0x655d5325C7510521c801E8F5ea074CDc1c9a3B71"
+msgstr ""
+
+# bcaa93a299d347deb39c2ba0220bb10a
+# 1b301a23c45f430395e78e1b5195e08c
+#: ../../contracts.rst:25 ../../contracts.rst:44
+msgid "DAI-BNB"
+msgstr ""
+
+# bdae3038b40f4c30a68b9705745cc0f5
+#: ../../contracts.rst:26
+msgid "0x8a5766863286789Ad185fd6505dA42a41137A044"
+msgstr ""
+
+# 32e9ca05fdfc4d7baae4dd8288b06e1a
+# 84f515306b674117a9433869348168a9
+#: ../../contracts.rst:27 ../../contracts.rst:46
+msgid "USDC-BNB"
+msgstr ""
+
+# 86e7fb105a52488584be1a94840a70e9
+#: ../../contracts.rst:28
+msgid "0x828627292eD0A14C6b75Fa4ce9aa6fd859f20408"
+msgstr ""
+
+# 3e824b27df7e406cad3a11ad534fc706
+# 24c935376c5648e28d7ee3b12ebeabb7
+#: ../../contracts.rst:29 ../../contracts.rst:48
+msgid "USDT-BUSD"
+msgstr ""
+
+# dc5fd933552f49859369de71c6d98b44
+#: ../../contracts.rst:30
+msgid "0x59E2a69c775991Ba1cb5540058428C28bE48da19"
+msgstr ""
+
+# 28b9b20e350c46409bce1c7a9d87ca5f
+#: ../../contracts.rst:32
+msgid "CAKE Maximizer Vaults Contracts"
+msgstr ""
+
+# 93fc22135376481d98c362ac24a00f60
+#: ../../contracts.rst:39
+msgid "0xa3bFf2eFd9Bbeb098cc01A1285f7cA98227a52B1"
+msgstr ""
+
+# da2a383e60654ee8a42d64f415d49301
+#: ../../contracts.rst:41
+msgid "0x569b83F79Ab97757B6ab78ddBC40b1Eeb009d5AB"
+msgstr ""
+
+# 6a611ec2bc2e49938ad5e8a2d3d09e13
+#: ../../contracts.rst:43
+msgid "0xDc6E9D719Be6Cc0EF4cD6484f7e215F904989bf8"
+msgstr ""
+
+# 62c6cfc45f38408bbad4c4fa3a0462ed
+#: ../../contracts.rst:45
+msgid "0x916acb3e3b9f4B19FCfbFb327A64EA5e5FCbfbF0"
+msgstr ""
+
+# 85a873b0fd8d46639d2c059c84bf49b2
+#: ../../contracts.rst:47
+msgid "0x62F2D4A792d13Da569Ec5fc0067dA71CaCB26609"
+msgstr ""
+
+# 8d6af4e1ac3243d792f9b09f1bfa0976
+#: ../../contracts.rst:49
+msgid "0x3649b6d0Ab5727E0e02AC47AAfEC6b26e62fFa00"
+msgstr ""
+

@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020
+# This file is distributed under the same license as the PancakeBunny Docs package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PancakeBunny Docs \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 09:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../guide.rst:3
+# 9dd6a212f38b4f3bb1dd2b52a8004073
+msgid "How-to Guides"
+msgstr ""
+
+#: ../../guide.rst:6
+# 52a1834e0437485bb9276d291faedbbe
+msgid "How-to Video"
+msgstr ""
+
+#: ../../guide.rst:16
+# c3a9dbdc79e44a6caa26c258b92a5c9d
+msgid "Prerequisites"
+msgstr ""
+
+#: ../../guide.rst:18
+# 66a74bac973440f5ab0c7d2717acebef
+msgid "You must have a specific Farm’s underlying token. For CAKE-BNB, you need CAKE tokens and BNB tokens. The same for other respective farms."
+msgstr ""
+
+#: ../../guide.rst:20
+# e2ca1f9be2cd4c65a383925a30040f9f
+msgid "You must have a supported wallet, either metamask, Trust Wallet or Walletconnect!"
+msgstr ""
+
+#: ../../guide.rst:24
+# ef310170f8364d7499bf6e943c594128
+msgid "Walkthrough"
+msgstr ""
+
+#: ../../guide.rst:26
+# 13b00eca88d14643a87af245c3837cbe
+msgid "Go to pancakebunny.finance/ and click \"Connect Wallet\""
+msgstr ""
+
+#: ../../guide.rst:33
+# 797517a8fced42519eacb589bf90ffda
+msgid "Click either the Metamask or WalletConnect Icon depending on what you use"
+msgstr ""
+
+#: ../../guide.rst:40
+# 7dde7b3255b54c0080fd2d64f471d13f
+msgid "Select the Farm you want to invest in"
+msgstr ""
+
+#: ../../guide.rst:47
+# c320ea11da854777b14337e87f923421
+msgid "You need LP Tokens (LP Tokens) (CAKE-BNB LP, BUSD-BNB LP, etc)"
+msgstr ""
+
+#: ../../guide.rst:54
+# cce9ad0e59a945abb486b318f30d6149
+msgid "You can also use our Zap feature to provide LP tokens with just one click."
+msgstr ""
+
+#: ../../guide.rst:62
+# 6546152f97214f0581b7ec039bc8e719
+msgid "After receiving LP Tokens, enter the amount of tokens you want to deposit and click \"Deposit\""
+msgstr ""
+
+#: ../../guide.rst:69
+# 6673014e1d454a35925341445222a6de
+msgid "Confirm the transaction with Metamask or WalletConnect"
+msgstr ""
+
+#: ../../guide.rst:76
+# 9567e89c4f514a41be63172750f1c57c
+msgid "View the transaction on BscScan and await the confirmation"
+msgstr ""
+
+#: ../../guide.rst:83
+# 26310b86c4c64738977131d48e7e3e34
+msgid "Congrats! You have now joined the Bunny Farm!"
+msgstr ""
+

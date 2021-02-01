@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020
+# This file is distributed under the same license as the PancakeBunny Docs package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PancakeBunny Docs \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 09:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../vaults.rst:3
+# 657371ef10224d009463478dbeb66645
+msgid "Vaults"
+msgstr ""
+
+#: ../../vaults.rst:6
+# 0a41b5bd113b4371942d7e1388cae836
+msgid "BUNNY Staking Farm"
+msgstr ""
+
+#: ../../vaults.rst:8
+# 58ae49eb5d0b48d392204250be5d608d
+msgid "In this farm, users can stake using their BUNNY tokens, while getting back WBNB. The APR for this farm is dependent on the performance of all the other farms, since the 30% performance fee on other farms are what is collected and given out as the reward/roi for the BUNNY staking pool. BUNNY Pool has no withdrawal fee and no performance fee."
+msgstr ""
+
+#: ../../vaults.rst:11
+# 586dca3efdc14afb8028812069ed5906
+msgid "BUNNY/BNB Farm"
+msgstr ""
+
+#: ../../vaults.rst:13
+# 18ed7886f9f54ef7a1d7dcd02c3532f2
+msgid "In this farm, users can deposit BUNNY/BNB and earn even more BUNNY tokens. There should be a withdrawal fee of 0.5% if withdrawn within 72 hours, but there will be no fee during the migration to v2."
+msgstr ""
+
+#: ../../vaults.rst:16
+# 8af44663835443beb3df5a6c2923012e
+msgid "CAKE Auto Compounding Farm"
+msgstr ""
+
+#: ../../vaults.rst:18
+# 81b0dbc2ca9442ac879a5b29f50c9234
+msgid "The CAKE farm is where you can reap the benefits of automating compounding and the high APY. There should be a withdrawal fee of 0.5% if withdrawn within 72 hours, but there will be no fee during the migration to v2. The 30% performance fee is collected but for every 1BNB in fees collected, we give 10 BUNNY, so you’re getting free money."
+msgstr ""
+
+#: ../../vaults.rst:21
+# 5dcfa3e6d75c44d895dde93937e06efb
+msgid "Rest of PancakeSwap Farms"
+msgstr ""
+
+#: ../../vaults.rst:23
+# 3c7c25de418d416a991d0191003531a1
+msgid "Currently we have CAKE-BNB, BUSD-BNB, USDT-BNB, DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD pools, which exist on Pancakeswap. Our smart contracts automatically compound your investments, giving you a higher APY. For these pools, as profit you will be getting the respective LP Token of the pool, as well as BUNNY tokens. 30% of profits will be collected and given as BUNNY tokens. For every 1BNB collected, we give 10 BUNNY. There should be a withdrawal fee of 0.5% if withdrawn within 72 hours, but there will be no fee during the migration to v2. Currently you can only claim your profits, if you claim & exit the pool. We may change this in the future."
+msgstr ""
+
+#: ../../vaults.rst:26
+# 09f5861bbb974a5d9d07c49d6bb25f37
+msgid "Maximizer PancakeSwap Farms"
+msgstr ""
+
+#: ../../vaults.rst:28
+# 741df91c85f8452fb52ec40aac27e3b8
+msgid "The Maximizer farms takes the profits that come out of the original compounded Pancakeswap farm, and puts it into the CAKE auto-compounding farm, in order to give you a higher apy, while protecting your principal. There should be a withdrawal fee of 0.5% if withdrawn within 72 hours, but there will be no fee during the migration to v2. With the Maximizer Farms, users can claim their profits, without exiting the farm."
+msgstr ""
+
+#: ../../vaults.rst:30
+# 68ef599a907b404c872398cbfec92f4f
+msgid "According to our test calculations, assuming that CAKE price stays constant, USDT-BNB Farm APY is 30%, and CAKE APR is 300%, then the APY of someone who deposits into the “Yield Maximizing USDT-BNB Farm” would be 189.9%. This is much higher than the 30% achieved by simply compounding USDT-BNB, yet the risk is very minimal. The only risks would be if CAKE price drops significantly, or if the CAKE APR drops as well. That being said even if the CAKE price drops significantly the principal amount invested in USDT and BNB would still be the same. Similar to our regular farms, in order to fully benefit from the compounding effect, a user must have the patience to sit back and watch their money grow exponentially over time. One small complication is that because of the way the new yield maximized farms are coded through back end development, the yields earned daily (24 hour period) get distributed the next day on a rolling cycle. This means that users who deposit from day 0 to day 1 would be at a slight disadvantage as they would not be able to receive their fair share of yields for the first 24 hours. To mitigate this effect we plan on giving these early users some BUNNY to compensate for the lost yields. The graph below illustrates the difference in returns between the original Stable-BNB farm and the new Yield Maximizing Stable-BNB farm."
+msgstr ""
+
+#: ../../vaults.rst:38
+# 1fcfac6aa7d6470aac12670de5159edb
+msgid "We have provided the mathematical formula for calculating the total geometric sum. Feel free to use it to personalize your calculations."
+msgstr ""
+

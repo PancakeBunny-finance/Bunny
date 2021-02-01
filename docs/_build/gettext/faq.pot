@@ -1,0 +1,238 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020
+# This file is distributed under the same license as the PancakeBunny Docs package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PancakeBunny Docs \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-30 09:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../faq.rst:3
+# 0a51ef0642b9408cb83a9ccebe19c1b2
+msgid "FAQ"
+msgstr ""
+
+#: ../../faq.rst:6
+# 7e18976079b340dc828897ce97d9c02c
+msgid "What is Pancake Bunny?"
+msgstr ""
+
+#: ../../faq.rst:8
+# 3cfad6f8784c48c48fe1f0130d041d10
+msgid "PancakeBunny is a new and rapidly growing DeFi yield aggregator that is used for PancakeSwap. The PancakeBunny protocol empowers farmers to leverage their yield-seeking tendencies to optimize yield compounding strategy on BSC. We are providing strategies for the various needs of farmers from the highest yield seekers to the risk reward optimizing smart investors."
+msgstr ""
+
+#: ../../faq.rst:11
+# 373557fd8c77418896a84590420a3411
+msgid "What is the Reason for launching Pancake Bunny?"
+msgstr ""
+
+#: ../../faq.rst:13
+# e256c561e6a54aaf977c2e8933ea6a52
+msgid "We wanted to create a platform that automatically compounds yields for all individuals, no matter how small your stake may be. Our goal is to expand the DeFi ecosystem, specifically on the Binance Smart Chain, while providing users with various strategies to maximize returns while minimizing risk."
+msgstr ""
+
+#: ../../faq.rst:16
+# 9508d46a0b374743a2cf2aab5fc1381c
+msgid "How do Bunny Farms Work?"
+msgstr ""
+
+#: ../../faq.rst:18
+# d7afc6add0c3478ca581ee4749650fb0
+msgid "Currently, the majority of our farms are those that exist on Pancake Swap. Essentially the farms on our platform get permission from individuals via smart contracts to automatically compound and reinvest yields on behalf of individuals."
+msgstr ""
+
+#: ../../faq.rst:21
+# 8b7a66232eb24157b846ea5a26b10652
+msgid "Can’t I just compound by myself?"
+msgstr ""
+
+#: ../../faq.rst:23
+# 7789cb92a67e4e3ab1f802a60b05a1c6
+msgid "Compounding yourself on PancakeSwap is a very tedious process and it is often hard to know the optimal frequency and timing of when to compound and reinvest your yields. Bunny does all of this for you plus saves you gas fees."
+msgstr ""
+
+#: ../../faq.rst:26
+# 8b5e9021215840928e6456911f158efc
+msgid "What is the BUNNY Token?"
+msgstr ""
+
+#: ../../faq.rst:28
+# e906a583557446418c2c99f7b91ae2ed
+msgid "BUNNY Token is our native governance token. BUNNY holders govern our ecosystem and receive the majority of farm performance fee profits. Holding/Staking BUNNY is not only beneficial for individual profits, but also ensures the Bunny Ecosystem runs smoothly."
+msgstr ""
+
+#: ../../faq.rst:31
+# b365dd97b89e467a9d14cdb7f1cda025
+msgid "Which Bunny Farm do I pick?"
+msgstr ""
+
+#: ../../faq.rst:33
+# 7f71e87bb6604137911fc15b2faf2949
+msgid "Every Farm requires a different LP Token. Furthermore the different Farms represent different risk tolerances for Bunny users. A high APY usually means more volatility in the underlying token price. For example, BUSD-BNB has a much lower compounded APY than CAKE-BNB, since BUSD is a stable coin which is pegged to the dollar and does not experience volatility."
+msgstr ""
+
+#: ../../faq.rst:36
+# c39c84ab3af046ef8038fecf0d2ffa26
+msgid "What are the risks of Farming on Bunny?"
+msgstr ""
+
+#: ../../faq.rst:38
+# 73b6d448844949a9b3ea7f2445a1192c
+msgid "Systematic Risk"
+msgstr ""
+
+#: ../../faq.rst:40
+# 00545178526c4d74a3b64aa6a0005cd5
+msgid "The Systematic Risk would be the decrease of monetary value of assets deposited, be in BNB, CAKE, etc. For example BNB could be $30 when you deposit and $25 when you withdraw"
+msgstr ""
+
+#: ../../faq.rst:42
+# 9fba8a1dbf164738aa15ee3cc8c5029c
+msgid "Idiosyncratic Risk"
+msgstr ""
+
+#: ../../faq.rst:44
+# fabe43a3cf364f4086b992f67ada2319
+msgid "The Idiosyncratic Risk would be risks associated with our actual project. Although our code is not externally audited at the moment, we are planning to get an official audit in the coming months! As with all Projects we have seen in the past, from Harvest, Akropolis, and many more, there are always risks that projects will fall victim to malicious hackers. That being said, our Bunny developers account for the security risks of smart contracts and only will interact with contracts that meet the security threshold."
+msgstr ""
+
+#: ../../faq.rst:47
+# c7ce4cf2365640ea907e720f842ac6a5
+msgid "How to Determine Daily % Gains?"
+msgstr ""
+
+#: ../../faq.rst:49
+# bed910b8f9aa4bc8b767c206df20d195
+msgid "Because the APY is constantly changing on Pancake Swap, the Compounded APY on the Bunny Platform is constantly changing. Furthermore, because this APY is calculated via compounded (exponential growth), it cannot be calculated in a linear manner (i.e. APY/365) So long as you hold your tokens in our farms for an extended period of time, your assets will continue to grow exponentially."
+msgstr ""
+
+#: ../../faq.rst:52
+# 0bb7581b4d354dd2b337932c9dac2639
+msgid "Where does CAKE or LP come from in the rewards?"
+msgstr ""
+
+#: ../../faq.rst:54
+# ea3c48b002be4504928e294e537f7cf8
+msgid "CAKE or the LP tokens are all used from Pancakeswap, we automatically compound yields via Pancakeswap."
+msgstr ""
+
+#: ../../faq.rst:57
+# f8a71a73593242e79613943156b2f7a9
+msgid "Where does BUNNY come from?"
+msgstr ""
+
+#: ../../faq.rst:59
+# fb2f280f68a6455fa6a33a5d8488507f
+msgid "BUNNY is minted via smart contracts. For every 1bnb earned in peformance fees, 10 BUNNY is newly minted and distributed."
+msgstr ""
+
+#: ../../faq.rst:62
+# b6bfb99deddc4c0792fdc2cc837c52fc
+msgid "Where does Swap % come from?"
+msgstr ""
+
+#: ../../faq.rst:64
+# 830e24ca97c54f60a3fadcbcce7c1d4c
+msgid "This comes from PancakeSwap"
+msgstr ""
+
+#: ../../faq.rst:67
+# 4c756ffc16c84bc78b878ac60455094c
+msgid "Which rewards get compounded?"
+msgstr ""
+
+#: ../../faq.rst:69
+# dbcbbdaa84c842479ae28e0684287ab6
+msgid "Currently all the farms get compounded except for the BUNNY Staking farm and the BUNNY/BNB farm. The BUNNY rewards that come out of all pools, currently are not compounded. Only the CAKE and flip rewards are auto-compounded."
+msgstr ""
+
+#: ../../faq.rst:72
+# c4425c9ccdc8481280afe780c2770c6f
+msgid "What is the Fee Structure?"
+msgstr ""
+
+#: ../../faq.rst:74
+# ff97e198bba9466fb55dd6f43afcc992
+msgid "Withdrawal Fee"
+msgstr ""
+
+#: ../../faq.rst:76
+# b298fc5f246f4787a2129872d7ac36da
+msgid "There is a 0.5% withdrawal fee from Farms only if withdrawal happens within 72 hours of deposit. This fee exists to maintain the smooth flow of the ecosystem and to prevent possible exploitation from individuals acting under bad faith. For example if there was no 0.5% withdrawal fee within the 72 hours, someone could keep depositing right before the compounding takes place and withdraw right after and still reap the same benefits and continuous long-term holders."
+msgstr ""
+
+#: ../../faq.rst:78
+# c1f2549ee0694ad3bfef5356dbaad203
+msgid "Performance Fee"
+msgstr ""
+
+#: ../../faq.rst:80
+# 3dcc5478e8374889aad97dcb1654d359
+msgid "We have a 30% performance fee on our farms, but the majority of the profit from these fees goes back to go rewards for staking BUNNY, thereby ensuring the sustainability and longevity of our project and benefitting BUNNY supporters/holders."
+msgstr ""
+
+#: ../../faq.rst:84
+# ac644c65a27843159446700c898c01df
+msgid "What is Bunny’s Roadmap?"
+msgstr ""
+
+#: ../../faq.rst:86
+# 0a882b666c774e7a853cab6b95ef108a
+msgid "Please view our roadmap on notion: http://bit.ly/bunny_roadmap We have plans on expanding the variety of pools available, creating single asset vaults, arbitrage, and much more!"
+msgstr ""
+
+#: ../../faq.rst:90
+# 94161094c2ea4a78bfc2e31d1c17bceb
+msgid "Who is behind Bunny?"
+msgstr ""
+
+#: ../../faq.rst:92
+# ab0af054f9fa40d2ac4b5937eed82518
+msgid "The Bunny Project was created by a team of developers and blockchain specialists! Like all other Yield Aggregator Projects, we believe our code is who we are! Thus, we will ensure to provide full transparency and let our code speak for itself."
+msgstr ""
+
+#: ../../faq.rst:95
+# d59d94314dd04d2389037001fafce2d7
+msgid "Is Bunny Safe?"
+msgstr ""
+
+#: ../../faq.rst:97
+# 00e8da3b9ce44023a0cff5c41c23d3b7
+msgid "Like all DeFi Projects, it is important not to trust but to verify the legitimacy of each project by confirming the data/code. As such we are providing full transparency by releasing all the code/data required to confirm that Bunny runs smoothly. Check out our github: https://github.com/PancakeBunny-finance"
+msgstr ""
+
+#: ../../faq.rst:101
+# 9e308d95678c4ab7bee8d0ebaf6796f9
+msgid "Is Bunny Audited?"
+msgstr ""
+
+#: ../../faq.rst:103
+# a6ce26289af94d74876a4dc7932bbc28
+msgid "We have plans to get our code externally audited in the near future! We will let the community know when it is done!"
+msgstr ""
+
+#: ../../faq.rst:107
+# 420fc6221a2147e28460c2a62fd9167d
+msgid "APR & APY"
+msgstr ""
+
+#: ../../faq.rst:109
+# ee2ee382b21b4d4c9a0703b1554ba940
+msgid "Let’s assume the APR of the CAKE farm is 365%. This means that on average if we divide 365% by 365 days, we get a daily return of 1%. Now since Bunny compounds this 1%, we can estimate the compounded APR using the following calculation: (1+0.01)^365 - 1 = 3678% Keep in mind that this is an assumption that only holds true if the APR of CAKE farm stays constant through one year. However, this is obviously not the case since the APY also changes by the second. We can use the same calculation for the rest of the Farms as well! Just divide the APR by 365, which would be the average daily yield. (1+daily yield)^365 -1 = Compounded APY."
+msgstr ""
+
+#: ../../faq.rst:111
+# 92fec102b91f464fb7e9710527e952ca
+msgid "The new maximizer farms put the daily yields from the Farms, into the CAKE compounding pools. The Stable Coin-BNB Farms have a current APY of 30%, but if we use the maximizer farms the APY increases to about 150%. This strategy is truly unique and advantageous since the principal investment does not get touched, and only the extra yields from the farm get invested in the more volatile, high risk-high reward CAKE pool."
+msgstr ""
+
