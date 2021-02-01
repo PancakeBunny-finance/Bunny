@@ -49,14 +49,15 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 gettext_compact = False
 gettext_uuid = True
 
+latex_engine = 'pdflatex'
 latex_elements = {
-    'preamble': "".join((
-        '\ddocumentclass{article}',
-        '\usepackage[utf8]{inputenc}',
-        '\usepackage[vietnamese]{babel}',
-        '\usepackage{lmodern}'
-    ))
+    'preamble': r'''
+        \documentclass{article}
+        \usepackage[utf8]{inputenc}
+        \usepackage[vietnamese]{babel}
+        \usepackage{lmodern}
 }
+
 # -- Options for HTML output ---------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
