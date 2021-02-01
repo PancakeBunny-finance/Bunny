@@ -56,6 +56,7 @@ latex_elements = {
         \usepackage[utf8]{inputenc}
         \usepackage[vietnamese]{babel}
         \usepackage{lmodern}
+        '''
 }
 
 # -- Options for HTML output ---------------------------------------------------
