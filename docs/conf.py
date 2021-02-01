@@ -54,7 +54,7 @@ latex_elements = {
     'preamble': r'''
         \documentclass{article}
         \usepackage[utf8]{inputenc}
-        \usepackage[vietnamese]{babel}
+        \usepackage[vietnam, vietnamese]{babel}
         \usepackage{lmodern}
         '''
 }
