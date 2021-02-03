@@ -4,24 +4,25 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PancakeBunny Docs \n"
+"Project-Id-Version: PancakeBunny Docs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-30 09:38+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-02-03 13:11+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: vi_VN\n"
+"X-Generator: Poedit 2.4.2\n"
 
 # 66648af464494e4c9f56880dadccddd5
 #: ../../audits.rst:3
 msgid "Audits"
-msgstr ""
+msgstr "Kiểm định dự án (audits)"
 
 # 7fe8872ff8134d2f8d2494f70076bd6e
 #: ../../audits.rst:5
@@ -32,11 +33,21 @@ msgid ""
 "governance tokens and will not expose much issue/security risk to normal "
 "end-users. The other minor issue is an intended behavior."
 msgstr ""
+"Haechi Labs vừa hoàn thành lần audit đầu tiên cho Pancake Bunny. Kết quả "
+"kiểm định cực kỳ khả quan! Lần kiểm định đã chỉ ra hệ thống không có bất "
+"kỳ lỗi lớn hay mắc phải các lỗi trọng yếu, chỉ có hai lỗi nhỏ được tìm "
+"thấy. Một trong hai lỗi nhỏ được tìm thấy xảy ra ngay trên cả những "
+"governance tokens nổi tiếng nhất và lỗi này không gây ảnh hưởng đến các "
+"vấn về/rủi ro bảo mật cho người dùng cuối. Lỗi nhỏ còn lại là một hành "
+"vi có chủ đích."
 
 # 5a6b2911b4a2445584a900602d2d900b
 #: ../../audits.rst:7
 msgid ""
-"Please see the report `here <https://github.com/PancakeBunny-"
-"finance/Bunny/blob/main/audits/%5BHAECHI%20AUDIT%5D%20PancakeBunny%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf>`_"
+"Please see the report `here <https://github.com/PancakeBunny-finance/"
+"Bunny/blob/main/audits/%5BHAECHI%20AUDIT%5D%20PancakeBunny%20Smart"
+"%20Contract%20Audit%20Report%20ver%202.0.pdf>`_"
 msgstr ""
-
+"Vui lòng xem bản báo cáo kiểm định tại `đây <https://github.com/"
+"PancakeBunny-finance/Bunny/blob/main/audits/%5BHAECHI%20AUDIT%5D"
+"%20PancakeBunny%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf>`_"
