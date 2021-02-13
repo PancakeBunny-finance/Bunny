@@ -4,87 +4,118 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PancakeBunny Docs \n"
+"Project-Id-Version: PancakeBunny Docs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-30 09:38+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-02-13 11:54+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ko_KR\n"
+"X-Generator: Poedit 2.4.2\n"
 
 # 6ad7c350d97b417c9ada2ab171f8e148
 #: ../../index.rst:13
 msgid "Introduction"
-msgstr ""
+msgstr "소개"
 
 # ed99a505d2d04a09be7ff2886aa4d368
 #: ../../index.rst:21
 msgid "Compound Yields with Bunny"
-msgstr ""
+msgstr "Compound Yields with Bunny"
 
 # 353ade2d74204ffd94b7364aed6f00eb
 #: ../../index.rst:22
 msgid ""
 "Our Bunny team is dedicated to support the underlying DeFi ecosystem by "
 "providing users with an easy way to automatically compound their yields "
-"through the Binance Smart Chain. The DeFi movement, and more specifically"
-" Yield Aggregators, have seen a huge surge in activity in 2020. The Rise "
-"of Yearn, which uses existing protocols such as Compound, DyDx, and "
-"Curve, has influenced the development of various other Yield Aggregator "
-"projects on the Ethereum Network. Our goal is to expand that same "
-"interest through the Binance Smart Chain Ecosystem."
+"through the Binance Smart Chain. The DeFi movement, and more "
+"specifically Yield Aggregators, have seen a huge surge in activity in "
+"2020. The Rise of Yearn, which uses existing protocols such as Compound, "
+"DyDx, and Curve, has influenced the development of various other Yield "
+"Aggregator projects on the Ethereum Network. Our goal is to expand that "
+"same interest through the Binance Smart Chain Ecosystem."
 msgstr ""
+"팬케이크 버니 팀은 디파이 유저들에게 바이낸스 스마트체인 (Binance Smart "
+"Chain, BSC)을 통해 복리 수익을 쉽게 그리고 자동적으로 실현할 수 있도록 함"
+"으로써, 디파이 생태계의 발전에 헌신을 다하고 있습니다. 디파이 산업의 발"
+"전, 특히 Yield Aggregator들의 붐은 2020년에 더욱 두드러졌습니다. Yearn "
+"Finance는 Compound, DyDx, Curve 등과 같이 존재하는 디파이 프로토콜들을 사"
+"용하는 투자법으로, 이자 농사의 활성화는 이더리움 네트워크를 이용한 다양"
+"한 일드 애그리게이터 프로젝트들의 발전으로 이어졌습니다. 팬케이크 버니 팀"
+"의 목표는 이러한 뜨거운 관심과 변화를 바이낸스 스마트 체인 생태계의 발전"
+"으로 확산하는 것입니다."
 
 # 0645888d6e83405fade216f023c7651c
 #: ../../index.rst:25
 msgid "Yield Optimization Strategies with PancakeBunny.Finance"
-msgstr ""
+msgstr "팬케이크버니와 함께하는, 수익률 최적화 전략"
 
 # b8a19a2833c2417db8d13bf5cfdd2c69
 #: ../../index.rst:26
 msgid ""
 "A key difference in Yield Farming on Binance Smart Chain is the low gas "
-"fee. This makes it much easier for small players and ordinary individuals"
-" to enter the DeFi space and still get a good share of the crops with "
-"small amounts of capital. Through automation, Bunny allows individuals to"
-" reap the benefits of compounding without any additional steps. Bunny "
-"calculates the most optimal compounding frequency and automatically "
-"compounds your tokens through smart contracts."
+"fee. This makes it much easier for small players and ordinary "
+"individuals to enter the DeFi space and still get a good share of the "
+"crops with small amounts of capital. Through automation, Bunny allows "
+"individuals to reap the benefits of compounding without any additional "
+"steps. Bunny calculates the most optimal compounding frequency and "
+"automatically compounds your tokens through smart contracts."
 msgstr ""
+"바이낸스 스마트체인을 이용한 이자 농사(Yield Farming)의 가장 큰 장점은 낮"
+"은 가스 수수료 (gas fee)입니다. 낮은 가스 수수료는 중소기업들과 보통 사람"
+"들이 쉽게 디파이 생태계에 들어서고, 적은 자본금으로도 상당한 수익률을 거"
+"둘 수 있도록 합니다. 자동화를 통해, 버니는 개인 복리투자의 혜택을 어떠한 "
+"부수적인 절차 없이도 누릴 수 있도록 합니다. 버니는 가장 최적화된 이자 지"
+"급 주기를 계산하고, 자동적으로 고객의 토큰들로 스마트계약을 통해 복리 이"
+"자를 창출합니다."
 
 # 0e93f21d8c3c46ffac819e5e9cbe0a6b
 #: ../../index.rst:28
 msgid ""
-"Bunny, like other yield aggregators on BSC, uses Pancake Swap since it is"
-" the most prominent platform for Yield Farming. Bunny is continuously "
+"Bunny, like other yield aggregators on BSC, uses Pancake Swap since it "
+"is the most prominent platform for Yield Farming. Bunny is continuously "
 "striving to create innovative new Yield Optimization Strategies. "
 "Currently we have BUNNY, CAKE, BUNNY-BNB, CAKE-BNB BUSD-BNB, USDT-BNB, "
 "DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD Pools. Furthermore, on our "
-"website, you can see we have the maximizer vaults. These strategies allow"
-" users to get the profits from certain pools and these profits are "
+"website, you can see we have the maximizer vaults. These strategies "
+"allow users to get the profits from certain pools and these profits are "
 "automatically auto compounded into the CAKE compounding pool, giving "
 "users a much greater return, while protecting the principal. We are "
 "currently launching our cross chain project, which will allow ETH-BSC "
 "cross chain, bringing more ETH users on bsc yield farming as well."
 msgstr ""
+"버니는 BSC를 이용하는 다른 일드 애그리게이터들과 같이, 이자 농사에서 가"
+"장 두드러진 플랫폼인 팬케이크 스왑(Pancake Swap)을 이용합니다. 버니는 혁"
+"신적인 수익률 최적화 전략들을 만들기 위해 지속적으로 매진하고 있습니다. "
+"현재 저희는 BUNNY, CAKE, BUNNY-BNB, CAKE-BNB BUSD-BNB, USDT-BNB, DAI-"
+"BNB, USDC-BNB, VAI-BUSD, USDT-BUSD 풀들을 보유하고 있습니다. 더 나아가, "
+"팬케이크 버니에서는 고금리 맥시마이저 볼트 또한 출시하였으며 높은 이율로 "
+"투자 성과를 실현 시켜드리고 있습니다. 이러한 전략들을 통해 고객들이 특정 "
+"풀들에서 수익을 실현시킬 수 있도록 한 후, 그 실현된 수익들을 자동적으로 "
+"CAKE 컴파운딩 풀(compounding pool)에서 복리 이자를 창출시켜, 원금을 보호"
+"하면서 고객들에게 더 큰 수익을 안겨줍니다. 현재 저희는 이더리움 네트워크"
+"와 바이낸스 스마트체인을 연결한 ETH-BSC 크로스체인을 가능케 할 크로스 체"
+"인 프로젝트 (cross chain project)를 런칭해, 더 많은 이더리움 유저들을 "
+"BSC 내 이자 농사에 참여할 수 있는 기회를 제공하고자 합니다."
 
 # b77e173d6fe7400d9675678b53be4f5a
 #: ../../index.rst:31
 msgid "Contact Us"
-msgstr ""
+msgstr "연락"
 
 # 512f23bb853a4f0b9be270fa4de548ad
 #: ../../index.rst:32
 msgid ""
 "Twitter: @PancakeBunnyFin https://twitter.com/PancakeBunnyFin |br| "
-"Telegram: https://t.me/pancakebunny_fin |br| Email: "
-"hello@pancakebunny.finance |br| GitHub: https://github.com/PancakeBunny-"
-"finance/"
+"Telegram: https://t.me/pancakebunny_fin |br| Email: hello@pancakebunny."
+"finance |br| GitHub: https://github.com/PancakeBunny-finance/"
 msgstr ""
-
+"Twitter: @PancakeBunnyFin https://twitter.com/PancakeBunnyFin |br| "
+"Telegram: https://t.me/pancakebunny_fin |br| Email: hello@pancakebunny."
+"finance |br| GitHub: https://github.com/PancakeBunny-finance/"

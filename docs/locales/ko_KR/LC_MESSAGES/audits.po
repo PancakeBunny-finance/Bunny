@@ -4,24 +4,25 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PancakeBunny Docs \n"
+"Project-Id-Version: PancakeBunny Docs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-30 09:38+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-02-13 12:16+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ko_KR\n"
+"X-Generator: Poedit 2.4.2\n"
 
 # 66648af464494e4c9f56880dadccddd5
 #: ../../audits.rst:3
 msgid "Audits"
-msgstr ""
+msgstr "보안감사"
 
 # 7fe8872ff8134d2f8d2494f70076bd6e
 #: ../../audits.rst:5
@@ -32,11 +33,20 @@ msgid ""
 "governance tokens and will not expose much issue/security risk to normal "
 "end-users. The other minor issue is an intended behavior."
 msgstr ""
+"해치 랩스가 첫 스마트 컨트랙트 보안 감사를 완료했습니다. 결과는 매우 긍정"
+"적이었습니다! 감사는 2가지의 사소한 문제들 이외에, 치명적이거나 주요한 문"
+"제들을 포함하지 않았습니다. 첫번째 사소한 문제는 가장 유명한 거버넌스 토"
+"큰들에서 발견되었고, 이는 일반 유저들에게 그다지 큰 보안 위험에 노출시키"
+"지 않습니다. 두번째 사소한 문제는 의도된 행동(intended behavior)이었습니"
+"다."
 
 # 5a6b2911b4a2445584a900602d2d900b
 #: ../../audits.rst:7
 msgid ""
-"Please see the report `here <https://github.com/PancakeBunny-"
-"finance/Bunny/blob/main/audits/%5BHAECHI%20AUDIT%5D%20PancakeBunny%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf>`_"
+"Please see the report `here <https://github.com/PancakeBunny-finance/"
+"Bunny/blob/main/audits/%5BHAECHI%20AUDIT%5D%20PancakeBunny%20Smart"
+"%20Contract%20Audit%20Report%20ver%202.0.pdf>`_"
 msgstr ""
-
+"여기서 리포트를 관람할 수 있습니다`here <https://github.com/PancakeBunny-"
+"finance/Bunny/blob/main/audits/%5BHAECHI%20AUDIT%5D%20PancakeBunny"
+"%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf>`_"

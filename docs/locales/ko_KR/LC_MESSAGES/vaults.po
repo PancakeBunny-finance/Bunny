@@ -4,19 +4,20 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PancakeBunny Docs \n"
+"Project-Id-Version: PancakeBunny Docs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-30 09:38+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-02-13 12:10+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ko_KR\n"
+"X-Generator: Poedit 2.4.2\n"
 
 # 657371ef10224d009463478dbeb66645
 #: ../../vaults.rst:3
@@ -26,22 +27,26 @@ msgstr ""
 # 0a41b5bd113b4371942d7e1388cae836
 #: ../../vaults.rst:6
 msgid "BUNNY Staking Farm"
-msgstr ""
+msgstr "BUNNY 스테이킹 농장"
 
 # 58ae49eb5d0b48d392204250be5d608d
 #: ../../vaults.rst:8
 msgid ""
 "In this farm, users can stake using their BUNNY tokens, while getting "
 "back WBNB. The APR for this farm is dependent on the performance of all "
-"the other farms, since the 30% performance fee on other farms are what is"
-" collected and given out as the reward/roi for the BUNNY staking pool. "
+"the other farms, since the 30% performance fee on other farms are what "
+"is collected and given out as the reward/roi for the BUNNY staking pool. "
 "BUNNY Pool has no withdrawal fee and no performance fee."
 msgstr ""
+"이 농장에서 유저들은 소유한 BUNNY 토큰들을 스테이킹하고, WBNB를 되돌려받"
+"을 수 있습니다. 다른 농장들의 성과 수수료 30%를 모아 BUNNY 스테이킹 풀의 "
+"리워드/ROI로 분배되기 때문에, 이 농장의 APR은 다른 농장의 성과에 따라 달"
+"라집니다. BUNNY 풀은 어떠한 출금 수수료나 성과 수수료가 없습니다."
 
 # 586dca3efdc14afb8028812069ed5906
 #: ../../vaults.rst:11
 msgid "BUNNY/BNB Farm"
-msgstr ""
+msgstr "BUNNY/BNB 농장"
 
 # 18ed7886f9f54ef7a1d7dcd02c3532f2
 #: ../../vaults.rst:13
@@ -51,27 +56,35 @@ msgid ""
 "tokens. There should be a withdrawal fee of 0.5% if withdrawn within 72 "
 "hours, but there will be no fee during the migration to v2."
 msgstr ""
+"이 농장에서 유저들은 BUNNY/BNB를 입금하고 더욱 많은 BUNNY 토큰들을 얻을 "
+"수 있습니다. 72시간 이내에 출금했을 경우 0.5%의 출금 수수료가 발생하지"
+"만, v2로의 이동(migration) 중에는 수수료가 발생하지 않습니다."
 
 # 8af44663835443beb3df5a6c2923012e
 #: ../../vaults.rst:16
 msgid "CAKE Auto Compounding Farm"
-msgstr ""
+msgstr "CAKE 자동 복리 농장 (Auto Compounding Farm)"
 
 # 81b0dbc2ca9442ac879a5b29f50c9234
 #: ../../vaults.rst:18
 #, python-format
 msgid ""
 "The CAKE farm is where you can reap the benefits of automating "
-"compounding and the high APY. There should be a withdrawal fee of 0.5% if"
-" withdrawn within 72 hours, but there will be no fee during the migration"
-" to v2. The 30% performance fee is collected but for every 1BNB in fees "
-"collected, we give 10 BUNNY, so you’re getting free money."
+"compounding and the high APY. There should be a withdrawal fee of "
+"0.5% if withdrawn within 72 hours, but there will be no fee during the "
+"migration to v2. The 30% performance fee is collected but for every 1BNB "
+"in fees collected, we give 10 BUNNY, so you’re getting free money."
 msgstr ""
+"CAKE 농장은 자동 복리와 높은 APY라는 혜택을 누릴 수 있는 곳입니다. 72시"
+"간 이내에 출금했을 경우 0.5%의 출금 수수료가 생기지만, v2로의 이동"
+"(migration) 중에는 수수료가 발생하지 않습니다. 30% 성과 수수료가 모아지지"
+"만, 모아진 매 1BNB의 수수료에 대한 10 BUNNY를 나누어드리기 때문에 결국 리"
+"워드를 얻는 것입니다."
 
 # 5dcfa3e6d75c44d895dde93937e06efb
 #: ../../vaults.rst:21
 msgid "Rest of PancakeSwap Farms"
-msgstr ""
+msgstr "이외의 팬케이크스왑 농장들"
 
 # 3c7c25de418d416a991d0191003531a1
 #: ../../vaults.rst:23
@@ -80,19 +93,29 @@ msgid ""
 "Currently we have CAKE-BNB, BUSD-BNB, USDT-BNB, DAI-BNB, USDC-BNB, VAI-"
 "BUSD, USDT-BUSD pools, which exist on Pancakeswap. Our smart contracts "
 "automatically compound your investments, giving you a higher APY. For "
-"these pools, as profit you will be getting the respective LP Token of the"
-" pool, as well as BUNNY tokens. 30% of profits will be collected and "
+"these pools, as profit you will be getting the respective LP Token of "
+"the pool, as well as BUNNY tokens. 30% of profits will be collected and "
 "given as BUNNY tokens. For every 1BNB collected, we give 10 BUNNY. There "
 "should be a withdrawal fee of 0.5% if withdrawn within 72 hours, but "
 "there will be no fee during the migration to v2. Currently you can only "
 "claim your profits, if you claim & exit the pool. We may change this in "
 "the future."
 msgstr ""
+"현재 팬케이크버니는 팬케이크스왑에 존재하는 CAKE-BNB, BUSD-BNB, USDT-"
+"BNB, DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD 풀들을 가지고 있습니다. 저희 "
+"스마트 컨트랙트들은 투자금의 복리 이자를 자동적으로 창출시켜, 높은 APY를 "
+"제공할 수 있도록 합니다. 이러한 풀들에서는 BUNNY 토큰과 함께, 그 풀의 해"
+"당 LP토큰들을 수익으로 받습니다. 30%의 수익이 모아지고 BUNNY 토큰으로 주"
+"어질 것입니다. 모아지는 매 1 BNB마다, 저희는 10 BUNNY를 드립니다. 72시간 "
+"이내에 출금했을 경우 0.5%의 출금 수수료가 생기지만, v2로의 이동"
+"(migration) 중에는 수수료가 발생하지 않습니다. 현재로서는, 풀을 퇴장하거"
+"나 주장(claim pool)해야만 수익을 챙길(claim profit) 수 있습니다. 이는 이"
+"후에 바뀔 수도 있습니다."
 
 # 09f5861bbb974a5d9d07c49d6bb25f37
 #: ../../vaults.rst:26
 msgid "Maximizer PancakeSwap Farms"
-msgstr ""
+msgstr "고금리 적금(Maximizer) 팬케이크 스왑 농장"
 
 # 741df91c85f8452fb52ec40aac27e3b8
 #: ../../vaults.rst:28
@@ -100,35 +123,58 @@ msgstr ""
 msgid ""
 "The Maximizer farms takes the profits that come out of the original "
 "compounded Pancakeswap farm, and puts it into the CAKE auto-compounding "
-"farm, in order to give you a higher apy, while protecting your principal."
-" There should be a withdrawal fee of 0.5% if withdrawn within 72 hours, "
-"but there will be no fee during the migration to v2. With the Maximizer "
-"Farms, users can claim their profits, without exiting the farm."
+"farm, in order to give you a higher apy, while protecting your "
+"principal. There should be a withdrawal fee of 0.5% if withdrawn within "
+"72 hours, but there will be no fee during the migration to v2. With the "
+"Maximizer Farms, users can claim their profits, without exiting the farm."
 msgstr ""
+"맥시마이저 농장들은 팬케이크스왑 농장을 통해 나온 원래 수입들을 CAKE 자"
+"동 복리 농장에 넣어, 원금을 보호하면서도 높은 APY를 제공합니다. 72시간 이"
+"내에 출금했을 경우 0.5%의 출금 수수료가 생기지만, v2로의 이동(migration) "
+"중에는 수수료가 발생하지 않습니다. 맥시마이저 농장들과 함께, 유저들은 농"
+"장을 퇴장하지 않고도 수익을 주장할 수 있습니다."
 
 # 68ef599a907b404c872398cbfec92f4f
 #: ../../vaults.rst:30
 msgid ""
 "According to our test calculations, assuming that CAKE price stays "
-"constant, USDT-BNB Farm APY is 30%, and CAKE APR is 300%, then the APY of"
-" someone who deposits into the “Yield Maximizing USDT-BNB Farm” would be "
-"189.9%. This is much higher than the 30% achieved by simply compounding "
-"USDT-BNB, yet the risk is very minimal. The only risks would be if CAKE "
-"price drops significantly, or if the CAKE APR drops as well. That being "
-"said even if the CAKE price drops significantly the principal amount "
-"invested in USDT and BNB would still be the same. Similar to our regular "
-"farms, in order to fully benefit from the compounding effect, a user must"
-" have the patience to sit back and watch their money grow exponentially "
-"over time. One small complication is that because of the way the new "
-"yield maximized farms are coded through back end development, the yields "
-"earned daily (24 hour period) get distributed the next day on a rolling "
-"cycle. This means that users who deposit from day 0 to day 1 would be at "
-"a slight disadvantage as they would not be able to receive their fair "
-"share of yields for the first 24 hours. To mitigate this effect we plan "
-"on giving these early users some BUNNY to compensate for the lost yields."
-" The graph below illustrates the difference in returns between the "
-"original Stable-BNB farm and the new Yield Maximizing Stable-BNB farm."
+"constant, USDT-BNB Farm APY is 30%, and CAKE APR is 300%, then the APY "
+"of someone who deposits into the “Yield Maximizing USDT-BNB Farm” would "
+"be 189.9%. This is much higher than the 30% achieved by simply "
+"compounding USDT-BNB, yet the risk is very minimal. The only risks would "
+"be if CAKE price drops significantly, or if the CAKE APR drops as well. "
+"That being said even if the CAKE price drops significantly the principal "
+"amount invested in USDT and BNB would still be the same. Similar to our "
+"regular farms, in order to fully benefit from the compounding effect, a "
+"user must have the patience to sit back and watch their money grow "
+"exponentially over time. One small complication is that because of the "
+"way the new yield maximized farms are coded through back end "
+"development, the yields earned daily (24 hour period) get distributed "
+"the next day on a rolling cycle. This means that users who deposit from "
+"day 0 to day 1 would be at a slight disadvantage as they would not be "
+"able to receive their fair share of yields for the first 24 hours. To "
+"mitigate this effect we plan on giving these early users some BUNNY to "
+"compensate for the lost yields. The graph below illustrates the "
+"difference in returns between the original Stable-BNB farm and the new "
+"Yield Maximizing Stable-BNB farm."
 msgstr ""
+"시뮬레이션에 따르면, CAKE의 가격이 일정하고, USDT-BNB 농장의 APY는 30%, "
+"CAKE APR은 300%라고 가정했을 때, 수익 극대화 USDT-BNB 농장(Yield "
+"Maximizing USDT-BNB Farm)에 입금하는 사람의 APY는 189.9%입니다. 이는 "
+"USDT-BNB를 단리 이자 창출했을 때의 30% APY보다 높지만, 리스크는 아주 적습"
+"니다. 존재하는 리스크 변수는 CAKE의 가격이나 CAKE APR이 급락했을 두가지"
+"의 경우 뿐입니다. 그러나 CAKE의 가격이 급락하더라도, USDT와 BNB의 투자 원"
+"금은 유지됩니다. 복리효과로 충분히 수익을 보기 위해서는, 유저는 기하급수"
+"적으로 늘어나는 수익을 물러서서 지켜볼 수 있는 인내심이 필요합니다. 한가"
+"지 작은 문제는 새로운 수익 극대화 농장(new yield maximized farms)들이 백"
+"엔드 개발(back-end development)을 통해 코딩이 되었기 때문에, 하루 혹은 24"
+"시간 내에 번 수익은 롤링 사이클(rolling cycle) 기반으로 다음날에 분배됩니"
+"다. 예를 들어 첫번째 날부터 두번째날로 입금한 유저들은 첫 24시간 동안의 "
+"온전한 수익보다 약간의 손실을 볼 수 있다는 뜻입니다. 이 요소를 완화시키"
+"기 위해서, 얼리 유저들에게 소량의 BUNNY를 제공해 손실을 메꿀 수 있도록 "
+"할 계획입니다. 아래의 그래프는 시간에 따른 기존의 스테이블-BNB 농장"
+"(Stable-BNB farm)과 새로운 수익 극대화 스테이블-BNB 농장(Yield "
+"Maximizing Stable-BNB farm) 수익의 차이를 보여줍니다."
 
 # 1fcfac6aa7d6470aac12670de5159edb
 #: ../../vaults.rst:38
@@ -136,4 +182,5 @@ msgid ""
 "We have provided the mathematical formula for calculating the total "
 "geometric sum. Feel free to use it to personalize your calculations."
 msgstr ""
-
+"아래는 총 기하급수의 합을 구하는 공식으로, 각자의 투자 금액과 방식에 따"
+"라 복리 이자 수익을 계산하실 때 쓰실 수 있습니다."

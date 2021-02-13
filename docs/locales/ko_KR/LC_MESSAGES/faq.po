@@ -4,29 +4,30 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PancakeBunny Docs \n"
+"Project-Id-Version: PancakeBunny Docs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-30 09:38+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-02-13 12:19+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ko_KR\n"
+"X-Generator: Poedit 2.4.2\n"
 
 # 0a51ef0642b9408cb83a9ccebe19c1b2
 #: ../../faq.rst:3
 msgid "FAQ"
-msgstr ""
+msgstr "자주 묻는 질문(FAQ)"
 
 # 7e18976079b340dc828897ce97d9c02c
 #: ../../faq.rst:6
 msgid "What is Pancake Bunny?"
-msgstr ""
+msgstr "팬케이크버니는 무엇인가요?"
 
 # 3cfad6f8784c48c48fe1f0130d041d10
 #: ../../faq.rst:8
@@ -38,26 +39,36 @@ msgid ""
 "farmers from the highest yield seekers to the risk reward optimizing "
 "smart investors."
 msgstr ""
+"팬케이크버니는 팬케이크스왑에서 사용되는 새로운 디파이 일드 애그리게이터"
+"입니다. 팬케이크버니 프로토콜은 농부들의 수익추구 성향에 따라 BSC에서의 "
+"복리화 수익 창출 전략을 최적화 할 수 있도록 돕습니다. 최대 수익률를 찾는 "
+"투자자들과 리스크 리워드 최적화(risk reward optimizing)를 추구하는 투자자"
+"들까지 다양한 이자 농부들의 니즈에 맞게 여러 전략들을 제공하고 있습니다."
 
 # 373557fd8c77418896a84590420a3411
 #: ../../faq.rst:11
 msgid "What is the Reason for launching Pancake Bunny?"
-msgstr ""
+msgstr "팬케이크버니를 출시한 이유는 무엇인가요?"
 
 # e256c561e6a54aaf977c2e8933ea6a52
 #: ../../faq.rst:13
 msgid ""
 "We wanted to create a platform that automatically compounds yields for "
 "all individuals, no matter how small your stake may be. Our goal is to "
-"expand the DeFi ecosystem, specifically on the Binance Smart Chain, while"
-" providing users with various strategies to maximize returns while "
+"expand the DeFi ecosystem, specifically on the Binance Smart Chain, "
+"while providing users with various strategies to maximize returns while "
 "minimizing risk."
 msgstr ""
+"팬케이크버니는 투자금액이 적은 사람들까지 포함한 모든 사람들이 수익의 복"
+"리 이자를 자동적으로 창출시킬 수 있는 플랫폼을 만들고 싶었습니다. 팬케이"
+"크버니의 목표는 바이낸스 스마트 체인(Binance Smart Chain)에서의 디파이 생"
+"태계를 확장시키고, 유저들의 리스크를 줄이면서도 수익을 극대화할 수 있는 "
+"다양한 전략들을 제시하는 것입니다."
 
 # 9508d46a0b374743a2cf2aab5fc1381c
 #: ../../faq.rst:16
 msgid "How do Bunny Farms Work?"
-msgstr ""
+msgstr "버니 농장들은 어떻게 작동하나요?"
 
 # d7afc6add0c3478ca581ee4749650fb0
 #: ../../faq.rst:18
@@ -67,11 +78,15 @@ msgid ""
 "individuals via smart contracts to automatically compound and reinvest "
 "yields on behalf of individuals."
 msgstr ""
+"현재 대부분의 버니 농장들은 팬케이크 스왑(Pancake Swap)내에 존재하는 농장"
+"들입니다. 팬케이크버니 플랫폼의 농장들은 스마트 컨트랙트를 통해, 유저들에"
+"게 자동적으로 복리 이자를 창출하고 수익을 재투자할 수 있는 허가를 받습니"
+"다."
 
 # 8b7a66232eb24157b846ea5a26b10652
 #: ../../faq.rst:21
 msgid "Can’t I just compound by myself?"
-msgstr ""
+msgstr "그냥 유저가 직접 복리 이자 창출을 하면 안되나요?"
 
 # 7789cb92a67e4e3ab1f802a60b05a1c6
 #: ../../faq.rst:23
@@ -81,11 +96,15 @@ msgid ""
 "and reinvest your yields. Bunny does all of this for you plus saves you "
 "gas fees."
 msgstr ""
+"팬케이크스왑에서 유저가 직접 복리 이자 창출을 하는 것은 매우 힘들고 지루"
+"한 작업일 뿐만 아니라, 대부분의 유저들은 가장 최적화된 이자 지급 주기"
+"(frequency)와 타이밍을 알기 어렵습니다. 버니는 이러한 모든 작업들을 대신 "
+"해주고, 가스 수수료(gas fee) 또한 덜 발생합니다."
 
 # 8b5e9021215840928e6456911f158efc
 #: ../../faq.rst:26
 msgid "What is the BUNNY Token?"
-msgstr ""
+msgstr "BUNNY 토큰은 무엇인가요?"
 
 # e906a583557446418c2c99f7b91ae2ed
 #: ../../faq.rst:28
@@ -95,31 +114,43 @@ msgid ""
 "Holding/Staking BUNNY is not only beneficial for individual profits, but "
 "also ensures the Bunny Ecosystem runs smoothly."
 msgstr ""
+"BUNNY 토큰은 팬케이크버니의 고유한 거버넌스 토큰입니다. BUNNY 소유자들은 "
+"팬케이크버니의 생태계에 의결권을 행사할 수 있고(govern our ecosystem), 농"
+"장 성과 수수료 수익의 대부분을 받습니다. 그렇기 때문에 BUNNY를 소지하거"
+"나 스테이킹하는 것은 개인 수익에 도움이 될 뿐만 아니라, 버니의 생태계가 "
+"잘 운영 되도록 합니다."
 
 # b365dd97b89e467a9d14cdb7f1cda025
 #: ../../faq.rst:31
 msgid "Which Bunny Farm do I pick?"
-msgstr ""
+msgstr "어떤 버니 농장을 골라야 하나요?"
 
 # 7f71e87bb6604137911fc15b2faf2949
 #: ../../faq.rst:33
 msgid ""
-"Every Farm requires a different LP Token. Furthermore the different Farms"
-" represent different risk tolerances for Bunny users. A high APY usually "
-"means more volatility in the underlying token price. For example, BUSD-"
-"BNB has a much lower compounded APY than CAKE-BNB, since BUSD is a stable"
-" coin which is pegged to the dollar and does not experience volatility."
+"Every Farm requires a different LP Token. Furthermore the different "
+"Farms represent different risk tolerances for Bunny users. A high APY "
+"usually means more volatility in the underlying token price. For "
+"example, BUSD-BNB has a much lower compounded APY than CAKE-BNB, since "
+"BUSD is a stable coin which is pegged to the dollar and does not "
+"experience volatility."
 msgstr ""
+"모든 농장마다 다른 종류의 LP 토큰을 요구합니다. 또한 각 농장마다 버니 유"
+"저들에게 다른 리스크 허용 수준을 나타냅니다. 높은 APY는 주로 기반 토큰"
+"(underlying token)의 높은 가격 변동성을 의미합니다. 예를 들어, BUSD-BNB"
+"는 CAKE-BNB보다 아주 낮은 복리화된 APY(compounded APY)를 가지고 있습니"
+"다. 왜냐하면 BUSD는 달러와 페깅되어 가격 변동성이 거의 없는 스테이블 코인"
+"(stable coin)이기 때문입니다."
 
 # c39c84ab3af046ef8038fecf0d2ffa26
 #: ../../faq.rst:36
 msgid "What are the risks of Farming on Bunny?"
-msgstr ""
+msgstr "버니에서 농사하는 것에는 어떠한 리스크가 따르나요?"
 
 # 73b6d448844949a9b3ea7f2445a1192c
 #: ../../faq.rst:38
 msgid "Systematic Risk"
-msgstr ""
+msgstr "시스템적 리스크(Systematic risk)"
 
 # 00545178526c4d74a3b64aa6a0005cd5
 #: ../../faq.rst:40
@@ -128,30 +159,42 @@ msgid ""
 "deposited, be in BNB, CAKE, etc. For example BNB could be $30 when you "
 "deposit and $25 when you withdraw"
 msgstr ""
+"시스템적 리스크는 BNB나 CAKE 등 입금한 자산의 금전적 가치 하락입니다. 예"
+"를 들어, 입금했을 때 $30였던 BNB의 금전적 가치가 출금할 때 $25로 하락할 "
+"수 있습니다."
 
 # 9fba8a1dbf164738aa15ee3cc8c5029c
 #: ../../faq.rst:42
 msgid "Idiosyncratic Risk"
-msgstr ""
+msgstr "특유한 리스크 (Idiosyncratic risk)"
 
 # fabe43a3cf364f4086b992f67ada2319
 #: ../../faq.rst:44
 msgid ""
-"The Idiosyncratic Risk would be risks associated with our actual project."
-" Although our code is not externally audited at the moment, we are "
-"planning to get an official audit in the coming months! As with all "
+"The Idiosyncratic Risk would be risks associated with our actual "
+"project. Although our code is not externally audited at the moment, we "
+"are planning to get an official audit in the coming months! As with all "
 "Projects we have seen in the past, from Harvest, Akropolis, and many "
 "more, there are always risks that projects will fall victim to malicious "
 "hackers. That being said, our Bunny developers account for the security "
 "risks of smart contracts and only will interact with contracts that meet "
 "the security threshold."
 msgstr ""
+"특유한 리스크는 팬케이크버니 프로젝트와 관련된 리스크들을 말합니다. 팬케"
+"이크버니의 코드는 해치랩스의 공식 감사를 받았습니다. 리포트의 링크는 다음"
+"과 같습니다. (https://github.com/PancakeBunny-finance/Bunny/blob/main/"
+"audits/%5BHAECHI%20AUDIT%5D%20PancakeBunny%20Smart%20Contract%20Audit"
+"%20Report%20ver%202.0.pdf)\n"
+"과거에 진행됐던 Harvest나 Akropolis 등 여러 프로젝트와 같이, 디파이 프로"
+"젝트들은 악의를 품은 해커들에 의해 공격 받을 가능성은 항상 있습니다. 그렇"
+"기 때문에 팬케이크버니의 개발자들은 스마트 컨트랙트의 보안 리스크를 고려"
+"해서, 오직 최소한의 보안 수준을 가진 스마트 컨트랙트만을 이용합니다."
 
 # c7ce4cf2365640ea907e720f842ac6a5
 #: ../../faq.rst:47
 #, python-format
 msgid "How to Determine Daily % Gains?"
-msgstr ""
+msgstr "일간 %수익 (daily % gains)은 어떻게 아나요?"
 
 # bed910b8f9aa4bc8b767c206df20d195
 #: ../../faq.rst:49
@@ -163,11 +206,16 @@ msgid ""
 "tokens in our farms for an extended period of time, your assets will "
 "continue to grow exponentially."
 msgstr ""
+"팬케이크 스왑에서의 APY는 계속적으로 변하기 때문에, 버니 플랫폼의 복리화"
+"된 APY도 계속 변합니다. 또한 기하급수적으로 상승하는 복리화 효과 때문에, "
+"일간 수익은 (복리화된 APY)/365과 같이 선형으로 계산할 수 없습니다. 특정 "
+"기간 동안 버니 플랫폼의 농장에 자산을 예치한다면 투자금액은 기하급수적으"
+"로 성장할 것입니다."
 
 # 0bb7581b4d354dd2b337932c9dac2639
 #: ../../faq.rst:52
 msgid "Where does CAKE or LP come from in the rewards?"
-msgstr ""
+msgstr "리워드로 받는 CAKE나 LP는 어디서 나오나요?"
 
 # ea3c48b002be4504928e294e537f7cf8
 #: ../../faq.rst:54
@@ -175,11 +223,13 @@ msgid ""
 "CAKE or the LP tokens are all used from Pancakeswap, we automatically "
 "compound yields via Pancakeswap."
 msgstr ""
+"CAKE나 LP 토큰은 모두 팬케이크스왑에서 이용되고, 팬케이크버니는 자동적으"
+"로 팬케이크스왑을 통해 복리 이자를 창출합니다."
 
 # f8a71a73593242e79613943156b2f7a9
 #: ../../faq.rst:57
 msgid "Where does BUNNY come from?"
-msgstr ""
+msgstr "BUNNY는 어디서 나오나요?"
 
 # fb2f280f68a6455fa6a33a5d8488507f
 #: ../../faq.rst:59
@@ -187,22 +237,24 @@ msgid ""
 "BUNNY is minted via smart contracts. For every 1bnb earned in peformance "
 "fees, 10 BUNNY is newly minted and distributed."
 msgstr ""
+"BUNNY는 스마트 컨트랙트를 통해 발행됩니다. 성과 수수료로 얻은 1 BNB마다, "
+"10 BUNNY가 새롭게 발행되고 분배됩니다."
 
 # b6bfb99deddc4c0792fdc2cc837c52fc
 #: ../../faq.rst:62
 #, python-format
 msgid "Where does Swap % come from?"
-msgstr ""
+msgstr "스왑  %는 어디서 나오나요?"
 
 # 830e24ca97c54f60a3fadcbcce7c1d4c
 #: ../../faq.rst:64
 msgid "This comes from PancakeSwap"
-msgstr ""
+msgstr "팬케이크스왑으로부터 나옵니다."
 
 # 4c756ffc16c84bc78b878ac60455094c
 #: ../../faq.rst:67
 msgid "Which rewards get compounded?"
-msgstr ""
+msgstr "어떤 리워드들이 복리화되나요?"
 
 # dbcbbdaa84c842479ae28e0684287ab6
 #: ../../faq.rst:69
@@ -212,16 +264,19 @@ msgid ""
 "currently are not compounded. Only the CAKE and flip rewards are auto-"
 "compounded."
 msgstr ""
+"현재 BUNNY 스테이킹 농장과 BUNNY/BNB 농장을 제외한, 모든 농장이 복리화됩"
+"니다. 모든 풀에서 나오는 BUNNY 리워드들은 현재 복리화되지 않습니다. CAKE"
+"와 플립 리워드들(flip rewards)만 자동적으로 복리화됩니다."
 
 # c4425c9ccdc8481280afe780c2770c6f
 #: ../../faq.rst:72
 msgid "What is the Fee Structure?"
-msgstr ""
+msgstr "수수료 구조가 어떻게 되나요?"
 
 # ff97e198bba9466fb55dd6f43afcc992
 #: ../../faq.rst:74
 msgid "Withdrawal Fee"
-msgstr ""
+msgstr "출금 수수료"
 
 # b298fc5f246f4787a2129872d7ac36da
 #: ../../faq.rst:76
@@ -234,25 +289,33 @@ msgid ""
 "compounding takes place and withdraw right after and still reap the same "
 "benefits and continuous long-term holders."
 msgstr ""
+"출금이 입금 72시간 이내에 이루어졌을 경우에만, 0.5%의 출금 수수료가 발생"
+"합니다. 이 수수료는 버니 생태계가 원만히 굴러가고, 혹시나 발생할 악용을 "
+"예방하기 위해 존재합니다. 예를 들어 만약 이러한 출금 수수료가 없다면, 유"
+"저는 복리화가 일어나기 직전에 입금하고 직후에 출금을 해도, 지속적 장기 소"
+"유자들과 같은 수익을 얻을 수 있을 것입니다."
 
 # c1f2549ee0694ad3bfef5356dbaad203
 #: ../../faq.rst:78
 msgid "Performance Fee"
-msgstr ""
+msgstr "성과 수수료"
 
 # 3dcc5478e8374889aad97dcb1654d359
 #: ../../faq.rst:80
 msgid ""
 "We have a 30% performance fee on our farms, but the majority of the "
-"profit from these fees goes back to go rewards for staking BUNNY, thereby"
-" ensuring the sustainability and longevity of our project and benefitting"
-" BUNNY supporters/holders."
+"profit from these fees goes back to go rewards for staking BUNNY, "
+"thereby ensuring the sustainability and longevity of our project and "
+"benefitting BUNNY supporters/holders."
 msgstr ""
+"팬케이크버니의 농장들에는 30%의 성과 수수료가 있지만, 이 수수료 수익의 대"
+"부분은 BUNNY를 스테이킹하는 리워드로 되돌려집니다. 이로써 프로젝트의 수명"
+"과 지속 가능성을 보장하고 BUNNY 지지자와 소유자들을 보호합니다."
 
 # ac644c65a27843159446700c898c01df
 #: ../../faq.rst:84
 msgid "What is Bunny’s Roadmap?"
-msgstr ""
+msgstr "버니의 로드맵은 어떻게 되나요?"
 
 # 0a882b666c774e7a853cab6b95ef108a
 #: ../../faq.rst:86
@@ -261,25 +324,32 @@ msgid ""
 "plans on expanding the variety of pools available, creating single asset "
 "vaults, arbitrage, and much more!"
 msgstr ""
+"노션에 게시한 팬케이크버니의 로드맵입니다: http://bit.ly/bunny_roadmap. "
+"팬케이크버니는 더욱 다양한 풀들로 확장시키기, 단일 자산 금고 만들기, 재정"
+"거래 등을 계획하고 있습니다."
 
 # 94161094c2ea4a78bfc2e31d1c17bceb
 #: ../../faq.rst:90
 msgid "Who is behind Bunny?"
-msgstr ""
+msgstr "버니는 누가 만들었나요?"
 
 # ab0af054f9fa40d2ac4b5937eed82518
 #: ../../faq.rst:92
 msgid ""
 "The Bunny Project was created by a team of developers and blockchain "
 "specialists! Like all other Yield Aggregator Projects, we believe our "
-"code is who we are! Thus, we will ensure to provide full transparency and"
-" let our code speak for itself."
+"code is who we are! Thus, we will ensure to provide full transparency "
+"and let our code speak for itself."
 msgstr ""
+"버니 프로젝트는 개발자들과 블록체인 전문가들이 모여 시작되었습니다. 다른 "
+"일드 애그리게이터 프로젝트처럼, 팬케이크버니의 코드가 곧 팬케이크버니라"
+"고 생각합니다! 그렇기 때문에 완전히 투명하고 자명한 코드를 제공하겠습니"
+"다."
 
 # d59d94314dd04d2389037001fafce2d7
 #: ../../faq.rst:95
 msgid "Is Bunny Safe?"
-msgstr ""
+msgstr "버니는 안전한가요?"
 
 # 00e8da3b9ce44023a0cff5c41c23d3b7
 #: ../../faq.rst:97
@@ -287,14 +357,19 @@ msgid ""
 "Like all DeFi Projects, it is important not to trust but to verify the "
 "legitimacy of each project by confirming the data/code. As such we are "
 "providing full transparency by releasing all the code/data required to "
-"confirm that Bunny runs smoothly. Check out our github: "
-"https://github.com/PancakeBunny-finance"
+"confirm that Bunny runs smoothly. Check out our github: https://github."
+"com/PancakeBunny-finance"
 msgstr ""
+"다른 모든 디파이 프로젝트처럼, 프로젝트 합리성은 단순히 신뢰하기보다 데이"
+"터와 코드를 통해 입증하는 것이 중요합니다. 그렇기 때문에 버니 플랫폼이 원"
+"만히 굴러간다는 것을 입증할 코드와 데이터를 공개해 완전한 투명성을 제공합"
+"니다. 팬케이크버니의 깃허브입니다: https://github.com/PancakeBunny-"
+"finance"
 
 # 9e308d95678c4ab7bee8d0ebaf6796f9
 #: ../../faq.rst:101
 msgid "Is Bunny Audited?"
-msgstr ""
+msgstr "버니는 감사를 받았나요? "
 
 # a6ce26289af94d74876a4dc7932bbc28
 #: ../../faq.rst:103
@@ -302,25 +377,44 @@ msgid ""
 "We have plans to get our code externally audited in the near future! We "
 "will let the community know when it is done!"
 msgstr ""
+"네. 해치 랩스가 첫 스마트 컨트랙트 보안 감사를 완료했습니다. 결과는 매우 "
+"긍정적이었습니다! 감사는 2가지의 사소한 문제들 이외에, 치명적이거나 주요"
+"한 문제들을 포함하지 않았습니다. 첫번째 사소한 문제는 가장 유명한 거버넌"
+"스 토큰들에서 발견되었고, 이는 일반 유저들에게 그다지 큰 보안 위험에 노출"
+"시키지 않습니다. 두번째 사소한 문제는 의도된 행동(intended behavior)이었"
+"습니다. 여기서 리포트를 관람할 수 있습니다."
 
 # 420fc6221a2147e28460c2a62fd9167d
 #: ../../faq.rst:107
 msgid "APR & APY"
-msgstr ""
+msgstr "연간이율(APR)과 연간수익률(APY)"
 
 # ee2ee382b21b4d4c9a0703b1554ba940
 #: ../../faq.rst:109
 msgid ""
-"Let’s assume the APR of the CAKE farm is 365%. This means that on average"
-" if we divide 365% by 365 days, we get a daily return of 1%. Now since "
-"Bunny compounds this 1%, we can estimate the compounded APR using the "
-"following calculation: (1+0.01)^365 - 1 = 3678% Keep in mind that this is"
-" an assumption that only holds true if the APR of CAKE farm stays "
+"Let’s assume the APR of the CAKE farm is 365%. This means that on "
+"average if we divide 365% by 365 days, we get a daily return of 1%. Now "
+"since Bunny compounds this 1%, we can estimate the compounded APR using "
+"the following calculation: (1+0.01)^365 - 1 = 3678% Keep in mind that "
+"this is an assumption that only holds true if the APR of CAKE farm stays "
 "constant through one year. However, this is obviously not the case since "
 "the APY also changes by the second. We can use the same calculation for "
-"the rest of the Farms as well! Just divide the APR by 365, which would be"
-" the average daily yield. (1+daily yield)^365 -1 = Compounded APY."
+"the rest of the Farms as well! Just divide the APR by 365, which would "
+"be the average daily yield. (1+daily yield)^365 -1 = Compounded APY."
 msgstr ""
+"CAKE 농장의 연간이율이 365%라고 가정한다면, 365%를 365일로 나눠 평균 일"
+"간 수익률이 1%라는 뜻입니다. 버니는 이 1% 이율로 복리화하기 때문에, 복리"
+"화된 연간이율은 약 (1+0.01)^365 - 1 = 3678%으로 추정됩니다. 이러한 가정"
+"과 추정은 CAKE 농장의 연간이율이 1년 내에 일정하다고 가정했을 경우에만 해"
+"당됩니다. 하지만 실제로는 연간수익률 또한 매초마다 변하기 때문에, 연간이"
+"율이 일정한 경우는 발생하지 않습니다. 그렇기 때문에 복리화된 연간 수익률"
+"은 연간이율을 365로 나눠 평균 일간 수익률을 계산한 후, (1+ 평균 일간 수익"
+"률)^365 -1 공식을 통해서 계산할 수 있습니다. \n"
+"새로운 맥시마이저 농장은 농장의 일간 수익을 CAKE 복리화 풀에 넣습니다. 스"
+"테이블 코인-BNB 농장은 현재 30% 연간수익률이지만, 맥시마이저 농장들을 이"
+"용한다면 연간수익률은 150%로 늘어납니다. 이 전략은 투자 원금에 손대지 않"
+"으면서 추가적인 농장 수익만 고위험-고수익인 CAKE 풀에 넣기 때문에, 매우 "
+"독특하면서 유리합니다. "
 
 # 92fec102b91f464fb7e9710527e952ca
 #: ../../faq.rst:111
@@ -332,4 +426,3 @@ msgid ""
 "investment does not get touched, and only the extra yields from the farm "
 "get invested in the more volatile, high risk-high reward CAKE pool."
 msgstr ""
-

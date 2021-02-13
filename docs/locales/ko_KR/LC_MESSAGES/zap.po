@@ -4,19 +4,20 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PancakeBunny Docs \n"
+"Project-Id-Version: PancakeBunny Docs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-30 09:38+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-02-13 12:10+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zap\n"
+"X-Generator: Poedit 2.4.2\n"
 
 # d239bdd2f73540699f4553e4a3fe4556
 #: ../../zap.rst:3
@@ -26,11 +27,15 @@ msgstr ""
 # 1b09a6fe48234397a887d0507ca54621
 #: ../../zap.rst:5
 msgid ""
-"The Zap feature we added essentially allows for a user to directly switch"
-" from single asset (BNB) to an LP Token (BNB-CAKE LP), with just a click "
-"of a button without having to go to pancake swap and switch out different"
-" assets. Users can also just switch between different assets, for "
-"example, BNB to BUNNY. There is no additional fee for this zap; we built "
-"this tool for the convenience of users."
+"The Zap feature we added essentially allows for a user to directly "
+"switch from single asset (BNB) to an LP Token (BNB-CAKE LP), with just a "
+"click of a button without having to go to pancake swap and switch out "
+"different assets. Users can also just switch between different assets, "
+"for example, BNB to BUNNY. There is no additional fee for this zap; we "
+"built this tool for the convenience of users."
 msgstr ""
-
+"버니플랫폼에 접목된 잽 기능은 유저들이 팬케이크 스왑을 거치지 않고서도, "
+"한번의 클릭으로 단일 자산 BNB를 BNB-CAKE LP 토큰으로 전환할 수 있도록 합"
+"니다. 또한 유저들은 다른 자산끼리, 예를 들어 BNB에서 BUNNY로와 같이 전환"
+"할 수도 있습니다. 유저들의 편리함을 위해 만든 툴이기 때문에 잽 기능을 이"
+"용하는 데에는 따로 수수료가 발생하지 않습니다 :)"

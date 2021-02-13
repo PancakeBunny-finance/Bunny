@@ -4,37 +4,43 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PancakeBunny Docs \n"
+"Project-Id-Version: PancakeBunny Docs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-30 09:38+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-02-13 12:08+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ko_KR\n"
+"X-Generator: Poedit 2.4.2\n"
 
 # f5acbd7dd96041af89f9101fda9b8711
 #: ../../bunnytoken.rst:3
 msgid "BUNNY token"
-msgstr ""
+msgstr "버니(BUNNY) 토큰"
 
 # 2f23b2cadb7845f0b573a49b1cda8d30
 #: ../../bunnytoken.rst:10
 #, python-format
 msgid ""
 "The BUNNY token doesn’t have a max supply. For every 1 BNB earned in the "
-"performance fees, 10 BUNNY is minted, so supply is not capped at the "
-"moment. We may establish new strategies to limit the cap or burn some "
-"tokens, however currently we are focused on the growth of the BUNNY "
-"token. You can earn BUNNY by using the farms, or you can buy BUNNY "
-"through our zap function. Roughly 13% of all BUNNY mints will go towards "
-"development to ensure rapid innovation."
+"performance fees, 10 BUNNY is minted, so supply is not capped at the moment. "
+"We may establish new strategies to limit the cap or burn some tokens, however "
+"currently we are focused on the growth of the BUNNY token. You can earn BUNNY "
+"by using the farms, or you can buy BUNNY through our zap function. Roughly "
+"13% of all BUNNY mints will go towards development to ensure rapid innovation."
 msgstr ""
+"버니 토큰은 최대 공급이라는 한계가 없습니다. 성과수수료(performance fee)로 얻"
+"은 매 1 BNB마다, 10 BUNNY가 발급되어 공급이 제한되지 않습니다. 한도를 정하거나 "
+"토큰들을 태울 새로운 전략들을 구성할 수 있지만, 현재 우리는 BUNNY 토큰의 성장"
+"에 초점을 두고 있습니다. BUNNY는 농장들(farms)을 이용해서 획득하거나, 잽(zap "
+"function) 기능을 통해서 매수할 수 있습니다. 약 13%의 발급된 BUNNY들은 신속한 생"
+"태계 혁신을 위해 프로젝트 개발에 사용될 것입니다."
 
 # 024e094f013b4ccb8c7314472851d912
 #: ../../bunnytoken.rst:12
@@ -42,124 +48,155 @@ msgstr ""
 msgid ""
 "Honest $cake Farmers: Deposit CAKE-BNB LP and reap the benefits of the "
 "compounding effect. With Simple Interest, the APY is 150% for CAKE-BNB, "
-"however, if this gets compounded it becomes 347% APY. The assumptions are"
-" the following: 1) initial capital is $1m, 2) transaction cost: $1, "
-"3)Compounded Once Daily. The transaction cost assumes it takes 4-5 steps "
-"for Pancake Bunny to compound deposits. Around 25% of Bunny’s profits "
-"will be bonuses. Some percent of the farming profits will be saved as BNB"
-" in the BUNNY Reward Pool."
+"however, if this gets compounded it becomes 347% APY. The assumptions are the "
+"following: 1) initial capital is $1m, 2) transaction cost: $1, 3)Compounded "
+"Once Daily. The transaction cost assumes it takes 4-5 steps for Pancake Bunny "
+"to compound deposits. Around 25% of Bunny’s profits will be bonuses. Some "
+"percent of the farming profits will be saved as BNB in the BUNNY Reward Pool."
 msgstr ""
+"정직한 $케이크 농부들 (Honest $cake Farmers): CAKE-BNB LP를 입금하고, 복리효과"
+"의 혜택을 실현할 수 있습니다. 단리를 통한 CAKE-BNB의 APY는 150%에 그치지만, 복"
+"리를 통한다면 347% APY로 늘어납니다. 이는 다음과 같은 가정들에 따른 결과입니"
+"다: 1) 기초자본액이 100만 달러이다. 2) 거래 수수료가 1달러이다. 3) 하루마다 복"
+"리 이자를 창출한다(Compounded once daily). 거래 수수료는 팬케이크 버니가 입금"
+"된 토큰을 복리 이자 창출하기까지 4-5단계를 거칠 것이라는 가정에 기반을 두고 있"
+"습니다. 농사 이익의 일부 퍼센티지는 BUNNY 리워드 풀(BUNNY reward pool)에 BNB로 "
+"저장될 것입니다."
 
 # 7666068979c04013b99fb1b782a0d633
 #: ../../bunnytoken.rst:14
 msgid ""
-"Degens: Buy BUNNY at the start of launch. Sell when the price becomes "
-"high enough to fulfill your greedy desire. The Probability of BUNNY "
-"dropping below the initial price of $3 is very low. 1) Presale "
-"Participants bought BUNNY at $3 and will not sell below that price at a "
-"loss. 2) As BUNNY Price goes up, Bunny issued volume will decrease."
+"Degens: Buy BUNNY at the start of launch. Sell when the price becomes high "
+"enough to fulfill your greedy desire. The Probability of BUNNY dropping below "
+"the initial price of $3 is very low. 1) Presale Participants bought BUNNY at "
+"$3 and will not sell below that price at a loss. 2) As BUNNY Price goes up, "
+"Bunny issued volume will decrease."
 msgstr ""
+"투기꾼들 (Degens): 런치가 시작할 때 BUNNY를 삽니다. 그후 자신의 탐욕을 만족시킬"
+"만큼치 가격이 올랐을 때 팝니다. 또한 BUNNY가 최초 가격인 3달러 아래로 떨어질 가"
+"능성은 매우 낮습니다. 왜냐하면 1) 사전판매 참가자(presale participant)들은 3달"
+"러에 BUNNY를 샀기 때문에 손해를 감수하며 3달러 아래에 매도하지 않을 것이며, 2) "
+"BUNNY의 가격이 올라갈수록 BUNNY의 발급량이 줄어들 것이기 때문입니다."
 
 # 4ae12d462fbb48b5bc808511a62213ff
 #: ../../bunnytoken.rst:16
 #, python-format
 msgid ""
-"Smart Investors: Stake BUNNY long-term. The APY of BUNNY Pool is amazing "
-"and real! The meaning of BUNNY Pool’s APY 100% is if you buy $10 worth of"
-" BUNNY now and stake it for 1 year, you will receive $10 worth of BNB. If"
-" you sell the remaining BUNNY on the market, you can also capitalize on "
-"profits there. If you are a wise investor, you would meticulously analyze"
-" the APY of the staking pool and earn profits not only from the BNB "
-"rewards, but also from selling the BUNNY as well."
+"Smart Investors: Stake BUNNY long-term. The APY of BUNNY Pool is amazing and "
+"real! The meaning of BUNNY Pool’s APY 100% is if you buy $10 worth of BUNNY "
+"now and stake it for 1 year, you will receive $10 worth of BNB. If you sell "
+"the remaining BUNNY on the market, you can also capitalize on profits there. "
+"If you are a wise investor, you would meticulously analyze the APY of the "
+"staking pool and earn profits not only from the BNB rewards, but also from "
+"selling the BUNNY as well."
 msgstr ""
+"똑똑한 투자자들 (Smart Investors): BUNNY를 장기간 스테이킹합니다. BUNNY 풀의 "
+"APY는 정말 굉장하기 때문입니다. BUNNY 풀의 APY가 100%라는 말의 뜻은 $10만큼의 "
+"BUNNY를 사서 1년동안 스테이킹한다면 $10만큼의 BNB를 받는다는 뜻입니다. 남는 "
+"BUNNY를 시장에 판다면 부수적인 수익 또한 챙길 수 있습니다. 만약 현명한 투자자라"
+"면 스테이킹 풀의 APY를 세심하게 분석 한 후, 얻은 BNB 리워드를 통해서 뿐만 아니"
+"라 BUNNY를 매도함으로써 이익 실현을 할 것입니다."
 
 # 4be734c14e2543afba1a0c4f36a7ff38
 #: ../../bunnytoken.rst:18
 msgid "We are starting off with the following fee structure:"
-msgstr ""
+msgstr "다음과 같은 수수료 구조입니다:"
 
 # a209885c9c794ee395c63b6e96bb3582
 #: ../../bunnytoken.rst:20
 msgid "30% Performance fee"
-msgstr ""
+msgstr "30% 성과 수수료"
 
 # 87dba6518e624d848a2618147ae3a29e
 #: ../../bunnytoken.rst:22
 msgid "0.5% withdrawal fee if withdrawal happens within 72 hours of deposit"
-msgstr ""
+msgstr "출금이 입금 72시간 이내에 이루어졌을 경우에는 0.5% 출금 수수료"
 
 # 1411a8bdca4242ac9f37ac23f4bf6ca0
 #: ../../bunnytoken.rst:24
 msgid ""
-"For further clarification the 30% performance fee is collected and given "
-"to the BUNNY stakers. For every 1 BNB earned through performance fees, 10"
-" BUNNY is minted and given to respective users. So long as the price of  "
-"BUNNY stays above 1BNB/10, users are actually earning money through this "
-"performance fee system. All of these fees will ultimately go towards "
-"staking BUNNY, thereby ensuring the sustainability and longevity of our "
-"project and benefitting BUNNY supporters/holders."
+"For further clarification the 30% performance fee is collected and given to "
+"the BUNNY stakers. For every 1 BNB earned through performance fees, 10 BUNNY "
+"is minted and given to respective users. So long as the price of  BUNNY stays "
+"above 1BNB/10, users are actually earning money through this performance fee "
+"system. All of these fees will ultimately go towards staking BUNNY, thereby "
+"ensuring the sustainability and longevity of our project and benefitting BUNNY "
+"supporters/holders."
 msgstr ""
+"30% 성과 수수료는 BUNNY 스테이커(staker)들에게 지급됩니다. 성과 수수료를 통해 "
+"얻은 매 1 BNB마다, 10 BUNNY가 발급되고 이는 각각 유저들에게 주어집니다. BUNNY"
+"의 가격이 1 BNB/10으로 유지되는 한 유저들은 이러한 성과 수수료 시스템을 통해 수"
+"익을 얻고 있는 것입니다. 이러한 모든 수수료들은 궁극적으로 BUNNY의 스테이킹에 "
+"이용되어 프로젝트의 수명과 지속 가능성을 보장하고 BUNNY 서포터들과 소유자들을 "
+"보호합니다."
 
 # 1477c59547c64475a0ad8cca576a1872
 #: ../../bunnytoken.rst:27
 msgid ""
-"Click on the following spreadsheet link to understand the detailed "
-"tokenomics breakdown. http://bit.ly/bunny_tokenomics"
+"Click on the following spreadsheet link to understand the detailed tokenomics "
+"breakdown. http://bit.ly/bunny_tokenomics"
 msgstr ""
+"다음 스프레드시트 링크는 더욱 자세한 토큰 경제(tokenomic)의 명세를 담고 있습니"
+"다: http://bit.ly/bunny_tokenomics"
 
 # 63336c8fef67498d96f18bdefbe6e49c
 #: ../../bunnytoken.rst:31
 msgid "Presale (Ended)"
-msgstr ""
+msgstr "사전판매 (마감)"
 
 # b0eff8d2466e4677a26585e02f92f6c3
 #: ../../bunnytoken.rst:33
 msgid "Date: 11/4 SGT 12:00 ~ 11/17 SGT 12:00"
-msgstr ""
+msgstr "날짜: 11/4 SGT 12:00 ~ 11/17 SGT 12:00"
 
 # 02ebe2cd98334af3bc3455ded8ebfc47
 #: ../../bunnytoken.rst:35
 msgid "Allocation: 10,000 BNB"
-msgstr ""
+msgstr "할당량: 10,000 BNB"
 
 # e463de502918489b96a5938ad4d6f92c
 #: ../../bunnytoken.rst:37
 msgid "returns: 10,000 BNB worth of LP tokens + locked up 50,000 BUNNY tokens"
 msgstr ""
+"총 수익: 10,000 BNB어치의 LP 토큰들 + 묶여있는 (locked up) 50,000 BUNNY 토큰들"
 
 # 738d7d4dee2047dabfe888c75ce465dc
 #: ../../bunnytoken.rst:39
 msgid "Launch: 11/20"
-msgstr ""
+msgstr "출시: 11/20"
 
 # 7e14a89b9b0a4f7e8d3c8df5eecacaad
 #: ../../bunnytoken.rst:41
 msgid "Reward Payout: 11/21"
-msgstr ""
+msgstr "리워드 배당: 11/21"
 
 # 851f725dccc84ddc83ef8b367709c014
 #: ../../bunnytoken.rst:43
 msgid ""
-"10 BUNNY Tokens are given per 1 BNB. If all 10,000 BNB gets sold and "
-"allocated a total of 100,000 BUNNY will be issued."
+"10 BUNNY Tokens are given per 1 BNB. If all 10,000 BNB gets sold and allocated "
+"a total of 100,000 BUNNY will be issued."
 msgstr ""
+"1 BNB마다 10 BUNNY 토큰이 배당됩니다. 만약 10,000 BNB 모두 팔려 할당된다면, "
+"100,000 BUNNY가 발급됩니다."
 
 # b7c0b826dd064878989b28471fbb9dfc
 #: ../../bunnytoken.rst:44
 msgid ""
-"Participants of the presale are eligible to withdraw BUNNY-BNB LP "
-"following the launch."
+"Participants of the presale are eligible to withdraw BUNNY-BNB LP following "
+"the launch."
 msgstr ""
+"사전판매 참가자들에게는 출시 이후에 BUNNY-BNB LP를 출금할 수 있는 자격이 주어집"
+"니다."
 
 # bf74591c3ee944eeba5dc1e0698c5676
 #: ../../bunnytoken.rst:46
 msgid "**Intended Uses**"
-msgstr ""
+msgstr "목적"
 
 # d978717b795d4ae1849c301234d5cf62
 #: ../../bunnytoken.rst:48
 msgid "Liquidity Pool"
-msgstr ""
+msgstr "유동성 풀 (liquidity pool)"
 
 # 90cbb2a580b54415b120a3bd3e616104
 #: ../../bunnytoken.rst:50
@@ -167,50 +204,59 @@ msgid ""
 "Once the pool is created, 5,000 BNB and 50,000 BUNNY will be put in the "
 "Pancake Swap Liquidity Pool (Est. Value: $300,000)."
 msgstr ""
+"풀이 만들어진 후, 5,000 BNB와 50,000 BUNNY가 팬케이크 스왑 유동성 풀에 들어갈 "
+"것입니다. (추정 가치: $300,000)"
 
 # 1df0bcbf0a9d41f5bac1a91b3b53fc37
 #: ../../bunnytoken.rst:51
 msgid "LP Tokens will be given to presale participants according to their share."
-msgstr ""
+msgstr "LP 토큰들은 사전 판매 참가자들에게 지분에 따라 주어질 것입니다."
 
 # cdf86eb6baaa485ba6e71378483948d3
 #: ../../bunnytoken.rst:53
 msgid "BUNNY Reward Pool"
-msgstr ""
+msgstr "BUNNY 리워드 풀(BUNNY reward pool)"
 
 # 6df01e3f402041208210cf54a4fe4684
 #: ../../bunnytoken.rst:55
 msgid ""
-"The BUNNY Reward pool is a type of reward pool that issues BNB as a "
-"reward for staking BUNNY."
+"The BUNNY Reward pool is a type of reward pool that issues BNB as a reward for "
+"staking BUNNY."
 msgstr ""
+"BUNNY 리워드 풀은 BUNNY를 스테이킹했을 때, 리워드로 BNB를 발급하는 리워드 풀입"
+"니다."
 
 # 7549af5a286f43c7a8aeb44f043ff141
 #: ../../bunnytoken.rst:56
 msgid ""
-"When the pool gets created the presale participants’ 50,000 BUNNY will "
-"get staked."
+"When the pool gets created the presale participants’ 50,000 BUNNY will get "
+"staked."
 msgstr ""
+"풀이 만들어질 때, 사전 판매 참가자들의 50,000 BUNNY가 스테이킹될 것입니다."
 
 # 71c666c2176541afae0674180dbb6536
 #: ../../bunnytoken.rst:57
 msgid ""
-"5,000 BNB will get accumulated as rewards and will get distributed over "
-"365 days."
-msgstr ""
+"5,000 BNB will get accumulated as rewards and will get distributed over 365 "
+"days."
+msgstr "5,000 BNB가 리워드로 축적이 된 후, 365일에 걸쳐 분배될 것입니다."
 
 # 2af9bf5d71ab4ee6a9ac0fb9d906a2a5
 #: ../../bunnytoken.rst:58
 msgid ""
-"There will be a BUNNY lockup for Presale Participants. Following the "
-"launch, the presale BUNNY tokens will be unlocked equally according to "
-"the amount of new BUNNY tokens issued."
+"There will be a BUNNY lockup for Presale Participants. Following the launch, "
+"the presale BUNNY tokens will be unlocked equally according to the amount of "
+"new BUNNY tokens issued."
 msgstr ""
+"사전판매 참가자들에게는 BUNNY 잠금(lock up)이 이루어질 것입니다. 출시 이후에"
+"는, 새롭게 발급된 BUNNY 토큰 양에 따라 사전 판매된 BUNNY 토큰들의 잠금이 풀어"
+"질 것입니다."
 
 # 63c5ef9ef7f44b37b59d68b272c0d5c3
 #: ../../bunnytoken.rst:59
 msgid ""
-"1 Year of continuous staking will allow for a full withdrawal of 5,000 "
-"BNB without any fees."
+"1 Year of continuous staking will allow for a full withdrawal of 5,000 BNB "
+"without any fees."
 msgstr ""
-
+"1년 동안의 지속적이 스테이킹은 어떠한 수수료도 없이 총 5,000 BNB의 출금을 가능"
+"토록 합니다."
