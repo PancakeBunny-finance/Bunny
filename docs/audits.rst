@@ -6,4 +6,4 @@ Haechi labs has completed the first audit. The results were extremely positive! 
 
 Please see the report `here`_.
 
-.. _here: ../_assets/audit_1.pdf
+.. _here: ../audits/%5BHAECHI%20AUDIT%5D%20PancakeBunny%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf
