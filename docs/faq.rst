@@ -41,7 +41,7 @@ The Systematic Risk would be the decrease of monetary value of assets deposited,
 
 Idiosyncratic Risk
 
-The Idiosyncratic Risk would be risks associated with our actual project. Although our code is not externally audited at the moment, we are planning to get an official audit in the coming months! As with all Projects we have seen in the past, from Harvest, Akropolis, and many more, there are always risks that projects will fall victim to malicious hackers. That being said, our Bunny developers account for the security risks of smart contracts and only will interact with contracts that meet the security threshold.
+The Idiosyncratic Risk would be risks associated with our actual project. Although our code has been audited by Haechi Labs, there are always risks that projects will fall victim to malicious hackers. That being said, our Bunny developers account for the security risks of smart contracts and only will interact with contracts that meet the security threshold.
 
 How to Determine Daily % Gains?
 ================================================
@@ -100,7 +100,7 @@ Like all DeFi Projects, it is important not to trust but to verify the legitimac
 Is Bunny Audited?
 ================================================
 
-Yes, Haechi labs has completed the first audit. The results were extremely positive! The audit highlighted no critical or major issues, and two minor issues. One of the minor issues has been found on most well-known governance tokens and will not expose much issue/security risk to normal end-users. The other minor issue is an intended behavior.
+Yes, Haechi Labs has completed the first audit. The results were extremely positive! The audit highlighted no critical or major issues, and two minor issues. One of the minor issues has been found on most well-known governance tokens and will not expose much issue/security risk to normal end-users. The other minor issue is an intended behavior.
 
 Please see the report `here <https://github.com/PancakeBunny-finance/Bunny/blob/main/audits/%5BHAECHI%20AUDIT%5D%20PancakeBunny%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf>`_
 
