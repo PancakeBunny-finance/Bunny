@@ -31,6 +31,7 @@ Contact Us
 ==========================================================
 Twitter: @PancakeBunnyFin https://twitter.com/PancakeBunnyFin |br|
 Telegram: https://t.me/pancakebunny_fin |br|
+Medium: https://pancakebunny.medium.com |br|
 Email: hello@pancakebunny.finance |br|
 GitHub: https://github.com/PancakeBunny-finance/
 
