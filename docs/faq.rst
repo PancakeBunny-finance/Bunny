@@ -92,27 +92,27 @@ High fee is because withdrawing it’s not just one transaction. With one click 
 How does the timer work?
 ================================================
 
-Withdraws within 72h will have a 0.5% fee applied. This timer is reset every time you make a new deposit. Claiming rewards on the pools that allow it, does not reset the timer.
+Withdraws within 72h will have a 0.5% fee applied. This timer is reset every time you make a new deposit. Claiming rewards on the pools that allow it does not reset the timer.
 
 How is the profit calculated?
 ================================================
 
-Upon withdrawal (exit & claim) the performance fee is exactly calculated (30% of profits) and BUNNY is given.
+At the moment of withdrawal (exit & claim) the performance fee is exactly calculated (30% of profits) and BUNNY is rewarded.
 
 Is there slippage using the ZAP function?
 ================================================
 
-Zap used purely PancakeSwap so the slippage/IL associated we don’t have control over that.
+ZAP is based on PancakeSwap’s swap feature so we can’t control the slippage/IL associated with it.
 
 Why is my TVL or Deposit showing 0?
 ================================================
 
-If you see 0 tvl or 0 deposit just try refreshing your browser, reconnecting your wallet.
+If you see 0 tvl or 0 deposit just try refreshing your browser and reconnecting your wallet.
 
 Why am I getting failing transactions?
 ================================================
 
-We all have that issue lately! Increase by 5 GWEI. Happening to me on PanCakeSwap as well. Use 18 to 20 gwei.
+Unfortunately this seems to be a common issue on the chain lately. Try increasing by 5 GWEI. When this happens it probably happens on PanCakeSwap or other projects as well. Use 18 to 20 GWEI.
 
 What is Bunny’s Roadmap?
 ================================================
