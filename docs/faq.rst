@@ -79,6 +79,40 @@ Performance Fee
 
 We have a 30% performance fee on our farms, but the majority of the profit from these fees goes back to go rewards for staking BUNNY, thereby ensuring the sustainability and longevity of our project and benefitting BUNNY supporters/holders.
 
+Can I make a partial withdrawal?
+================================================
+
+No, you can only exit and withdraw your whole investment.
+
+Why are the transaction fees so high?
+================================================
+
+High fee is because withdrawing it’s not just one transaction. With one click the smart contract is actually doing multiple transactions and thus requires more gas.
+
+How does the timer work?
+================================================
+
+Withdraws within 72h will have a 0.5% fee applied. This timer is reset every time you make a new deposit. Claiming rewards on the pools that allow it, does not reset the timer.
+
+How is the profit calculated?
+================================================
+
+Upon withdrawal (exit & claim) the performance fee is exactly calculated (30% of profits) and BUNNY is given.
+
+Is there slippage using the ZAP function?
+================================================
+
+Zap used purely PancakeSwap so the slippage/IL associated we don’t have control over that.
+
+Why is my TVL or Deposit showing 0?
+================================================
+
+If you see 0 tvl or 0 deposit just try refreshing your browser, reconnecting your wallet.
+
+Why am I getting failing transactions?
+================================================
+
+We all have that issue lately! Increase by 5 GWEI. Happening to me on PanCakeSwap as well. Use 18 to 20 gwei.
 
 What is Bunny’s Roadmap?
 ================================================
