@@ -112,7 +112,7 @@ If you see 0 tvl or 0 deposit just try refreshing your browser and reconnecting 
 Why am I getting failing transactions?
 ================================================
 
-Unfortunately this seems to be a common issue on the chain lately. Try increasing by 5 GWEI. When this happens it probably happens on PanCakeSwap or other projects as well. Use 18 to 20 GWEI.
+Unfortunately this seems to be a common issue on the chain lately. Try increasing by 5 GWEI. When this happens, it is probably happening on PancakeSwap (and other projects as well), and it is generally fine if you use 18-20 GWEI.
 
 What is Bunny’s Roadmap?
 ================================================
