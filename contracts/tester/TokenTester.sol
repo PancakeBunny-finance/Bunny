@@ -32,8 +32,11 @@ pragma solidity ^0.6.12;
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
 
-interface IVaultController {
-    function minter() external view returns (address);
-    function bunnyChef() external view returns (address);
-    function stakingToken() external view returns (address);
+import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
+
+
+contract TokenTester is BEP20('Token Tester', 'TEST') {
+    constructor() public {
+
+    }
 }

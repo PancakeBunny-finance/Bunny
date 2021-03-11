@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
 
-import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
-
 /*
   ___                      _   _
  | _ )_  _ _ _  _ _ _  _  | | | |
@@ -33,6 +31,9 @@ import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
+
+import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
+
 
 // BunnyToken with Governance.
 contract BunnyToken is BEP20('Bunny Token', 'BUNNY') {

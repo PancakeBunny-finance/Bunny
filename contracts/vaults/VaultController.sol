@@ -41,6 +41,7 @@ import "../interfaces/IPancakePair.sol";
 import "../interfaces/IStrategy.sol";
 import "../interfaces/IMasterChef.sol";
 import "../interfaces/IBunnyMinter.sol";
+import "../interfaces/IBunnyChef.sol";
 import "../library/PausableUpgradeable.sol";
 import "../library/Whitelist.sol";
 
@@ -56,7 +57,11 @@ abstract contract VaultController is IVaultController, PausableUpgradeable, Whit
     address public keeper;
     IBEP20 internal _stakingToken;
     IBunnyMinter internal _minter;
+    IBunnyChef internal _bunnyChef;
 
+    /* ========== VARIABLE GAP ========== */
+
+    uint256[49] private __gap;
 
     /* ========== Event ========== */
 
@@ -90,6 +95,10 @@ abstract contract VaultController is IVaultController, PausableUpgradeable, Whit
         return address(_minter) != address(0) && _minter.isMinter(address(this));
     }
 
+    function bunnyChef() external view override returns (address) {
+        return address(_bunnyChef);
+    }
+
     function stakingToken() external view override returns (address) {
         return address(_stakingToken);
     }
@@ -111,14 +120,14 @@ abstract contract VaultController is IVaultController, PausableUpgradeable, Whit
         }
     }
 
+    function setBunnyChef(IBunnyChef newBunnyChef) virtual public onlyOwner {
+        _bunnyChef = newBunnyChef;
+    }
+
     /* ========== SALVAGE PURPOSE ONLY ========== */
 
     function recoverToken(address _token, uint amount) virtual external onlyOwner {
         require(_token != address(_stakingToken), 'VaultController: cannot recover underlying token');
         IBEP20(_token).safeTransfer(owner(), amount);
     }
-
-    /* ========== VARIABLE GAP ========== */
-
-    uint256[50] private __gap;
 }

@@ -36,10 +36,10 @@ pragma solidity ^0.6.12;
 library PoolConstant {
 
     enum PoolTypes {
-        BunnyStake, BunnyFlip, CakeStake, FlipToFlip, FlipToCake
+        BunnyStake, BunnyFlip, CakeStake, FlipToFlip, FlipToCake, Bunny, BunnyBNB, Liquidity
     }
 
-    struct PoolInfo {
+    struct PoolInfoBSC {
         address pool;
         uint balance;
         uint principal;
@@ -56,4 +56,30 @@ library PoolConstant {
         uint feePercentage;
     }
 
+    struct PoolInfoETH {
+        address pool;
+        uint collateralETH;
+        uint collateralBSC;
+        uint bnbDebt;
+        uint leverage;
+        uint tvl;
+        uint updatedAt;
+        uint depositedAt;
+        uint feeDuration;
+        uint feePercentage;
+    }
+
+    struct LiquidityPoolInfo {
+        address pool;
+        uint balance;
+        uint principal;
+        uint holding;
+        uint apyPool;
+        uint apyBunny;
+        uint apyBorrow;
+        uint tvl;
+        uint utilized;
+        uint pBNB;
+        uint pBUNNY;
+    }
 }

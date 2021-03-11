@@ -72,6 +72,10 @@ contract VaultCakeToCake is VaultController, IStrategy {
 
     /* ========== VIEW FUNCTIONS ========== */
 
+    function totalSupply() external view override returns (uint) {
+        return totalShares;
+    }
+
     function balance() override public view returns (uint) {
         (uint amount,) = CAKE_MASTER_CHEF.userInfo(pid, address(this));
         return CAKE.balanceOf(address(this)).add(amount);

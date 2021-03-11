@@ -8,16 +8,18 @@ roadmap: http://bit.ly/bunny_roadmap
 
 #### PancakeBunny.finance Contracts
 - BunnyToken: [0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51](https://bscscan.com/address/0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51)
-- BunnyMinter: [0x0B4A714AAf59E46cb1900E3C031017Fd72667EfE](https://bscscan.com/address/0x0B4A714AAf59E46cb1900E3C031017Fd72667EfE) 
+- BunnyMinterV2: [0x8cB88701790F650F273c8BB2Cc4c5f439cd65219](https://bscscan.com/address/0x8cb88701790f650f273c8bb2cc4c5f439cd65219)  
 - Timelock: [0x85c9162A51E03078bdCd08D4232Bab13ed414cC3](https://bscscan.com/address/0x85c9162A51E03078bdCd08D4232Bab13ed414cC3)
 - ProxyAdmin: [0x9ceE40FE28FC9de2195dC611291ae810C6B265a8](https://bscscan.com/address/0x9ceE40FE28FC9de2195dC611291ae810C6B265a8)
 
-### V2 Pool Contracts
-- BUNNY Pool: [0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D](https://bscscan.com/address/0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D)
-- BUNNY-BNB Pool: [0xc80eA568010Bca1Ad659d1937E17834972d66e0D](https://bscscan.com/address/0xc80eA568010Bca1Ad659d1937E17834972d66e0D)
+### BUNNY Pools Contracts
+- BUNNY Pool (Earn BUNNY): [0xb037581cF0cE10b04C4735443d95e0C93db5d940](https://bscscan.com/address/0xb037581cf0ce10b04c4735443d95e0c93db5d940) 
+- BUNNY Pool (Earn Fee distributions): [0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D](https://bscscan.com/address/0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D)
+- BUNNY-BNB Pool (Earn BUNNY): [0x69FF781Cf86d42af9Bf93c06B8bE0F16a2905cBC](https://bscscan.com/address/0x69ff781cf86d42af9bf93c06b8be0f16a2905cbc)
+- (will be deprecated) BUNNY-BNB Pool: [0xc80eA568010Bca1Ad659d1937E17834972d66e0D](https://bscscan.com/address/0xc80eA568010Bca1Ad659d1937E17834972d66e0D)
 
 #### Cake Maximizer - Deposit FLIP, Earn CAKE
-|     | EARN |     Contract Address |
+| STAKE     | EARN |     Contract Address |
 |------|-----|--------------|
 | CAKE | CAKE | [0xEDfcB78e73f7bA6aD2D829bf5D462a0924da28eD](https://bscscan.com/address/0xEDfcB78e73f7bA6aD2D829bf5D462a0924da28eD)|
 | CAKE-BNB | CAKE | [0x3f139386406b0924eF115BAFF71D0d30CC090Bd5](https://bscscan.com/address/0x3f139386406b0924eF115BAFF71D0d30CC090Bd5)|
@@ -25,26 +27,33 @@ roadmap: http://bit.ly/bunny_roadmap
 | ETH-BNB | CAKE | [0x41dF17D1De8D4E43d5493eb96e01100908FCcc4f](https://bscscan.com/address/0x41dF17D1De8D4E43d5493eb96e01100908FCcc4f)|
 | BUSD-BNB | CAKE | [0x92a0f75a0f07C90a7EcB65eDD549Fa6a45a4975C](https://bscscan.com/address/0x92a0f75a0f07C90a7EcB65eDD549Fa6a45a4975C)|
 | USDT-BNB | CAKE | [0xE07BdaAc4573a00208D148bD5b3e5d2Ae4Ebd0Cc](https://bscscan.com/address/0xE07BdaAc4573a00208D148bD5b3e5d2Ae4Ebd0Cc)|
-| DAI-BNB | CAKE | [0x5d1dcB4460799F5d5A40a1F4ecA558ADE1c56831](https://bscscan.com/address/0x5d1dcB4460799F5d5A40a1F4ecA558ADE1c56831)|
-| USDC-BNB | CAKE | [0x87DFCd4032760936606C7A0ADBC7acec1885293F](https://bscscan.com/address/0x87DFCd4032760936606C7A0ADBC7acec1885293F)|
 | VAI-BUSD | CAKE | [0xa5B8cdd3787832AdEdFe5a04bF4A307051538FF2](https://bscscan.com/address/0xa5B8cdd3787832AdEdFe5a04bF4A307051538FF2)|
 | USDT-BUSD | CAKE | [0x866FD0028eb7fc7eeD02deF330B05aB503e199d4](https://bscscan.com/address/0x866FD0028eb7fc7eeD02deF330B05aB503e199d4)|
 
 #### Auto compounding FLIP - Deposit FLIP, Earn FLIP
-|     | EARN |     Contract Address |
+| STAKE | EARN |     Contract Address |
 |------|-----|--------------|
 | CAKE-BNB | CAKE-BNB | [0x7eaaEaF2aB59C2c85a17BEB15B110F81b192e98a](https://bscscan.com/address/0x7eaaEaF2aB59C2c85a17BEB15B110F81b192e98a)|
-| BTCB-BNB | CAKE | [0x0137d886e832842a3B11c568d5992Ae73f7A792e](https://bscscan.com/address/0x0137d886e832842a3B11c568d5992Ae73f7A792e)|
-| ETH-BNB | CAKE | [0xE02BCFa3D0072AD2F52eD917a7b125e257c26032](https://bscscan.com/address/0xE02BCFa3D0072AD2F52eD917a7b125e257c26032)|
+| BTCB-BNB | BTCB-BNB | [0x0137d886e832842a3B11c568d5992Ae73f7A792e](https://bscscan.com/address/0x0137d886e832842a3B11c568d5992Ae73f7A792e)|
+| ETH-BNB | ETH-BNB | [0xE02BCFa3D0072AD2F52eD917a7b125e257c26032](https://bscscan.com/address/0xE02BCFa3D0072AD2F52eD917a7b125e257c26032)|
 | BUSD-BNB | BUSD-BNB | [0x1b6e3d394f1D809769407DEA84711cF57e507B99](https://bscscan.com/address/0x1b6e3d394f1D809769407DEA84711cF57e507B99)|
 | USDT-BNB | USDT-BNB | [0xC1aAE51746bEA1a1Ec6f17A4f75b422F8a656ee6](https://bscscan.com/address/0xC1aAE51746bEA1a1Ec6f17A4f75b422F8a656ee6)|
-| DAI-BNB | DAI-BNB | [0x93546BA555557049D94E58497EA8eb057a3df939](https://bscscan.com/address/0x93546BA555557049D94E58497EA8eb057a3df939)|
-| USDC-BNB | USDC-BNB | [0x1D5C982bb7233d2740161e7bEddCC14548C71186](https://bscscan.com/address/0x1D5C982bb7233d2740161e7bEddCC14548C71186)|
 | VAI-BUSD | VAI-BUSD | [0xa59EFEf41040e258191a4096DC202583765a43E7](https://bscscan.com/address/0xa59EFEf41040e258191a4096DC202583765a43E7)|
 | USDT-BUSD | USDT-BUSD | [0xC0314BbE19D4D5b048D3A3B974f0cA1B2cEE5eF3](https://bscscan.com/address/0xC0314BbE19D4D5b048D3A3B974f0cA1B2cEE5eF3)|
+<br>
+<br>
 
+#### (Deprecated) Contracts
+| STAKE | EARN | Contract Address |
+|----|----|----|
+| DAI-BNB | CAKE | [0x5d1dcB4460799F5d5A40a1F4ecA558ADE1c56831](https://bscscan.com/address/0x5d1dcB4460799F5d5A40a1F4ecA558ADE1c56831)|
+| USDC-BNB | CAKE | [0x87DFCd4032760936606C7A0ADBC7acec1885293F](https://bscscan.com/address/0x87DFCd4032760936606C7A0ADBC7acec1885293F)|
+| DAI-BNB | DAI-BNB | [0x93546BA555557049D94E58497EA8eb057a3df939](https://bscscan.com/address/0x93546BA555557049D94E58497EA8eb057a3df939)|
+| USDC-BNB | USDC-BNB | [0x1D5C982bb7233d2740161e7bEddCC14548C71186](https://bscscan.com/address/0x1D5C982bb7233d2740161e7bEddCC14548C71186)|
 
-#### (Deprecated) V1 Contracts
+##### (Deprecated) BunnyMinter Contract
+- BunnyMinter: [0x0B4A714AAf59E46cb1900E3C031017Fd72667EfE](https://bscscan.com/address/0x0B4A714AAf59E46cb1900E3C031017Fd72667EfE)
+
 ##### (Deprecated) Auto Compounding FARM Contracts 
 |     |      Contract Address |
 |-----------|--------------|
@@ -70,5 +79,6 @@ roadmap: http://bit.ly/bunny_roadmap
 
 # Contact Us
 - Twitter: [@pancakebunnyfin](https://twitter.com/pancakebunnyfin)
+- Discord: [https://discord.gg/HUYu6UJSZy](https://discord.gg/HUYu6UJSZy)
 - Telegram: [https://t.me/pancakebunny_fin](https://t.me/pancakebunny_fin)
 - Email: [hello@pancakebunny.finance](mailto:hello@pancakebunny.finance)

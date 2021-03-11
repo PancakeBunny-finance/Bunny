@@ -36,11 +36,14 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 contract Whitelist is OwnableUpgradeable {
     mapping (address => bool) private _whitelist;
+    bool private _disable;                      // default - false means whitelist feature is working on. if true no more use of whitelist
 
     event Whitelisted(address indexed _address, bool whitelist);
+    event EnableWhitelist();
+    event DisableWhitelist();
 
     modifier onlyWhitelisted {
-        require(_whitelist[msg.sender], "Whitelist: caller is not on the whitelist");
+        require(_disable || _whitelist[msg.sender], "Whitelist: caller is not on the whitelist");
         _;
     }
 
@@ -58,5 +61,14 @@ contract Whitelist is OwnableUpgradeable {
         emit Whitelisted(_address, _on);
     }
 
-    uint256[50] private __gap;
+    function disableWhitelist(bool disable) external onlyOwner {
+        _disable = disable;
+        if (disable) {
+            emit DisableWhitelist();
+        } else {
+            emit EnableWhitelist();
+        }
+    }
+
+    uint256[49] private __gap;
 }

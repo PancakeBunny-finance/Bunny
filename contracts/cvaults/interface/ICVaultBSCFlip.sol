@@ -32,8 +32,19 @@ pragma solidity ^0.6.12;
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
 
-interface IVaultController {
-    function minter() external view returns (address);
-    function bunnyChef() external view returns (address);
-    function stakingToken() external view returns (address);
+import "./IBankBNB.sol";
+import "./IBankETH.sol";
+
+
+interface ICVaultBSCFlip {
+    function getUtilizationInfo() external view returns(uint liquidity, uint utilized);
+    function bankBNB() external view returns(IBankBNB);
+    function bankETH() external view returns(IBankETH);
+    function withdrawAmount(address lp, address account, uint ratio) external view returns(uint lpBalance, uint cakeBalance);
+
+    function deposit(address lp, address account, uint128 eventId, uint112 nonce, uint128 leverage, uint collateral) external returns (uint bscBNBDebtShare, uint bscFlipBalance);
+    function updateLeverage(address lp, address account, uint128 eventId, uint112 nonce, uint128 leverage, uint collateral) external returns (uint bscBNBDebtShare, uint bscFlipBalance);
+    function withdrawAll(address lp, address account, uint128 eventId, uint112 nonce) external returns (uint ethProfit, uint ethLoss);
+    function emergencyExit(address lp, address account, uint128 eventId, uint112 nonce) external returns (uint ethProfit, uint ethLoss);
+    function liquidate(address lp, address account, uint128 eventId, uint112 nonce) external returns (uint ethProfit, uint ethLoss);
 }

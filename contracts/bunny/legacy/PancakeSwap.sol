@@ -5,9 +5,9 @@ import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/IBEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 
-import "../interfaces/IPancakeRouter02.sol";
-import "../interfaces/IPancakePair.sol";
-import "../interfaces/IPancakeFactory.sol";
+import "../../interfaces/IPancakeRouter02.sol";
+import "../../interfaces/IPancakePair.sol";
+import "../../interfaces/IPancakeFactory.sol";
 
 abstract contract PancakeSwap {
     using SafeMath for uint;

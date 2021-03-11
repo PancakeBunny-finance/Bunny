@@ -32,8 +32,15 @@ pragma solidity ^0.6.12;
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
 
-interface IVaultController {
-    function minter() external view returns (address);
-    function bunnyChef() external view returns (address);
-    function stakingToken() external view returns (address);
+
+interface ICVaultETHLP {
+    function validateRequest(uint8 signature, address lp, address account, uint128 leverage, uint collateral) external view returns (uint8 validation, uint112 nonce);
+    function canLiquidate(address lp, address account) external view returns (bool);
+    function executeLiquidation(address lp, address _account, address _liquidator) external;
+
+    function notifyDeposited(address lp, address account, uint128 eventId, uint112 nonce, uint bscBNBDebt, uint bscFlipBalance) external;
+    function notifyUpdatedLeverage(address lp, address account, uint128 eventId, uint112 nonce, uint bscBNBDebt, uint bscFlipBalance) external;
+    function notifyWithdrawnAll(address lp, address account, uint128 eventId, uint112 nonce, uint ethProfit, uint ethLoss) external;
+    function notifyLiquidated(address lp, address account, uint128 eventId, uint112 nonce, uint ethProfit, uint ethLoss) external;
+    function notifyResolvedEmergency(address lp, address account, uint128 eventId, uint112 nonce) external;
 }

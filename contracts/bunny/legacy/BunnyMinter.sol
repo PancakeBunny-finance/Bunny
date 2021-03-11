@@ -5,10 +5,10 @@ import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/access/Ownable.sol";
-import "../interfaces/IBunnyMinter.sol";
-import "../interfaces/legacy/IStakingRewards.sol";
+import "../../interfaces/IBunnyMinter.sol";
+import "../../interfaces/legacy/IStakingRewards.sol";
 import "./PancakeSwap.sol";
-import "../interfaces/legacy/IStrategyHelper.sol";
+import "../../interfaces/legacy/IStrategyHelper.sol";
 
 contract BunnyMinter is IBunnyMinter, Ownable, PancakeSwap {
     using SafeMath for uint;

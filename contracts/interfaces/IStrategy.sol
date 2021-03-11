@@ -44,6 +44,7 @@ interface IStrategy is IVaultController {
     function getReward() external;                  // BUNNY STAKING POOL ONLY
     function harvest() external;
 
+    function totalSupply() external view returns (uint);
     function balance() external view returns (uint);
     function balanceOf(address account) external view returns (uint);
     function sharesOf(address account) external view returns (uint);
@@ -52,7 +53,8 @@ interface IStrategy is IVaultController {
     function withdrawableBalanceOf(address account) external view returns (uint);   // BUNNY STAKING POOL ONLY
     function priceShare() external view returns(uint);
 
-        /* ========== Strategy Information ========== */
+    /* ========== Strategy Information ========== */
+
     function pid() external view returns (uint);
     function poolType() external view returns (PoolConstant.PoolTypes);
     function depositedAt(address account) external view returns (uint);
@@ -61,5 +63,6 @@ interface IStrategy is IVaultController {
     event Deposited(address indexed user, uint256 amount);
     event Withdrawn(address indexed user, uint256 amount, uint256 withdrawalFee);
     event ProfitPaid(address indexed user, uint256 profit, uint256 performanceFee);
+    event BunnyPaid(address indexed user, uint256 profit, uint256 performanceFee);
     event Harvested(uint256 profit);
 }

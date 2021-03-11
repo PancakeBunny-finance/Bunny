@@ -34,6 +34,7 @@ pragma experimental ABIEncoderV2;
 */
 
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
+import "@openzeppelin/contracts/math/Math.sol";
 
 import "../interfaces/IPancakeRouter02.sol";
 import "../interfaces/IPancakePair.sol";
@@ -83,6 +84,10 @@ contract VaultFlipToFlip is VaultController, IStrategy {
     }
 
     /* ========== VIEW FUNCTIONS ========== */
+
+    function totalSupply() external view override returns (uint) {
+        return totalShares;
+    }
 
     function balance() override public view returns (uint) {
         (uint amount,) = CAKE_MASTER_CHEF.userInfo(pid, address(this));
@@ -180,23 +185,29 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         emit Harvested(liquidity);
     }
 
-    function withdraw(uint256 shares) external override onlyWhitelisted {
-        uint _withdraw = balance().mul(shares).div(totalShares);
-
-        totalShares = totalShares.sub(shares);
-        _shares[msg.sender] = _shares[msg.sender].sub(shares);
-
-        uint _before = _stakingToken.balanceOf(address(this));
-        CAKE_MASTER_CHEF.withdraw(pid, _withdraw);
-        uint _after = _stakingToken.balanceOf(address(this));
-        _withdraw = _after.sub(_before);
-
-        _stakingToken.safeTransfer(msg.sender, _withdraw);
-        emit Withdrawn(msg.sender, _withdraw, 0);
+    function withdraw(uint shares) external override {
+        if (isWhitelist(msg.sender)) {
+            _withdrawWhiteList(shares);
+        } else {
+            _withdraw(shares);
+        }
     }
 
     function getReward() external override {
-        revert("N/A");
+        uint _earned = earned(msg.sender);
+
+        if (canMint() && _earned > 0) {
+            uint depositTimestamp = _depositedAt[msg.sender];
+            uint performanceFee = _minter.performanceFee(_earned);
+
+            uint shares = Math.min(performanceFee.mul(totalShares).div(balance()), _shares[msg.sender]);
+            totalShares = totalShares.sub(shares);
+            _shares[msg.sender] = _shares[msg.sender].sub(shares);
+            _principal[msg.sender] = _principal[msg.sender].add(_earned).sub(performanceFee);
+
+            _minter.mintFor(address(_stakingToken), 0, performanceFee, msg.sender, depositTimestamp);
+            emit ProfitPaid(msg.sender, _earned, performanceFee);
+        }
     }
 
     /* ========== PRIVATE FUNCTIONS ========== */
@@ -211,6 +222,54 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         IBEP20(_token0).safeApprove(address(ROUTER), uint(~0));
         IBEP20(_token1).safeApprove(address(ROUTER), 0);
         IBEP20(_token1).safeApprove(address(ROUTER), uint(~0));
+    }
+
+    function _withdraw(uint shares) private {
+        uint _withdrawBal = balance().mul(shares).div(totalShares);
+        uint _earned = earned(msg.sender);
+
+        totalShares = totalShares.sub(shares);
+        _shares[msg.sender] = _shares[msg.sender].sub(shares);
+
+        uint _before = _stakingToken.balanceOf(address(this));
+        CAKE_MASTER_CHEF.withdraw(pid, _withdrawBal);
+        uint _after = _stakingToken.balanceOf(address(this));
+        _withdrawBal = _after.sub(_before);
+
+        if (_withdrawBal <= _earned) {
+            _earned = _withdrawBal;
+        } else {
+            _principal[msg.sender] = _principal[msg.sender].add(_earned).sub(_withdrawBal);
+        }
+
+        uint withdrawalFee;
+        if (canMint() && _earned > 0) {
+            uint depositTimestamp = _depositedAt[msg.sender];
+            withdrawalFee = _minter.withdrawalFee(_withdrawBal.sub(_earned), depositTimestamp);
+            uint performanceFee = _minter.performanceFee(_earned);
+            _minter.mintFor(address(_stakingToken), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
+            emit ProfitPaid(msg.sender, _earned, performanceFee);
+
+            _withdrawBal = _withdrawBal.sub(withdrawalFee).sub(performanceFee);
+        }
+
+        _stakingToken.safeTransfer(msg.sender, _withdrawBal);
+        emit Withdrawn(msg.sender, _withdrawBal, withdrawalFee);
+    }
+
+    function _withdrawWhiteList(uint shares) private {
+        uint withdrawAmount = balance().mul(shares).div(totalShares);
+
+        totalShares = totalShares.sub(shares);
+        _shares[msg.sender] = _shares[msg.sender].sub(shares);
+
+        uint _before = _stakingToken.balanceOf(address(this));
+        CAKE_MASTER_CHEF.withdraw(pid, withdrawAmount);
+        uint _after = _stakingToken.balanceOf(address(this));
+        withdrawAmount = _after.sub(_before);
+
+        _stakingToken.safeTransfer(msg.sender, withdrawAmount);
+        emit Withdrawn(msg.sender, withdrawAmount, 0);
     }
 
     function _depositTo(uint _amount, address _to) private notPaused {
