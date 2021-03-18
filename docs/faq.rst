@@ -56,7 +56,7 @@ CAKE or the LP tokens are all used from Pancakeswap, we automatically compound y
 Where does BUNNY come from?
 ================================================
 
-BUNNY is minted via smart contracts. For every 1bnb earned in peformance fees, 10 BUNNY is newly minted and distributed.
+BUNNY is minted via smart contracts. For every 1bnb earned in performance fees, 10 BUNNY is newly minted and distributed.
 
 Where does Swap % come from?
 ================================================
