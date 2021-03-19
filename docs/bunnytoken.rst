@@ -21,7 +21,7 @@ The BUNNY token doesn’t have a max supply. For every 1 BNB earned in the perfo
 
     2) 0.5% withdrawal fee if withdrawal happens within 72 hours of deposit
 
-    For further clarification the 30% performance fee is collected and given to the BUNNY stakers. For every 1 BNB earned through performance fees, 10 BUNNY is minted and given to respective users. So long as the price of  BUNNY stays above 1BNB/10, users are actually earning money through this performance fee system. All of these fees will ultimately go towards staking BUNNY, thereby ensuring the sustainability and longevity of our project and benefitting BUNNY supporters/holders.
+    For further clarification the 30% performance fee is collected and given to the BUNNY stakers. For every 1 BNB earned through performance fees, 5 BUNNY is minted and given to respective users. So long as the price of  BUNNY stays above 1BNB/5, users are actually earning money through this performance fee system. All of these fees will ultimately go towards staking BUNNY, thereby ensuring the sustainability and longevity of our project and benefitting BUNNY supporters/holders.
 
 
 - Click on the following spreadsheet link to understand the detailed tokenomics breakdown. http://bit.ly/bunny_tokenomics
