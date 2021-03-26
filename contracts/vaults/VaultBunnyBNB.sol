@@ -248,11 +248,11 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
 
     /* ========== RESTRICTED FUNCTIONS ========== */
 
-    function setMinter(IBunnyMinter _minter) public override onlyOwner {
-        VaultController.setMinter(IBunnyMinter(_minter));
-        if (address(_minter) != address(0)) {
-            IBEP20(CAKE).safeApprove(address(_minter), 0);
-            IBEP20(CAKE).safeApprove(address(_minter), uint(~0));
+    function setMinter(address newMinter) public override onlyOwner {
+        VaultController.setMinter(newMinter);
+        if (newMinter != address(0)) {
+            IBEP20(CAKE).safeApprove(newMinter, 0);
+            IBEP20(CAKE).safeApprove(newMinter, uint(~0));
         }
     }
 

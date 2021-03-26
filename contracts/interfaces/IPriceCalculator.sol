@@ -33,41 +33,7 @@ pragma solidity ^0.6.12;
 */
 
 
-library PoolConstant {
-
-    enum PoolTypes {
-        BunnyStake, BunnyFlip, CakeStake, FlipToFlip, FlipToCake, Bunny, BunnyBNB,
-        Liquidity, Venus
-    }
-
-    struct PoolInfoBSC {
-        address pool;
-        uint balance;
-        uint principal;
-        uint available;
-        uint apyPool;
-        uint apyBunny;
-        uint apyBorrow;
-        uint tvl;
-        uint utilized;
-        uint liquidity;
-        uint pBASE;
-        uint pBUNNY;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
-    }
-
-    struct PoolInfoETH {
-        address pool;
-        uint collateralETH;
-        uint collateralBSC;
-        uint bnbDebt;
-        uint leverage;
-        uint tvl;
-        uint updatedAt;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
-    }
+interface IPriceCalculator {
+    function pricesInUSD(address[] memory assets) external view returns (uint[] memory);
+    function valueOfAsset(address asset, uint amount) external view returns (uint valueInBNB, uint valueInUSD);
 }

@@ -160,8 +160,8 @@ contract VaultBunny is VaultController, IStrategy, ReentrancyGuardUpgradeable {
 
     /* ========== RESTRICTED FUNCTIONS ========== */
 
-    function setMinter(IBunnyMinter _minter) public override onlyOwner {
-        VaultController.setMinter(IBunnyMinter(_minter));
+    function setMinter(address newMinter) public override onlyOwner {
+        VaultController.setMinter(newMinter);
     }
 
     function setBunnyChef(IBunnyChef _chef) public override onlyOwner {

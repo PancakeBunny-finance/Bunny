@@ -7,7 +7,7 @@ import "./CVaultBSCFlipState.sol";
 import "../interface/ICVaultRelayer.sol";
 
 contract CVaultBSCFlipStorage is CVaultBSCFlipState, PausableUpgradeable {
-    mapping (address => Pool) private _pools;
+    mapping(address => Pool) private _pools;
 
     uint public constant LEVERAGE_MAX = 15e17;  // 150%
     uint public constant LEVERAGE_MIN = 1e17;  // 10%
@@ -34,19 +34,19 @@ contract CVaultBSCFlipStorage is CVaultBSCFlipState, PausableUpgradeable {
 
     // ---------- VIEW ----------
 
-    function cpoolOf(address lp) public view returns(address) {
+    function cpoolOf(address lp) public view returns (address) {
         return _pools[lp].cpool;
     }
 
-    function flipOf(address lp) public view returns(address) {
+    function flipOf(address lp) public view returns (address) {
         return _pools[lp].flip;
     }
 
-    function stateOf(address lp, address account) public view returns(State) {
+    function stateOf(address lp, address account) public view returns (State) {
         return _pools[lp].accounts[account].state;
     }
 
-    function accountOf(address lp, address account) public view returns(Account memory) {
+    function accountOf(address lp, address account) public view returns (Account memory) {
         return _pools[lp].accounts[account];
     }
 

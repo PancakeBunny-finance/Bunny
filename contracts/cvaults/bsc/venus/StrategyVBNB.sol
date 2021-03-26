@@ -3,12 +3,14 @@ pragma solidity ^0.6.12;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
-import "../../../library/legacy/Pausable.sol";
-import "../../../interfaces/IPancakeRouter02.sol";
-import "./IVenusDistribution.sol";
-import "./IVBNB.sol";
 
+import "../../../library/legacy/Pausable.sol";
 import "../../../library/SafeToken.sol";
+
+import "../../../interfaces/IPancakeRouter02.sol";
+import "../../../interfaces/IVenusDistribution.sol";
+import "../../../interfaces/IVBNB.sol";
+
 
 contract StrategyVBNB is ReentrancyGuard, Pausable {
     using SafeToken for address;

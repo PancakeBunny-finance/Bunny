@@ -108,7 +108,7 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
         rewardsDuration = 24 hours;
 
         rewardsDistribution = msg.sender;
-        setMinter(IBunnyMinter(0x0B4A714AAf59E46cb1900E3C031017Fd72667EfE));
+        setMinter(0x8cB88701790F650F273c8BB2Cc4c5f439cd65219);
         setRewardsToken(0xEDfcB78e73f7bA6aD2D829bf5D462a0924da28eD);
     }
 
@@ -260,11 +260,11 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
 
     /* ========== RESTRICTED FUNCTIONS ========== */
 
-    function setMinter(IBunnyMinter _minter) override public onlyOwner {
-        VaultController.setMinter(_minter);
-        if (address(_minter) != address(0)) {
-            IBEP20(CAKE).safeApprove(address(_minter), 0);
-            IBEP20(CAKE).safeApprove(address(_minter), uint(~0));
+    function setMinter(address newMinter) override public onlyOwner {
+        VaultController.setMinter(newMinter);
+        if (newMinter != address(0)) {
+            IBEP20(CAKE).safeApprove(newMinter, 0);
+            IBEP20(CAKE).safeApprove(newMinter, uint(~0));
         }
     }
 

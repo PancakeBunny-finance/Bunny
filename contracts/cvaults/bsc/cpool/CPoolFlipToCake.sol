@@ -40,7 +40,7 @@ contract CPoolFlipToCake is ICPool, VaultController, IStrategy, RewardsDistribut
     uint public rewardPerTokenStored;
 
     mapping(address => uint) public userRewardPerTokenPaid;
-    mapping(address => uint) public override rewards;
+    mapping(address => uint) public rewards;
 
     uint private _totalSupply;
     mapping(address => uint) private _balances;
@@ -232,7 +232,7 @@ contract CPoolFlipToCake is ICPool, VaultController, IStrategy, RewardsDistribut
 
     /* ========== RESTRICTED FUNCTIONS ========== */
 
-    function setMinter(IBunnyMinter) override public onlyOwner {
+    function setMinter(address) override public onlyOwner {
         revert("N/A");
     }
 

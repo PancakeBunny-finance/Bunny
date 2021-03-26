@@ -40,7 +40,7 @@ import "../interfaces/IPancakeRouter02.sol";
 import "../interfaces/IPancakePair.sol";
 import "../interfaces/IStrategy.sol";
 import "../interfaces/IMasterChef.sol";
-import "../interfaces/IBunnyMinter.sol";
+import "../interfaces/IBunnyMinterV2.sol";
 import "../interfaces/IBunnyChef.sol";
 import "../library/PausableUpgradeable.sol";
 import "../library/Whitelist.sol";
@@ -56,7 +56,7 @@ abstract contract VaultController is IVaultController, PausableUpgradeable, Whit
 
     address public keeper;
     IBEP20 internal _stakingToken;
-    IBunnyMinter internal _minter;
+    IBunnyMinterV2 internal _minter;
     IBunnyChef internal _bunnyChef;
 
     /* ========== VARIABLE GAP ========== */
@@ -110,17 +110,18 @@ abstract contract VaultController is IVaultController, PausableUpgradeable, Whit
         keeper = _keeper;
     }
 
-    function setMinter(IBunnyMinter newMinter) virtual public onlyOwner {
+    function setMinter(address newMinter) virtual public onlyOwner {
         // can zero
-        _minter = newMinter;
-        if (address(newMinter) != address(0)) {
-            require(address(newMinter) == BUNNY.getOwner(), 'VaultController: not bunny minter');
-            _stakingToken.safeApprove(address(newMinter), 0);
-            _stakingToken.safeApprove(address(newMinter), uint(~0));
+        _minter = IBunnyMinterV2(newMinter);
+        if (newMinter != address(0)) {
+            require(newMinter == BUNNY.getOwner(), 'VaultController: not bunny minter');
+            _stakingToken.safeApprove(newMinter, 0);
+            _stakingToken.safeApprove(newMinter, uint(~0));
         }
     }
 
     function setBunnyChef(IBunnyChef newBunnyChef) virtual public onlyOwner {
+        require(address(_bunnyChef) == address(0), 'VaultController: setBunnyChef only once');
         _bunnyChef = newBunnyChef;
     }
 

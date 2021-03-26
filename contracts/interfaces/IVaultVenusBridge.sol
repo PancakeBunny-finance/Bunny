@@ -33,41 +33,14 @@ pragma solidity ^0.6.12;
 */
 
 
-library PoolConstant {
+interface IVaultVenusBridge {
+    function claimToStakingToken() external;
+    function migrateTo(address payable target) external;
+    function withdrawTo(address account, uint amount) external;
 
-    enum PoolTypes {
-        BunnyStake, BunnyFlip, CakeStake, FlipToFlip, FlipToCake, Bunny, BunnyBNB,
-        Liquidity, Venus
-    }
-
-    struct PoolInfoBSC {
-        address pool;
-        uint balance;
-        uint principal;
-        uint available;
-        uint apyPool;
-        uint apyBunny;
-        uint apyBorrow;
-        uint tvl;
-        uint utilized;
-        uint liquidity;
-        uint pBASE;
-        uint pBUNNY;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
-    }
-
-    struct PoolInfoETH {
-        address pool;
-        uint collateralETH;
-        uint collateralBSC;
-        uint bnbDebt;
-        uint leverage;
-        uint tvl;
-        uint updatedAt;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
-    }
+    function mint(uint amount) external;
+    function redeem(uint amount) external;
+    function redeemUnderlying(uint amount) external;
+    function borrow(uint amount) external;
+    function repayBorrow(uint amount) external;
 }

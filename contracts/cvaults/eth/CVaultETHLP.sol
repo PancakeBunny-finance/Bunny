@@ -140,7 +140,7 @@ contract CVaultETHLP is ICVaultETHLP, CVaultETHLPStorage, Whitelist {
 
     function setPool(address lp, address bscFlip) external onlyOwner {
         _setPool(lp, bscFlip);
-        IERC20(lp).safeApprove(address(zap), uint(- 1));
+        IERC20(lp).safeApprove(address(zap), uint(-1));
     }
 
     function recoverToken(address token, uint amount) external onlyOwner {

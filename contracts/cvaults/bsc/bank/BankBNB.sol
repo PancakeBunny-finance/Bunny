@@ -6,33 +6,43 @@ import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol
 import "@openzeppelin/contracts/math/Math.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 
-import "../../../library/bep20/BEP20Upgradeable.sol";
+import "../../../interfaces/IStrategy.sol";
+import "../../../vaults/VaultController.sol";
+
 import "../../../library/SafeToken.sol";
-import "../../../library/Whitelist.sol";
 import "../../interface/IBankBNB.sol";
 import "./config/BankConfig.sol";
 import "../venus/IStrategyVBNB.sol";
-import "../../../interfaces/IBunnyChef.sol";
 
 
-contract BankBNB is IBankBNB, BEP20Upgradeable, ReentrancyGuardUpgradeable, Whitelist {
+contract BankBNB is IBankBNB, VaultController, ReentrancyGuardUpgradeable {
+    using SafeMath for uint;
     using SafeToken for address;
     using SafeBEP20 for IBEP20;
+
+    /* ========== CONSTANT VARIABLES ========== */
+
+    address private constant WBNB = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
+
+    uint public constant override pid = 9999;
+    PoolConstant.PoolTypes public constant override poolType = PoolConstant.PoolTypes.Liquidity;
 
     /* ========== STATE VARIABLES ========== */
 
     BankConfig public config;
-    IBunnyChef public bunnyChef;
 
     uint public glbDebtShare;
     uint public glbDebtVal;
     uint public reservedBNB;
     uint public lastAccrueTime;
+    uint public totalShares;
 
     address public bankETH;
     address public strategyVBNB;
 
+    mapping(address => uint) private _shares;
     mapping(address => uint) private _principals;
+    mapping(address => uint) private _depositedAt;
     mapping(address => mapping(address => uint)) private _debtShares;
 
     /* ========== EVENTS ========== */
@@ -64,8 +74,8 @@ contract BankBNB is IBankBNB, BEP20Upgradeable, ReentrancyGuardUpgradeable, Whit
 
     /* ========== INITIALIZER ========== */
 
-    function initialize(string memory name, string memory symbol, uint8 decimals) external initializer {
-        __BEP20__init(name, symbol, decimals);
+    function initialize() external initializer {
+        __VaultController_init(IBEP20(WBNB));
         __ReentrancyGuard_init();
         __Whitelist_init();
 
@@ -73,6 +83,52 @@ contract BankBNB is IBankBNB, BEP20Upgradeable, ReentrancyGuardUpgradeable, Whit
     }
 
     /* ========== VIEW FUNCTIONS ========== */
+
+    function totalSupply() public view override returns (uint) {
+        return totalShares;
+    }
+
+    function balance() public view override returns (uint) {
+        return totalLiquidity();
+    }
+
+    function balanceOf(address account) public view override returns (uint) {
+        if (totalShares == 0) return 0;
+        return balance().mul(sharesOf(account)).div(totalShares);
+    }
+
+    function withdrawableBalanceOf(address account) external view override returns (uint) {
+        return Math.min(balanceOf(account), totalLocked());
+    }
+
+    function sharesOf(address account) public view override returns (uint) {
+        return _shares[account];
+    }
+
+    function principalOf(address account) public view override returns (uint) {
+        return _principals[account];
+    }
+
+    function earned(address account) public view override returns (uint) {
+        if (balanceOf(account) >= principalOf(account)) {
+            return balanceOf(account).sub(principalOf(account));
+        } else {
+            return 0;
+        }
+    }
+
+    function depositedAt(address account) external view override returns (uint) {
+        return _depositedAt[account];
+    }
+
+    function rewardsToken() external view override returns (address) {
+        return address(_stakingToken);
+    }
+
+    function priceShare() external view override returns (uint) {
+        if (totalShares == 0) return 1e18;
+        return balance().mul(1e18).div(totalShares);
+    }
 
     /// @dev Return the pending interest that will be accrued in the next call.
     function pendingInterest() public view returns (uint) {
@@ -85,6 +141,22 @@ contract BankBNB is IBankBNB, BEP20Upgradeable, ReentrancyGuardUpgradeable, Whit
         }
     }
 
+    function pendingDebtValOf(address pool, address account) external view override returns (uint) {
+        uint debtShare = debtShareOf(pool, account);
+        if (glbDebtShare == 0) return debtShare;
+        return debtShare.mul(glbDebtVal.add(pendingInterest())).div(glbDebtShare);
+    }
+
+    function pendingDebtValOfBankETH() external view returns (uint) {
+        uint debtShare = debtShareOf(_unifiedDebtShareKey(), bankETH);
+        if (glbDebtShare == 0) return debtShare;
+        return debtShare.mul(glbDebtVal.add(pendingInterest())).div(glbDebtShare);
+    }
+
+    function debtShareOf(address pool, address account) public view override returns (uint) {
+        return _debtShares[pool][account];
+    }
+
     /// @dev Return the total BNB entitled to the token holders. Be careful of unaccrued interests.
     function totalLiquidity() public view returns (uint) {
         return totalLocked().add(glbDebtVal).sub(reservedBNB);
@@ -92,22 +164,6 @@ contract BankBNB is IBankBNB, BEP20Upgradeable, ReentrancyGuardUpgradeable, Whit
 
     function totalLocked() public view returns (uint) {
         return IStrategyVBNB(strategyVBNB).wantLockedTotal();
-    }
-
-    function debtValOf(address pool, address account) external view override returns (uint) {
-        return debtShareToVal(debtShareOf(pool, account));
-    }
-
-    function debtValOfBankETH() external view returns (uint) {
-        return debtShareToVal(debtShareOf(_unifiedDebtShareKey(), bankETH));
-    }
-
-    function debtShareOf(address pool, address account) public view override returns (uint) {
-        return _debtShares[pool][account];
-    }
-
-    function principalOf(address account) public view returns (uint) {
-        return _principals[account];
     }
 
     /// @dev Return the BNB debt value given the debt share. Be careful of unaccrued interests.
@@ -133,44 +189,97 @@ contract BankBNB is IBankBNB, BEP20Upgradeable, ReentrancyGuardUpgradeable, Whit
 
     /* ========== MUTATIVE FUNCTIONS ========== */
 
-    function deposit() external payable accrue nonReentrant {
+    function deposit(uint) external payable override accrue nonReentrant {
         uint liquidity = totalLiquidity();
-        uint share = liquidity == 0 ? msg.value : msg.value.mul(totalSupply()).div(liquidity);
-        _principals[msg.sender] = _principals[msg.sender].add(msg.value);
-        _mint(msg.sender, share);
+        uint share = liquidity == 0 ? msg.value : msg.value.mul(totalShares).div(liquidity);
 
-        uint balance = address(this).balance;
-        if (balance > 0) {
-            IStrategyVBNB(strategyVBNB).deposit{value : balance}();
+        totalShares = totalShares.add(share);
+        _shares[msg.sender] = _shares[msg.sender].add(share);
+        _principals[msg.sender] = _principals[msg.sender].add(msg.value);
+
+        uint bnbAmount = address(this).balance;
+        if (bnbAmount > 0) {
+            IStrategyVBNB(strategyVBNB).deposit{value : bnbAmount}();
         }
 
-        bunnyChef.notifyDeposited(msg.sender, share);
+        // TODO: @hc
+//        _bunnyChef.notifyDeposited(msg.sender, share);
+        _depositedAt[msg.sender] = block.timestamp;
+        emit Deposited(msg.sender, msg.value);
     }
 
-    function withdraw(uint share) public accrue nonReentrant {
-        if (totalSupply() == 0) return;
-
-        uint bnbAvailable = totalLiquidity() - glbDebtVal;
-        uint bnbAmount = share.mul(totalLiquidity()).div(totalSupply());
-        require(bnbAvailable >= bnbAmount, "BankBNB: Not enough balance to withdraw");
-
-        bunnyChef.notifyWithdrawn(msg.sender, share);
-
-        _burn(msg.sender, share);
-        _principals[msg.sender] = balanceOf(msg.sender).mul(totalLiquidity()).div(totalSupply());
-        IStrategyVBNB(strategyVBNB).withdraw(msg.sender, bnbAmount);
+    function depositAll() external override {
+        revert("N/A");
     }
 
-    function withdrawAll() external {
-        uint share = balanceOf(msg.sender);
-        if (share > 0) {
-            withdraw(share);
+    function withdraw(uint shares) public override accrue nonReentrant {
+        uint withdrawAmount = balance().mul(shares).div(totalShares);
+        uint _earned = earned(msg.sender);
+        require(totalLocked() >= withdrawAmount, "BankBNB: Not enough balance to withdraw");
+
+        // TODO: @hc
+//        _bunnyChef.notifyWithdrawn(msg.sender, shares);
+        totalShares = totalShares.sub(shares);
+        _shares[msg.sender] = _shares[msg.sender].sub(shares);
+
+        uint _before = address(this).balance;
+        IStrategyVBNB(strategyVBNB).withdraw(address(this), withdrawAmount);
+        uint _after = address(this).balance;
+        withdrawAmount = _after.sub(_before);
+
+        if (withdrawAmount <= _earned) {
+            _earned = withdrawAmount;
+        } else {
+            _principals[msg.sender] = _principals[msg.sender].add(_earned).sub(withdrawAmount);
+        }
+
+        uint withdrawalFee;
+        if (canMint() && _earned > 0) {
+            uint depositedTimestamp = _depositedAt[msg.sender];
+            withdrawalFee = _minter.withdrawalFee(withdrawAmount.sub(_earned), depositedTimestamp);
+            uint performanceFee = _minter.performanceFee(_earned);
+
+            _minter.mintFor{ value: withdrawalFee.add(performanceFee) }(address(0), withdrawalFee, performanceFee, msg.sender, depositedTimestamp);
+            emit ProfitPaid(msg.sender, _earned, performanceFee);
+
+            withdrawAmount = withdrawAmount.sub(withdrawalFee).sub(performanceFee);
+        }
+
+        SafeToken.safeTransferETH(msg.sender, withdrawAmount);
+        emit Withdrawn(msg.sender, withdrawAmount, withdrawalFee);
+    }
+
+    function withdrawAll() external override {
+        uint shares = sharesOf(msg.sender);
+        if (shares > 0) {
+            withdraw(shares);
         }
         getReward();
     }
 
-    function getReward() public nonReentrant {
-        bunnyChef.safeBunnyTransfer(msg.sender);
+    // @dev add yield to principal, then get $bunny
+    function getReward() public override nonReentrant {
+        uint _earned = earned(msg.sender);
+        if (canMint() && _earned > 0) {
+            uint depositTimestamp = _depositedAt[msg.sender];
+            uint performanceFee = _minter.performanceFee(_earned);
+
+            uint shares = Math.min(performanceFee.mul(totalShares).div(balance()), sharesOf(msg.sender)); // TODO bugfix
+            totalShares = totalShares.sub(shares);
+            _shares[msg.sender] = _shares[msg.sender].sub(shares);
+            _principals[msg.sender] = _principals[msg.sender].add(_earned).sub(performanceFee);
+
+            _minter.mintFor{ value: performanceFee }(address(0), 0, performanceFee, msg.sender, depositTimestamp);
+            emit ProfitPaid(msg.sender, _earned, performanceFee);
+        }
+
+        // TODO: @hc
+//        uint bunnyAmount = _bunnyChef.safeBunnyTransfer(msg.sender);
+//        emit BunnyPaid(msg.sender, bunnyAmount, 0);
+    }
+
+    function harvest() external override {
+        revert("N/A");
     }
 
     function accruedDebtValOf(address pool, address account) external override accrue returns (uint) {
@@ -198,11 +307,6 @@ contract BankBNB is IBankBNB, BEP20Upgradeable, ReentrancyGuardUpgradeable, Whit
         config = BankConfig(newConfig);
     }
 
-    function setBunnyChef(IBunnyChef _chef) public onlyOwner {
-        require(address(bunnyChef) == address(0), "BankBNB: setBunnyChef only once");
-        bunnyChef = IBunnyChef(_chef);
-    }
-
     /* ========== RESTRICTED FUNCTIONS - WHITELISTED ========== */
 
     function borrow(address pool, address borrower, uint debtVal) external override accrue onlyWhitelisted returns (uint debtSharesOfBorrower) {
@@ -227,9 +331,9 @@ contract BankBNB is IBankBNB, BEP20Upgradeable, ReentrancyGuardUpgradeable, Whit
             emit DebtShareRemoved(pool, borrower, debtShare);
         }
 
-        uint balance = address(this).balance;
-        if (balance > 0) {
-            IStrategyVBNB(strategyVBNB).deposit{value : balance}();
+        uint bnbAmount = address(this).balance;
+        if (bnbAmount > 0) {
+            IStrategyVBNB(strategyVBNB).deposit{value : bnbAmount}();
         }
 
         return _debtShares[pool][borrower];
@@ -265,8 +369,8 @@ contract BankBNB is IBankBNB, BEP20Upgradeable, ReentrancyGuardUpgradeable, Whit
         reservedBNB = reservedBNB.sub(value);
     }
 
-    function recoverToken(address token, address to, uint value) external onlyOwner {
-        token.safeTransfer(to, value);
+    function recoverToken(address _token, uint amount) external override onlyOwner {
+        IBEP20(_token).safeTransfer(owner(), amount);
     }
 
     /* ========== PRIVATE FUNCTIONS ========== */

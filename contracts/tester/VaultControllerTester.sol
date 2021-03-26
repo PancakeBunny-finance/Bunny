@@ -8,6 +8,6 @@ import "../vaults/VaultController.sol";
 contract VaultControllerTester is VaultController {
     function initialize(address _token) external initializer {
         __VaultController_init(IBEP20(_token));
-        setMinter(IBunnyMinter(0x0B4A714AAf59E46cb1900E3C031017Fd72667EfE));
+        setMinter(0x8cB88701790F650F273c8BB2Cc4c5f439cd65219);
     }
 }

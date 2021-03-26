@@ -187,7 +187,7 @@ contract CVaultRelayer is ICVaultRelayer, OwnableUpgradeable {
         uint debtValue = valueOfAsset(BNB, debt);
 
         if (debtValue == 0) {
-            return uint(- 1);
+            return uint(-1);
         }
         return lpValue.add(flipValue).mul(1e18).div(debtValue);
     }
@@ -247,6 +247,12 @@ contract CVaultRelayer is ICVaultRelayer, OwnableUpgradeable {
         ICVaultBSCFlip cvaultBSCFlip = ICVaultBSCFlip(cvaultBSC);
         for (uint index = 0; index < _requests.length; index++) {
             RelayRequest memory request = _requests[index];
+            // todo upgrade
+            // 1. filter in script. test revert
+            // 2. contract upgrade, remove filter in script. test
+
+            if (responses[request.requestId].signature != uint8(0)) continue;
+
             RelayResponse memory response = RelayResponse({
             lp : request.lp, account : request.account,
             signature : request.signature, validation : request.validation, nonce : request.nonce, requestId : request.requestId,

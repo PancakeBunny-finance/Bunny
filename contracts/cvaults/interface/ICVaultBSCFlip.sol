@@ -40,7 +40,6 @@ interface ICVaultBSCFlip {
     function getUtilizationInfo() external view returns(uint liquidity, uint utilized);
     function bankBNB() external view returns(IBankBNB);
     function bankETH() external view returns(IBankETH);
-    function withdrawAmount(address lp, address account, uint ratio) external view returns(uint lpBalance, uint cakeBalance);
 
     function deposit(address lp, address account, uint128 eventId, uint112 nonce, uint128 leverage, uint collateral) external returns (uint bscBNBDebtShare, uint bscFlipBalance);
     function updateLeverage(address lp, address account, uint128 eventId, uint112 nonce, uint128 leverage, uint collateral) external returns (uint bscBNBDebtShare, uint bscFlipBalance);

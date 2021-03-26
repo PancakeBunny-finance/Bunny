@@ -129,7 +129,7 @@ contract BunnyChef is IBunnyChef, OwnableUpgradeable {
             uint bunnyRewards = multiplier.mul(bunnyPerBlock).mul(vaultInfo.allocPoint).div(totalAllocPoint);
             accBunnyPerShare = accBunnyPerShare.add(bunnyRewards.mul(1e12).div(tokenSupply));
         }
-        return userInfo.balance.mul(accBunnyPerShare).div(1e12).sub(userInfo.rewardPaid);
+        return userInfo.pending.add(userInfo.balance.mul(accBunnyPerShare).div(1e12).sub(userInfo.rewardPaid));
     }
 
     /* ========== RESTRICTED FUNCTIONS ========== */

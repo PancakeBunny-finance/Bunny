@@ -43,7 +43,7 @@ import "../interfaces/IMasterChef.sol";
 import "../interfaces/IBunnyMinter.sol";
 import "./VaultController.sol";
 import {PoolConstant} from "../library/PoolConstant.sol";
-
+import "../zap/IZap.sol";
 
 contract VaultFlipToFlip is VaultController, IStrategy {
     using SafeBEP20 for IBEP20;
@@ -56,6 +56,10 @@ contract VaultFlipToFlip is VaultController, IStrategy {
     IBEP20 private constant WBNB = IBEP20(0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c);
     IMasterChef private constant CAKE_MASTER_CHEF = IMasterChef(0x73feaa1eE314F8c655E354234017bE2193C9E24E);
     PoolConstant.PoolTypes public constant override poolType = PoolConstant.PoolTypes.FlipToFlip;
+
+    IZap public constant zapBSC = IZap(0xCBEC8e7AB969F6Eb873Df63d04b4eAFC353574b1);
+
+    uint private constant DUST = 1000;
 
     /* ========== STATE VARIABLES ========== */
 
@@ -89,7 +93,7 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         return totalShares;
     }
 
-    function balance() override public view returns (uint) {
+    function balance() public view override returns (uint) {
         (uint amount,) = CAKE_MASTER_CHEF.userInfo(pid, address(this));
         return _stakingToken.balanceOf(address(this)).add(amount);
     }
@@ -107,12 +111,12 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         return _shares[account];
     }
 
-    function principalOf(address account) override public view returns (uint) {
+    function principalOf(address account) public view override returns (uint) {
         return _principal[account];
     }
 
-    function earned(address account) override public view returns (uint) {
-        if (balanceOf(account) >= principalOf(account)) {
+    function earned(address account) public view override returns (uint) {
+        if (balanceOf(account) >= principalOf(account) + DUST) {
             return balanceOf(account).sub(principalOf(account));
         } else {
             return 0;
@@ -143,71 +147,95 @@ contract VaultFlipToFlip is VaultController, IStrategy {
     }
 
     function withdrawAll() external override {
-        uint _withdraw = balanceOf(msg.sender);
+        uint amount = balanceOf(msg.sender);
+        uint principal = principalOf(msg.sender);
+        uint depositTimestamp = _depositedAt[msg.sender];
 
         totalShares = totalShares.sub(_shares[msg.sender]);
         delete _shares[msg.sender];
-
-        uint _before = _stakingToken.balanceOf(address(this));
-        CAKE_MASTER_CHEF.withdraw(pid, _withdraw);
-        uint _after = _stakingToken.balanceOf(address(this));
-        _withdraw = _after.sub(_before);
-
-        uint principal = _principal[msg.sender];
-        uint depositTimestamp = _depositedAt[msg.sender];
         delete _principal[msg.sender];
         delete _depositedAt[msg.sender];
 
-        uint withdrawalFee;
-        if (canMint() && _withdraw > principal) {
-            uint profit = _withdraw.sub(principal);
-            withdrawalFee = _minter.withdrawalFee(_withdraw, depositTimestamp);
-            uint performanceFee = _minter.performanceFee(profit);
+        amount = _withdrawTokenWithCorrection(amount);
+        uint profit = amount > principal ? amount.sub(principal) : 0;
 
+        uint withdrawalFee = canMint() ? _minter.withdrawalFee(principal, depositTimestamp) : 0;
+        uint performanceFee = canMint() ? _minter.performanceFee(profit) : 0;
+        if (withdrawalFee > 0 || performanceFee > 0) {
             _minter.mintFor(address(_stakingToken), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
-            emit ProfitPaid(msg.sender, profit, performanceFee);
 
-            _withdraw = _withdraw.sub(withdrawalFee).sub(performanceFee);
+            if (performanceFee > 0) {
+                emit ProfitPaid(msg.sender, profit, performanceFee);
+            }
+            amount = amount.sub(withdrawalFee).sub(performanceFee);
         }
 
-        _stakingToken.safeTransfer(msg.sender, _withdraw);
-        emit Withdrawn(msg.sender, _withdraw, withdrawalFee);
+        _stakingToken.safeTransfer(msg.sender, amount);
+        emit Withdrawn(msg.sender, amount, withdrawalFee);
     }
 
     function harvest() external override onlyKeeper {
         CAKE_MASTER_CHEF.withdraw(pid, 0);
         uint cakeAmount = CAKE.balanceOf(address(this));
-        uint cakeForToken0 = cakeAmount.div(2);
-        cakeToToken(_token0, cakeForToken0);
-        cakeToToken(_token1, cakeAmount.sub(cakeForToken0));
-        uint liquidity = generateFlipToken();
-        CAKE_MASTER_CHEF.deposit(pid, liquidity);
-        emit Harvested(liquidity);
-    }
 
-    function withdraw(uint shares) external override {
-        if (isWhitelist(msg.sender)) {
-            _withdrawWhiteList(shares);
-        } else {
-            _withdraw(shares);
+        if (CAKE.allowance(address(this), address(zapBSC)) == 0) {
+            CAKE.approve(address(zapBSC), uint(-1));
         }
+        zapBSC.zapInToken(address(CAKE), cakeAmount, address(_stakingToken));
+
+        uint harvested = _stakingToken.balanceOf(address(this));
+        CAKE_MASTER_CHEF.deposit(pid, harvested);
+        emit Harvested(harvested);
     }
 
+    function withdraw(uint shares) external override onlyWhitelisted {
+        uint amount = balance().mul(shares).div(totalShares);
+        totalShares = totalShares.sub(shares);
+        _shares[msg.sender] = _shares[msg.sender].sub(shares);
+
+        amount = _withdrawTokenWithCorrection(amount);
+        _stakingToken.safeTransfer(msg.sender, amount);
+        emit Withdrawn(msg.sender, amount, 0);
+    }
+
+    // @dev underlying only + withdrawal fee + no perf fee
+    function withdrawUnderlying(uint _amount) external {
+        uint amount = Math.min(_amount, _principal[msg.sender]);
+        uint shares = Math.min(amount.mul(totalShares).div(balance()), _shares[msg.sender]);
+        totalShares = totalShares.sub(shares);
+        _shares[msg.sender] = _shares[msg.sender].sub(shares);
+        _principal[msg.sender] = _principal[msg.sender].sub(amount);
+
+        amount = _withdrawTokenWithCorrection(amount);
+        uint depositTimestamp = _depositedAt[msg.sender];
+        uint withdrawalFee = canMint() ? _minter.withdrawalFee(amount, depositTimestamp) : 0;
+        if (withdrawalFee > 0) {
+            _minter.mintFor(address(_stakingToken), withdrawalFee, 0, msg.sender, depositTimestamp);
+            amount = amount.sub(withdrawalFee);
+        }
+
+        _stakingToken.safeTransfer(msg.sender, amount);
+        emit Withdrawn(msg.sender, amount, withdrawalFee);
+    }
+
+    // @dev profits only (underlying + bunny) + no withdraw fee + perf fee
     function getReward() external override {
-        uint _earned = earned(msg.sender);
+        uint amount = earned(msg.sender);
+        uint shares = Math.min(amount.mul(totalShares).div(balance()), _shares[msg.sender]);
+        totalShares = totalShares.sub(shares);
+        _shares[msg.sender] = _shares[msg.sender].sub(shares);
+        _cleanupIfDustShares();
 
-        if (canMint() && _earned > 0) {
-            uint depositTimestamp = _depositedAt[msg.sender];
-            uint performanceFee = _minter.performanceFee(_earned);
-
-            uint shares = Math.min(performanceFee.mul(totalShares).div(balance()), _shares[msg.sender]);
-            totalShares = totalShares.sub(shares);
-            _shares[msg.sender] = _shares[msg.sender].sub(shares);
-            _principal[msg.sender] = _principal[msg.sender].add(_earned).sub(performanceFee);
-
+        amount = _withdrawTokenWithCorrection(amount);
+        uint depositTimestamp = _depositedAt[msg.sender];
+        uint performanceFee = canMint() ? _minter.performanceFee(amount) : 0;
+        if (performanceFee > 0) {
             _minter.mintFor(address(_stakingToken), 0, performanceFee, msg.sender, depositTimestamp);
-            emit ProfitPaid(msg.sender, _earned, performanceFee);
+            amount = amount.sub(performanceFee);
         }
+
+        _stakingToken.safeTransfer(msg.sender, amount);
+        emit ProfitPaid(msg.sender, amount, performanceFee);
     }
 
     /* ========== PRIVATE FUNCTIONS ========== */
@@ -222,54 +250,6 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         IBEP20(_token0).safeApprove(address(ROUTER), uint(~0));
         IBEP20(_token1).safeApprove(address(ROUTER), 0);
         IBEP20(_token1).safeApprove(address(ROUTER), uint(~0));
-    }
-
-    function _withdraw(uint shares) private {
-        uint _withdrawBal = balance().mul(shares).div(totalShares);
-        uint _earned = earned(msg.sender);
-
-        totalShares = totalShares.sub(shares);
-        _shares[msg.sender] = _shares[msg.sender].sub(shares);
-
-        uint _before = _stakingToken.balanceOf(address(this));
-        CAKE_MASTER_CHEF.withdraw(pid, _withdrawBal);
-        uint _after = _stakingToken.balanceOf(address(this));
-        _withdrawBal = _after.sub(_before);
-
-        if (_withdrawBal <= _earned) {
-            _earned = _withdrawBal;
-        } else {
-            _principal[msg.sender] = _principal[msg.sender].add(_earned).sub(_withdrawBal);
-        }
-
-        uint withdrawalFee;
-        if (canMint() && _earned > 0) {
-            uint depositTimestamp = _depositedAt[msg.sender];
-            withdrawalFee = _minter.withdrawalFee(_withdrawBal.sub(_earned), depositTimestamp);
-            uint performanceFee = _minter.performanceFee(_earned);
-            _minter.mintFor(address(_stakingToken), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
-            emit ProfitPaid(msg.sender, _earned, performanceFee);
-
-            _withdrawBal = _withdrawBal.sub(withdrawalFee).sub(performanceFee);
-        }
-
-        _stakingToken.safeTransfer(msg.sender, _withdrawBal);
-        emit Withdrawn(msg.sender, _withdrawBal, withdrawalFee);
-    }
-
-    function _withdrawWhiteList(uint shares) private {
-        uint withdrawAmount = balance().mul(shares).div(totalShares);
-
-        totalShares = totalShares.sub(shares);
-        _shares[msg.sender] = _shares[msg.sender].sub(shares);
-
-        uint _before = _stakingToken.balanceOf(address(this));
-        CAKE_MASTER_CHEF.withdraw(pid, withdrawAmount);
-        uint _after = _stakingToken.balanceOf(address(this));
-        withdrawAmount = _after.sub(_before);
-
-        _stakingToken.safeTransfer(msg.sender, withdrawAmount);
-        emit Withdrawn(msg.sender, withdrawAmount, 0);
     }
 
     function _depositTo(uint _amount, address _to) private notPaused {
@@ -294,32 +274,18 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         emit Deposited(_to, _amount);
     }
 
-    function cakeToToken(address _token, uint amount) private {
-        if (_token == address(CAKE)) return;
-        address[] memory path;
-        if (_token == address(WBNB)) {
-            path = new address[](2);
-            path[0] = address(CAKE);
-            path[1] = _token;
-        } else {
-            path = new address[](3);
-            path[0] = address(CAKE);
-            path[1] = address(WBNB);
-            path[2] = _token;
-        }
-
-        ROUTER.swapExactTokensForTokens(amount, 0, path, address(this), block.timestamp);
+    function _withdrawTokenWithCorrection(uint amount) private returns (uint) {
+        uint before = _stakingToken.balanceOf(address(this));
+        CAKE_MASTER_CHEF.withdraw(pid, amount);
+        return _stakingToken.balanceOf(address(this)).sub(before);
     }
 
-    function generateFlipToken() private returns(uint liquidity) {
-        uint amountADesired = IBEP20(_token0).balanceOf(address(this));
-        uint amountBDesired = IBEP20(_token1).balanceOf(address(this));
-
-        (,,liquidity) = ROUTER.addLiquidity(_token0, _token1, amountADesired, amountBDesired, 0, 0, address(this), block.timestamp);
-
-        // send dust
-        IBEP20(_token0).safeTransfer(msg.sender, IBEP20(_token0).balanceOf(address(this)));
-        IBEP20(_token1).safeTransfer(msg.sender, IBEP20(_token1).balanceOf(address(this)));
+    function _cleanupIfDustShares() private {
+        uint shares = _shares[msg.sender];
+        if (shares > 0 && shares < DUST) {
+            totalShares = totalShares.sub(shares);
+            delete _shares[msg.sender];
+        }
     }
 
     /* ========== SALVAGE PURPOSE ONLY ========== */

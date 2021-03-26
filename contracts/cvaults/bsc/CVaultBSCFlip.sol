@@ -86,20 +86,40 @@ contract CVaultBSCFlip is ICVaultBSCFlip, CVaultBSCFlipStorage {
 
     /* ========== VIEW FUNCTIONS ========== */
 
-    function zap() public view returns(IZap) {
+    function zap() public view returns (IZap) {
         return _zap;
     }
 
-    function bankBNB() public override view returns(IBankBNB) {
+    function bankBNB() public override view returns (IBankBNB) {
         return _bankBNB;
     }
 
-    function bankETH() public override view returns(IBankETH) {
+    function bankETH() public override view returns (IBankETH) {
         return _bankETH;
     }
 
     function getUtilizationInfo() public override view returns (uint liquidity, uint utilized) {
         return bankBNB().getUtilizationInfo();
+    }
+
+    function collateralRatio(address lp, uint lpAmount, uint flipAmount, uint debt) public view returns (uint) {
+        return relayer.collateralRatioOnETH(lp, lpAmount, flipOf(lp), flipAmount, debt);
+    }
+
+    function calculateAmountsInOut(address lp, address _account, uint collateral, uint128 leverage) public view returns (uint bnbIn, uint bnbOut, uint cakeOut) {
+        bnbIn = 0;
+        bnbOut = 0;
+        cakeOut = 0;
+
+        (uint liquidity, uint utilized) = bankBNB().getUtilizationInfo();
+        uint targetDebtInBNB = _calculateTargetDebt(lp, collateral, leverage);
+        uint currentDebtValue = bankBNB().pendingDebtValOf(lp, _account);
+        if (targetDebtInBNB > currentDebtValue) {
+            bnbIn = Math.min(targetDebtInBNB.sub(currentDebtValue), liquidity.sub(utilized));
+        } else {
+            bnbOut = currentDebtValue.sub(targetDebtInBNB);
+            cakeOut = IStrategy(cpoolOf(lp)).earned(_account);
+        }
     }
 
     /* ========== RELAYER FUNCTIONS ========== */
@@ -121,7 +141,7 @@ contract CVaultBSCFlip is ICVaultBSCFlip, CVaultBSCFlipStorage {
         emit UpdateLeverage(lp, _account, eventId, bscBNBDebtShare, bscFlipBalance);
     }
 
-    function withdrawAll(address lp, address _account, uint128 eventId, uint112 nonce) external override increaseNonceOnlyRelayer(lp, _account, nonce) returns(uint ethProfit, uint ethLoss) {
+    function withdrawAll(address lp, address _account, uint128 eventId, uint112 nonce) external override increaseNonceOnlyRelayer(lp, _account, nonce) returns (uint ethProfit, uint ethLoss) {
         convertState(lp, _account, State.Idle);
 
         _removeLiquidity(lp, _account, IStrategy(cpoolOf(lp)).balanceOf(_account));
@@ -167,7 +187,7 @@ contract CVaultBSCFlip is ICVaultBSCFlip, CVaultBSCFlipStorage {
 
     function _addLiquidity(address lp, address _account, uint value) private {
         address flip = flipOf(lp);
-        _zap.zapIn{ value: value }(flip);
+        _zap.zapIn{value : value}(flip);
         ICPool(cpoolOf(lp)).deposit(_account, IBEP20(flip).balanceOf(address(this)));
     }
 
@@ -195,7 +215,7 @@ contract CVaultBSCFlip is ICVaultBSCFlip, CVaultBSCFlipStorage {
         }
     }
 
-    function _handleProfitAndLoss(address lp, address _account) private returns(uint profit, uint loss) {
+    function _handleProfitAndLoss(address lp, address _account) private returns (uint profit, uint loss) {
         profit = 0;
         loss = 0;
 
@@ -204,7 +224,7 @@ contract CVaultBSCFlip is ICVaultBSCFlip, CVaultBSCFlipStorage {
         if (balance >= debt) {
             _repay(lp, _account, debt);
             if (balance > debt) {
-                profit = bankETH().transferProfit{ value: balance - debt }();
+                profit = bankETH().transferProfit{value : balance - debt}();
             }
         } else {
             _repay(lp, _account, balance);
@@ -212,13 +232,13 @@ contract CVaultBSCFlip is ICVaultBSCFlip, CVaultBSCFlipStorage {
         }
     }
 
-    function _calculateTargetDebt(address pool, uint collateral, uint128 leverage) private view returns(uint targetDebtInBNB) {
-        uint value = relayer.valueOfAsset(pool, collateral);
+    function _calculateTargetDebt(address lp, uint collateral, uint128 leverage) private view returns (uint targetDebtInBNB) {
+        uint value = relayer.valueOfAsset(lp, collateral);
         uint bnbPrice = relayer.priceOf(WBNB);
         targetDebtInBNB = value.mul(leverage).div(bnbPrice);
     }
 
-    function _calculateFlipAmountWithBNB(address flip, uint bnbAmount) private view returns(uint) {
+    function _calculateFlipAmountWithBNB(address flip, uint bnbAmount) private view returns (uint) {
         return relayer.valueOfAsset(WBNB, bnbAmount).mul(1e18).div(relayer.priceOf(flip));
     }
 
@@ -231,7 +251,7 @@ contract CVaultBSCFlip is ICVaultBSCFlip, CVaultBSCFlipStorage {
     }
 
     function _repay(address poolAddress, address _account, uint amount) private returns (uint debt) {
-        return bankBNB().repay{ value: amount }(poolAddress, _account);
+        return bankBNB().repay{value : amount}(poolAddress, _account);
     }
 
     function _zapOut(address token, uint amount) private {
@@ -239,13 +259,5 @@ contract CVaultBSCFlip is ICVaultBSCFlip, CVaultBSCFlipStorage {
             IBEP20(token).safeApprove(address(_zap), uint(-1));
         }
         _zap.zapOut(token, amount);
-    }
-
-    /* ========== DASHBOARD VIEW FUNCTIONS ========== */
-
-    function withdrawAmount(address lp, address account, uint ratio) public override view returns(uint lpBalance, uint cakeBalance) {
-        IStrategy cpool = IStrategy(cpoolOf(lp));
-        lpBalance = cpool.balanceOf(account).mul(ratio).div(1e18);
-        cakeBalance = cpool.earned(account);    // reward: CAKE
     }
 }

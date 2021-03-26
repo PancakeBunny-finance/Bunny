@@ -34,7 +34,6 @@ pragma solidity ^0.6.12;
 
 import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
-import "@pancakeswap/pancake-swap-lib/contracts/access/Ownable.sol";
 
 import "../interfaces/IPancakePair.sol";
 import "../interfaces/IPancakeRouter02.sol";
@@ -238,7 +237,7 @@ contract ZapBSC is OwnableUpgradeable {
             path[0] = _from;
             path[1] = intermediate;
             path[2] = _to;
-        } else if (routePairAddresses[_from] != address(0) && routePairAddresses[_from] != address(0) && routePairAddresses[_from] != routePairAddresses[_to]) {
+        } else if (routePairAddresses[_from] != address(0) && routePairAddresses[_to] != address(0) && routePairAddresses[_from] != routePairAddresses[_to]) {
             // routePairAddresses[xToken] = xRoute
             // [VAI, BUSD, WBNB, xRoute, xToken]
             path = new address[](5);

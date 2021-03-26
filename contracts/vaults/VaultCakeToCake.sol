@@ -34,6 +34,7 @@ pragma experimental ABIEncoderV2;
 */
 
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
+import "@openzeppelin/contracts/math/Math.sol";
 
 import "../interfaces/IStrategy.sol";
 import "../interfaces/IMasterChef.sol";
@@ -44,17 +45,19 @@ import {PoolConstant} from "../library/PoolConstant.sol";
 
 contract VaultCakeToCake is VaultController, IStrategy {
     using SafeBEP20 for IBEP20;
-    using SafeMath for uint256;
+    using SafeMath for uint;
 
     /* ========== CONSTANTS ============= */
 
     IBEP20 private constant CAKE = IBEP20(0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82);
     IMasterChef private constant CAKE_MASTER_CHEF = IMasterChef(0x73feaa1eE314F8c655E354234017bE2193C9E24E);
 
-    /* ========== STATE VARIABLES ========== */
-
     uint public constant override pid = 0;
     PoolConstant.PoolTypes public constant override poolType = PoolConstant.PoolTypes.CakeStake;
+
+    uint private constant DUST = 1000;
+
+    /* ========== STATE VARIABLES ========== */
 
     uint public totalShares;
     mapping (address => uint) private _shares;
@@ -67,7 +70,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
         __VaultController_init(CAKE);
         CAKE.safeApprove(address(CAKE_MASTER_CHEF), uint(~0));
 
-        setMinter(IBunnyMinter(0x0B4A714AAf59E46cb1900E3C031017Fd72667EfE));
+        setMinter(0x8cB88701790F650F273c8BB2Cc4c5f439cd65219);
     }
 
     /* ========== VIEW FUNCTIONS ========== */
@@ -76,7 +79,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
         return totalShares;
     }
 
-    function balance() override public view returns (uint) {
+    function balance() public view override returns (uint) {
         (uint amount,) = CAKE_MASTER_CHEF.userInfo(pid, address(this));
         return CAKE.balanceOf(address(this)).add(amount);
     }
@@ -99,7 +102,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
     }
 
     function earned(address account) public view override returns (uint) {
-        if (balanceOf(account) >= principalOf(account)) {
+        if (balanceOf(account) >= principalOf(account) + DUST) {
             return balanceOf(account).sub(principalOf(account));
         } else {
             return 0;
@@ -135,66 +138,104 @@ contract VaultCakeToCake is VaultController, IStrategy {
     }
 
     function withdrawAll() external override {
-        uint _withdraw = balanceOf(msg.sender);
+        uint amount = balanceOf(msg.sender);
+        uint principal = principalOf(msg.sender);
+        uint depositTimestamp = _depositedAt[msg.sender];
 
         totalShares = totalShares.sub(_shares[msg.sender]);
         delete _shares[msg.sender];
-        uint cakeBalance = CAKE.balanceOf(address(this));
-        if (_withdraw > cakeBalance) {
-            CAKE_MASTER_CHEF.leaveStaking(_withdraw.sub(cakeBalance));
-        }
-
-        uint principal = _principal[msg.sender];
-        uint depositTimestamp = _depositedAt[msg.sender];
         delete _principal[msg.sender];
         delete _depositedAt[msg.sender];
 
-        uint withdrawalFee;
-        if (canMint() && _withdraw > principal) {
-            uint profit = _withdraw.sub(principal);
-            withdrawalFee = _minter.withdrawalFee(_withdraw, depositTimestamp);
-            uint performanceFee = _minter.performanceFee(profit);
+        _withdrawTokenWithCorrection(amount);
 
+        uint profit = amount > principal ? amount.sub(principal) : 0;
+        uint withdrawalFee = canMint() ? _minter.withdrawalFee(principal, depositTimestamp) : 0;
+        uint performanceFee = canMint() ? _minter.performanceFee(profit) : 0;
+
+        if (withdrawalFee > 0 || performanceFee > 0) {
             _minter.mintFor(address(CAKE), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
-            emit ProfitPaid(msg.sender, profit, performanceFee);
-
-            _withdraw = _withdraw.sub(withdrawalFee).sub(performanceFee);
+            if (performanceFee > 0) {
+                emit ProfitPaid(msg.sender, profit, performanceFee);
+            }
+            amount = amount.sub(withdrawalFee).sub(performanceFee);
         }
 
-        CAKE.safeTransfer(msg.sender, _withdraw);
-        emit Withdrawn(msg.sender, _withdraw, withdrawalFee);
+        CAKE.safeTransfer(msg.sender, amount);
+        emit Withdrawn(msg.sender, amount, withdrawalFee);
 
-        harvest();
+        _harvest();
     }
 
-    function harvest() public override {
+    function harvest() external override {
         CAKE_MASTER_CHEF.leaveStaking(0);
-        uint cakeAmount = CAKE.balanceOf(address(this));
-        emit Harvested(cakeAmount);
-
-        CAKE_MASTER_CHEF.enterStaking(cakeAmount);
+        _harvest();
     }
 
-    function withdraw(uint256 shares) external override onlyWhitelisted {
-        uint _withdraw = balance().mul(shares).div(totalShares);
+    function withdraw(uint shares) external override onlyWhitelisted {
+        uint amount = balance().mul(shares).div(totalShares);
         totalShares = totalShares.sub(shares);
         _shares[msg.sender] = _shares[msg.sender].sub(shares);
 
-        uint cakeBalance = CAKE.balanceOf(address(this));
-        if (_withdraw > cakeBalance) {
-            CAKE_MASTER_CHEF.leaveStaking(_withdraw.sub(cakeBalance));
-        }
-        CAKE.safeTransfer(msg.sender, _withdraw);
-        emit Withdrawn(msg.sender, _withdraw, 0);
+        _withdrawTokenWithCorrection(amount);
+        CAKE.safeTransfer(msg.sender, amount);
+        emit Withdrawn(msg.sender, amount, 0);
 
-        harvest();
+        _harvest();
+    }
+
+    // @dev underlying only + withdrawal fee + no perf fee
+    function withdrawUnderlying(uint _amount) external {
+        uint amount = Math.min(_amount, _principal[msg.sender]);
+        uint shares = Math.min(amount.mul(totalShares).div(balance()), _shares[msg.sender]);
+        totalShares = totalShares.sub(shares);
+        _shares[msg.sender] = _shares[msg.sender].sub(shares);
+        _principal[msg.sender] = _principal[msg.sender].sub(amount);
+
+        _withdrawTokenWithCorrection(amount);
+        uint depositTimestamp = _depositedAt[msg.sender];
+        uint withdrawalFee = canMint() ? _minter.withdrawalFee(amount, depositTimestamp) : 0;
+        if (withdrawalFee > 0) {
+            _minter.mintFor(address(CAKE), withdrawalFee, 0, msg.sender, depositTimestamp);
+            amount = amount.sub(withdrawalFee);
+        }
+
+        CAKE.safeTransfer(msg.sender, amount);
+        emit Withdrawn(msg.sender, amount, withdrawalFee);
+
+        _harvest();
     }
 
     function getReward() external override {
-        revert("N/A");
+        uint amount = earned(msg.sender);
+        uint shares = Math.min(amount.mul(totalShares).div(balance()), _shares[msg.sender]);
+        totalShares = totalShares.sub(shares);
+        _shares[msg.sender] = _shares[msg.sender].sub(shares);
+        _cleanupIfDustShares();
+
+        _withdrawTokenWithCorrection(amount);
+        uint depositTimestamp = _depositedAt[msg.sender];
+        uint performanceFee = canMint() ? _minter.performanceFee(amount) : 0;
+        if (performanceFee > 0) {
+            _minter.mintFor(address(CAKE), 0, performanceFee, msg.sender, depositTimestamp);
+            amount = amount.sub(performanceFee);
+        }
+
+        CAKE.safeTransfer(msg.sender, amount);
+        emit ProfitPaid(msg.sender, amount, performanceFee);
+
+        _harvest();
     }
 
     /* ========== PRIVATE FUNCTIONS ========== */
+
+    function _harvest() private {
+        uint cakeAmount = CAKE.balanceOf(address(this));
+        if (cakeAmount > 0) {
+            emit Harvested(cakeAmount);
+            CAKE_MASTER_CHEF.enterStaking(cakeAmount);
+        }
+    }
 
     function _deposit(uint _amount, address _to) private notPaused {
         uint _pool = balance();
@@ -212,6 +253,21 @@ contract VaultCakeToCake is VaultController, IStrategy {
         CAKE_MASTER_CHEF.enterStaking(_amount);
         emit Deposited(msg.sender, _amount);
 
-        harvest();
+        _harvest();
+    }
+
+    function _withdrawTokenWithCorrection(uint amount) private {
+        uint cakeBalance = CAKE.balanceOf(address(this));
+        if (cakeBalance < amount) {
+            CAKE_MASTER_CHEF.leaveStaking(amount.sub(cakeBalance));
+        }
+    }
+
+    function _cleanupIfDustShares() private {
+        uint shares = _shares[msg.sender];
+        if (shares > 0 && shares < DUST) {
+            totalShares = totalShares.sub(shares);
+            delete _shares[msg.sender];
+        }
     }
 }

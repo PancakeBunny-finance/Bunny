@@ -6,9 +6,10 @@ import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/IBEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
-import "../interfaces/IPancakeRouter02.sol";
-import "../interfaces/IPancakePair.sol";
-import "../interfaces/IPancakeFactory.sol";
+import "../../interfaces/IPancakeRouter02.sol";
+import "../../interfaces/IPancakePair.sol";
+import "../../interfaces/IPancakeFactory.sol";
+
 
 abstract contract PancakeSwapV2 is OwnableUpgradeable {
     using SafeMath for uint;
