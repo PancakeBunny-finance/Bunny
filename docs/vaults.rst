@@ -20,7 +20,7 @@ The CAKE farm is where you can reap the benefits of automating compounding and t
 Rest of PancakeSwap Farms
 ================================================
 
-Currently we have CAKE-BNB, ETH-BNB, BTCB-BNB, BUSD-BNB, USDT-BNB, DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD pools, which exist on Pancakeswap. Our smart contracts automatically compound your investments, giving you a higher APY. For these pools, as profit you will be getting the respective LP Token of the pool, as well as BUNNY tokens. 30% of profits will be collected and given as BUNNY tokens. For every 1BNB collected, we give 10 BUNNY. There should be a withdrawal fee of 0.5% if withdrawn within 72 hours. Currently you can only claim your profits, if you claim & exit the pool. We may change this in the future.
+Currently we have CAKE-BNB, ETH-BNB, BTCB-BNB, BUSD-BNB, USDT-BNB, DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD pools, which exist on Pancakeswap. Our smart contracts automatically compound your investments, giving you a higher APY. For these pools, as profit you will be getting the respective LP Token of the pool, as well as BUNNY tokens. 30% of profits will be collected and given as BUNNY tokens. For every 1BNB collected, we give 5 BUNNY. There should be a withdrawal fee of 0.5% if withdrawn within 72 hours. Currently you can only claim your profits, if you claim & exit the pool. We may change this in the future.
 
 Maximizer PancakeSwap Farms
 ================================================
