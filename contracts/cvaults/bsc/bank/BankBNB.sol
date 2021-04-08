@@ -25,7 +25,7 @@ contract BankBNB is IBankBNB, VaultController, ReentrancyGuardUpgradeable {
     address private constant WBNB = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
 
     uint public constant override pid = 9999;
-    PoolConstant.PoolTypes public constant override poolType = PoolConstant.PoolTypes.Liquidity;
+    PoolConstant.PoolTypes public constant override poolType = PoolConstant.PoolTypes.Venus; // TODO fix pool types
 
     /* ========== STATE VARIABLES ========== */
 
@@ -77,7 +77,7 @@ contract BankBNB is IBankBNB, VaultController, ReentrancyGuardUpgradeable {
     function initialize() external initializer {
         __VaultController_init(IBEP20(WBNB));
         __ReentrancyGuard_init();
-        __Whitelist_init();
+        __WhitelistUpgradeable_init();
 
         lastAccrueTime = block.timestamp;
     }

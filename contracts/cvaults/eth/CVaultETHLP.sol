@@ -41,13 +41,14 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "../../interfaces/IUniswapV2Pair.sol";
 import "../interface/ICVaultETHLP.sol";
 import "../interface/ICVaultRelayer.sol";
+import "../../library/WhitelistUpgradeable.sol";
+
 import "../../zap/IZap.sol";
-import "../../library/Whitelist.sol";
 import "./CVaultETHLPState.sol";
 import "./CVaultETHLPStorage.sol";
 
 
-contract CVaultETHLP is ICVaultETHLP, CVaultETHLPStorage, Whitelist {
+contract CVaultETHLP is ICVaultETHLP, CVaultETHLPStorage, WhitelistUpgradeable {
     using SafeMath for uint;
     using SafeERC20 for IERC20;
 
@@ -125,7 +126,7 @@ contract CVaultETHLP is ICVaultETHLP, CVaultETHLPStorage, Whitelist {
 
     function initialize() external initializer {
         __CVaultETHLPStorage_init();
-        __Whitelist_init();
+        __WhitelistUpgradeable_init();
 
         relayerCost = 0.015 ether;
         minimumDepositValue = 100e18;

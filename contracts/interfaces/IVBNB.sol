@@ -3,10 +3,12 @@ pragma solidity ^0.6.12;
 
 
 interface IVBNB {
+    function totalSupply() external view returns (uint);
+
     function mint() external payable;
-    function redeem(uint256 redeemTokens) external returns (uint256);
-    function redeemUnderlying(uint256 redeemAmount) external returns (uint256);
-    function borrow(uint256 borrowAmount) external returns (uint256);
+    function redeem(uint redeemTokens) external returns (uint);
+    function redeemUnderlying(uint redeemAmount) external returns (uint);
+    function borrow(uint borrowAmount) external returns (uint);
     function repayBorrow() external payable;
 
     function balanceOfUnderlying(address owner) external returns (uint);

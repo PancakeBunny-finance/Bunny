@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
+pragma experimental ABIEncoderV2;
 
 /*
   ___                      _   _
@@ -33,37 +34,46 @@ pragma solidity ^0.6.12;
 */
 
 import "@pancakeswap/pancake-swap-lib/contracts/access/Ownable.sol";
+import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/IBEP20.sol";
+import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
+contract MigrationRewards is Ownable, ReentrancyGuard {
+    using SafeBEP20 for IBEP20;
 
-contract Whitelist is Ownable {
-    mapping(address => bool) private _whitelist;
-    bool private _disable;                      // default - false means whitelist feature is working on. if true no more use of whitelist
-
-    event Whitelisted(address indexed _address, bool whitelist);
-    event EnableWhitelist();
-    event DisableWhitelist();
-
-    modifier onlyWhitelisted {
-        require(_disable || _whitelist[msg.sender], "Whitelist: caller is not on the whitelist");
-        _;
+    struct Request {
+        address account;
+        uint rewards;
     }
 
-    function isWhitelist(address _address) public view returns (bool) {
-        return _whitelist[_address];
-    }
+    event MigrationRewardsPaid(address indexed account, uint amount);
+    event EmergencyExit(address indexed token, uint amount);
 
-    function setWhitelist(address _address, bool _on) external onlyOwner {
-        _whitelist[_address] = _on;
+    IBEP20 private constant BUNNY = IBEP20(0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51);
+    mapping(address => uint) public rewards;
 
-        emit Whitelisted(_address, _on);
-    }
+    function getReward() public nonReentrant {
+        uint reward = rewards[msg.sender];
+        if (reward > 0) {
+            rewards[msg.sender] = 0;
 
-    function disableWhitelist(bool disable) external onlyOwner {
-        _disable = disable;
-        if (disable) {
-            emit DisableWhitelist();
-        } else {
-            emit EnableWhitelist();
+            BUNNY.safeTransfer(msg.sender, reward);
+            emit MigrationRewardsPaid(msg.sender, reward);
         }
+    }
+
+    function updateRewards(Request[] memory requests) external onlyOwner {
+        for (uint i = 0; i < requests.length; i++) {
+            Request memory request = requests[i];
+            rewards[request.account] = request.rewards;
+        }
+    }
+
+    function emergencyExit(address token) external onlyOwner {
+        IBEP20 asset = IBEP20(token);
+
+        uint remain = asset.balanceOf(address(this));
+        asset.safeTransfer(owner(), remain);
+        emit EmergencyExit(token, remain);
     }
 }

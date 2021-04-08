@@ -153,7 +153,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
         uint withdrawalFee = canMint() ? _minter.withdrawalFee(principal, depositTimestamp) : 0;
         uint performanceFee = canMint() ? _minter.performanceFee(profit) : 0;
 
-        if (withdrawalFee > 0 || performanceFee > 0) {
+        if (withdrawalFee.add(performanceFee) > DUST) {
             _minter.mintFor(address(CAKE), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
             if (performanceFee > 0) {
                 emit ProfitPaid(msg.sender, profit, performanceFee);
@@ -195,7 +195,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
         _withdrawTokenWithCorrection(amount);
         uint depositTimestamp = _depositedAt[msg.sender];
         uint withdrawalFee = canMint() ? _minter.withdrawalFee(amount, depositTimestamp) : 0;
-        if (withdrawalFee > 0) {
+        if (withdrawalFee > DUST) {
             _minter.mintFor(address(CAKE), withdrawalFee, 0, msg.sender, depositTimestamp);
             amount = amount.sub(withdrawalFee);
         }
@@ -216,7 +216,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
         _withdrawTokenWithCorrection(amount);
         uint depositTimestamp = _depositedAt[msg.sender];
         uint performanceFee = canMint() ? _minter.performanceFee(amount) : 0;
-        if (performanceFee > 0) {
+        if (performanceFee > DUST) {
             _minter.mintFor(address(CAKE), 0, performanceFee, msg.sender, depositTimestamp);
             amount = amount.sub(performanceFee);
         }

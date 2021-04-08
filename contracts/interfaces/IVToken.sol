@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/IBEP20.sol";
 
 
-interface IVToken is IERC20 {
+interface IVToken is IBEP20 {
     function underlying() external returns (address);
 
     function mint(uint mintAmount) external returns (uint);

@@ -32,43 +32,43 @@ pragma solidity ^0.6.12;
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
 
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
-library PoolConstant {
+contract WhitelistUpgradeable is OwnableUpgradeable {
+    mapping (address => bool) private _whitelist;
+    bool private _disable;                      // default - false means whitelist feature is working on. if true no more use of whitelist
 
-    enum PoolTypes {
-        BunnyStake, // no perf fee
-        BunnyFlip_deprecated, // deprecated
-        CakeStake, FlipToFlip, FlipToCake,
-        Bunny, // no perf fee
-        BunnyBNB,
-        Venus
+    event Whitelisted(address indexed _address, bool whitelist);
+    event EnableWhitelist();
+    event DisableWhitelist();
+
+    modifier onlyWhitelisted {
+        require(_disable || _whitelist[msg.sender], "Whitelist: caller is not on the whitelist");
+        _;
     }
 
-    struct PoolInfoBSC {
-        address pool;
-        uint balance;
-        uint principal;
-        uint available;
-        uint tvl;
-        uint utilized;
-        uint liquidity;
-        uint pBASE;
-        uint pBUNNY;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
+    function __WhitelistUpgradeable_init() internal initializer {
+        __Ownable_init();
     }
 
-    struct PoolInfoETH {
-        address pool;
-        uint collateralETH;
-        uint collateralBSC;
-        uint bnbDebt;
-        uint leverage;
-        uint tvl;
-        uint updatedAt;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
+    function isWhitelist(address _address) public view returns(bool) {
+        return _whitelist[_address];
     }
+
+    function setWhitelist(address _address, bool _on) external onlyOwner {
+        _whitelist[_address] = _on;
+
+        emit Whitelisted(_address, _on);
+    }
+
+    function disableWhitelist(bool disable) external onlyOwner {
+        _disable = disable;
+        if (disable) {
+            emit DisableWhitelist();
+        } else {
+            emit EnableWhitelist();
+        }
+    }
+
+    uint256[49] private __gap;
 }

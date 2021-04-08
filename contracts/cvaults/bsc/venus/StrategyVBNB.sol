@@ -217,7 +217,8 @@ contract StrategyVBNB is ReentrancyGuard, Pausable {
     }
 
     function _harvest() private {
-        IVenusDistribution(VENUS_UNITROLLER).claimVenus(address(this));
+        // TODO fixed
+//        IVenusDistribution(VENUS_UNITROLLER).claimVenus(address(this));
 
         uint256 earnedAmt = IERC20(XVS).balanceOf(address(this));
         address[] memory path = new address[](2);

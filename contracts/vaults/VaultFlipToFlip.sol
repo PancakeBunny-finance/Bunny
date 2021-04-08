@@ -36,14 +36,16 @@ pragma experimental ABIEncoderV2;
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@openzeppelin/contracts/math/Math.sol";
 
+import {PoolConstant} from "../library/PoolConstant.sol";
 import "../interfaces/IPancakeRouter02.sol";
 import "../interfaces/IPancakePair.sol";
 import "../interfaces/IStrategy.sol";
 import "../interfaces/IMasterChef.sol";
 import "../interfaces/IBunnyMinter.sol";
-import "./VaultController.sol";
-import {PoolConstant} from "../library/PoolConstant.sol";
 import "../zap/IZap.sol";
+
+import "./VaultController.sol";
+
 
 contract VaultFlipToFlip is VaultController, IStrategy {
     using SafeBEP20 for IBEP20;
@@ -73,6 +75,17 @@ contract VaultFlipToFlip is VaultController, IStrategy {
     mapping (address => uint) private _principal;
     mapping (address => uint) private _depositedAt;
 
+    uint public cakeHarvested;
+
+    /* ========== MODIFIER ========== */
+
+    modifier updateCakeHarvested {
+        uint before = CAKE.balanceOf(address(this));
+        _;
+        uint _after = CAKE.balanceOf(address(this));
+        cakeHarvested = cakeHarvested.add(_after).sub(before);
+    }
+
     /* ========== INITIALIZER ========== */
 
     function initialize(uint _pid) external initializer {
@@ -85,6 +98,7 @@ contract VaultFlipToFlip is VaultController, IStrategy {
 
         CAKE.safeApprove(address(ROUTER), 0);
         CAKE.safeApprove(address(ROUTER), uint(~0));
+        CAKE.safeApprove(address(zapBSC), uint(-1));
     }
 
     /* ========== VIEW FUNCTIONS ========== */
@@ -93,9 +107,8 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         return totalShares;
     }
 
-    function balance() public view override returns (uint) {
-        (uint amount,) = CAKE_MASTER_CHEF.userInfo(pid, address(this));
-        return _stakingToken.balanceOf(address(this)).add(amount);
+    function balance() public view override returns (uint amount) {
+        (amount,) = CAKE_MASTER_CHEF.userInfo(pid, address(this));
     }
 
     function balanceOf(address account) public view override returns(uint) {
@@ -161,7 +174,7 @@ contract VaultFlipToFlip is VaultController, IStrategy {
 
         uint withdrawalFee = canMint() ? _minter.withdrawalFee(principal, depositTimestamp) : 0;
         uint performanceFee = canMint() ? _minter.performanceFee(profit) : 0;
-        if (withdrawalFee > 0 || performanceFee > 0) {
+        if (withdrawalFee.add(performanceFee) > DUST) {
             _minter.mintFor(address(_stakingToken), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
 
             if (performanceFee > 0) {
@@ -175,17 +188,20 @@ contract VaultFlipToFlip is VaultController, IStrategy {
     }
 
     function harvest() external override onlyKeeper {
-        CAKE_MASTER_CHEF.withdraw(pid, 0);
-        uint cakeAmount = CAKE.balanceOf(address(this));
+        _harvest();
 
-        if (CAKE.allowance(address(this), address(zapBSC)) == 0) {
-            CAKE.approve(address(zapBSC), uint(-1));
-        }
-        zapBSC.zapInToken(address(CAKE), cakeAmount, address(_stakingToken));
+        uint before = _stakingToken.balanceOf(address(this));
+        zapBSC.zapInToken(address(CAKE), cakeHarvested, address(_stakingToken));
+        uint harvested = _stakingToken.balanceOf(address(this)).sub(before);
 
-        uint harvested = _stakingToken.balanceOf(address(this));
         CAKE_MASTER_CHEF.deposit(pid, harvested);
         emit Harvested(harvested);
+
+        cakeHarvested = 0;
+    }
+
+    function _harvest() private updateCakeHarvested {
+        CAKE_MASTER_CHEF.withdraw(pid, 0);
     }
 
     function withdraw(uint shares) external override onlyWhitelisted {
@@ -209,7 +225,7 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         amount = _withdrawTokenWithCorrection(amount);
         uint depositTimestamp = _depositedAt[msg.sender];
         uint withdrawalFee = canMint() ? _minter.withdrawalFee(amount, depositTimestamp) : 0;
-        if (withdrawalFee > 0) {
+        if (withdrawalFee > DUST) {
             _minter.mintFor(address(_stakingToken), withdrawalFee, 0, msg.sender, depositTimestamp);
             amount = amount.sub(withdrawalFee);
         }
@@ -229,7 +245,7 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         amount = _withdrawTokenWithCorrection(amount);
         uint depositTimestamp = _depositedAt[msg.sender];
         uint performanceFee = canMint() ? _minter.performanceFee(amount) : 0;
-        if (performanceFee > 0) {
+        if (performanceFee > DUST) {
             _minter.mintFor(address(_stakingToken), 0, performanceFee, msg.sender, depositTimestamp);
             amount = amount.sub(performanceFee);
         }
@@ -252,7 +268,7 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         IBEP20(_token1).safeApprove(address(ROUTER), uint(~0));
     }
 
-    function _depositTo(uint _amount, address _to) private notPaused {
+    function _depositTo(uint _amount, address _to) private notPaused updateCakeHarvested {
         uint _pool = balance();
         uint _before = _stakingToken.balanceOf(address(this));
         _stakingToken.safeTransferFrom(msg.sender, address(this), _amount);
@@ -274,7 +290,7 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         emit Deposited(_to, _amount);
     }
 
-    function _withdrawTokenWithCorrection(uint amount) private returns (uint) {
+    function _withdrawTokenWithCorrection(uint amount) private updateCakeHarvested returns (uint) {
         uint before = _stakingToken.balanceOf(address(this));
         CAKE_MASTER_CHEF.withdraw(pid, amount);
         return _stakingToken.balanceOf(address(this)).sub(before);
@@ -290,9 +306,14 @@ contract VaultFlipToFlip is VaultController, IStrategy {
 
     /* ========== SALVAGE PURPOSE ONLY ========== */
 
-    function recoverToken(address tokenAddress, uint tokenAmount) external override onlyOwner {
-        require(tokenAddress != address(_stakingToken) && tokenAddress != address(CAKE), "VaultFlipToFlip: cannot recover underlying token");
-        IBEP20(tokenAddress).safeTransfer(owner(), tokenAmount);
-        emit Recovered(tokenAddress, tokenAmount);
+    // @dev stakingToken must not remain balance in this contract. So dev should salvage staking token transferred by mistake.
+    function recoverToken(address token, uint amount) external override onlyOwner {
+        if (token == address(CAKE)) {
+            uint cakeBalance = CAKE.balanceOf(address(this));
+            require(amount <= cakeBalance.sub(cakeHarvested), "VaultFlipToFlip: cannot recover lp's harvested cake");
+        }
+
+        IBEP20(token).safeTransfer(owner(), amount);
+        emit Recovered(token, amount);
     }
 }

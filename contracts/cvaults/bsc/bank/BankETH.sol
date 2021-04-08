@@ -9,12 +9,12 @@ import "../../../interfaces/IPancakePair.sol";
 import "../../../interfaces/IPancakeRouter02.sol";
 
 import "../../../library/PausableUpgradeable.sol";
-import "../../../library/Whitelist.sol";
+import "../../../library/WhitelistUpgradeable.sol";
 import "../../interface/IBankBNB.sol";
 import "../../interface/IBankETH.sol";
 
 
-contract BankETH is IBankETH, PausableUpgradeable, Whitelist {
+contract BankETH is IBankETH, PausableUpgradeable, WhitelistUpgradeable {
     using SafeMath for uint256;
     using SafeBEP20 for IBEP20;
 
@@ -45,7 +45,7 @@ contract BankETH is IBankETH, PausableUpgradeable, Whitelist {
 
     function initialize() external initializer {
         __PausableUpgradeable_init();
-        __Whitelist_init();
+        __WhitelistUpgradeable_init();
 
         PERFORMANCE_FEE = 1000;
         IBEP20(ETH).safeApprove(address(ROUTER), uint(-1));

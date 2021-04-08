@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
 
-import "../library/Whitelist.sol";
+import "../library/WhitelistUpgradeable.sol";
 
-contract WhitelistTester is Whitelist {
+contract WhitelistTester is WhitelistUpgradeable {
     uint public count;
     function initialize() external initializer {
-        __Whitelist_init();
+        __WhitelistUpgradeable_init();
     }
 
     function increase() external onlyWhitelisted {

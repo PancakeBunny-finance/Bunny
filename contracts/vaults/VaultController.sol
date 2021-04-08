@@ -43,10 +43,10 @@ import "../interfaces/IMasterChef.sol";
 import "../interfaces/IBunnyMinterV2.sol";
 import "../interfaces/IBunnyChef.sol";
 import "../library/PausableUpgradeable.sol";
-import "../library/Whitelist.sol";
+import "../library/WhitelistUpgradeable.sol";
 
 
-abstract contract VaultController is IVaultController, PausableUpgradeable, Whitelist {
+abstract contract VaultController is IVaultController, PausableUpgradeable, WhitelistUpgradeable {
     using SafeBEP20 for IBEP20;
 
     /* ========== CONSTANT VARIABLES ========== */
@@ -79,7 +79,7 @@ abstract contract VaultController is IVaultController, PausableUpgradeable, Whit
 
     function __VaultController_init(IBEP20 token) internal initializer {
         __PausableUpgradeable_init();
-        __Whitelist_init();
+        __WhitelistUpgradeable_init();
 
         keeper = 0x793074D9799DC3c6039F8056F1Ba884a73462051;
         _stakingToken = token;
@@ -130,5 +130,7 @@ abstract contract VaultController is IVaultController, PausableUpgradeable, Whit
     function recoverToken(address _token, uint amount) virtual external onlyOwner {
         require(_token != address(_stakingToken), 'VaultController: cannot recover underlying token');
         IBEP20(_token).safeTransfer(owner(), amount);
+
+        emit Recovered(_token, amount);
     }
 }
