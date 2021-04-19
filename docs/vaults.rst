@@ -41,3 +41,10 @@ We have provided the mathematical formula for calculating the total geometric su
   :width: 640
   :align: center
   :alt: Formula
+
+Farm profit breakdown
+================================================
+
+For all of the non Bunny farms, keep in mind that everything is being compounded in the respective token before withdrawal. I.e. cake compounding farm, cake is the only thing being compounded. The same applies to cake maximizer, flip vaults, etc...
+In this example we will use the cake auto-compounding farm. At the time of withdrawal, 30% CAKE profits will be calculated into the $ equivalent of bnb. For every 1 bnb this equals to 5 BUNNY is minted and given. The UI breakdown of Cake and Bunny rewards is just an approximation, and will differ greatly depending on the exact time of withdrawal/claim. Please see the example below for calculation purposes.
+-User A deposits 1000 CAKE, and earns a profit of 100 CAKE when he decides to withdraw. At the exact time of withdrawal, CAKE is $22, BNB is $474, and BUNNY is $315. As such User A will receive 70 CAKE as well as (((30 CAKE x  $22)/$474) x 5 BUNNY) = 6.96 BUNNY.
