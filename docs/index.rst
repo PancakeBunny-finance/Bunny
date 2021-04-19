@@ -12,7 +12,7 @@
 Introduction
 ************************
 
-.. image:: /images/awesome.png
+.. image:: /images/wikibanner.jpg
   :width: 600
   :align: center
   :alt: Awesome Bunny
