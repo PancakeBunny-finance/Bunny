@@ -61,7 +61,7 @@ BUNNY is minted via smart contracts. For every 1bnb earned in performance fees, 
 Where does Swap % come from?
 ================================================
 
-This comes from PancakeSwap
+The swap percentage is an estimation based on the swap fee that liquidity providers receive every time someone swaps that pair. These rewards go to the LP token itself, causing its value to increase, which in turn causes your share to increase. The displayed percentage rate is obtained via the PancakeSwap API.
 
 Which rewards get compounded?
 ================================================
@@ -73,11 +73,11 @@ What is the Fee Structure?
 
 Withdrawal Fee
 
-There is a 0.5% withdrawal fee from Farms only if withdrawal happens within 72 hours of deposit. This fee exists to maintain the smooth flow of the ecosystem and to prevent possible exploitation from individuals acting under bad faith. For example if there was no 0.5% withdrawal fee within the 72 hours, someone could keep depositing right before the compounding takes place and withdraw right after and still reap the same benefits and continuous long-term holders.
+There is a 0.5% withdrawal fee from Farms only if a Withdrawal happens within 72 hours of deposit. This fee exists to maintain the smooth flow of the ecosystem and to prevent possible exploitation from individuals acting under bad faith. For example if there was no 0.5% withdrawal fee within the 72 hours, someone could keep depositing right before the compounding takes place and withdraw right after and still reap the same benefits and continuous long-term holders.
 
 Performance Fee
 
-We have a 30% performance fee on our farms, but the majority of the profit from these fees goes back to go rewards for staking BUNNY, thereby ensuring the sustainability and longevity of our project and benefitting BUNNY supporters/holders.
+When you choose to Claim profits from a pool, a 30% performance fee is collected to reward BUNNY stake holders. In return, all pools are rewarded with BUNNY tokens. For every 1 BNB in fees collected, 5 BUNNY is rewarded.
 
 Can I make a partial withdrawal?
 ================================================
@@ -87,7 +87,7 @@ No, you can only exit and withdraw your whole investment.
 Why are the transaction fees so high?
 ================================================
 
-High fee is because withdrawing it’s not just one transaction. With one click the smart contract is actually doing multiple transactions and thus requires more gas.
+The GAS FEE is set higher to make sure the transactions never fails. The fee can vary among different pools, even on Claim actions. This is due to the complexity of the smart contracts and to avoid failures due to BSC instability. Please note that the actual gas spent in the transaction is usually lower than the stated price You can always check the transaction on bscscan.com to see the actual gas spent.
 
 How does the timer work?
 ================================================
@@ -130,7 +130,6 @@ Is Bunny Safe?
 
 Like all DeFi Projects, it is important not to trust but to verify the legitimacy of each project by confirming the data/code. As such we are providing full transparency by releasing all the code/data required to confirm that Bunny runs smoothly. Check out our github: https://github.com/PancakeBunny-finance
 
-
 Is Bunny Audited?
 ================================================
 
@@ -138,10 +137,38 @@ Yes, Haechi Labs has completed the first audit. The results were extremely posit
 
 Please see the report `here <https://github.com/PancakeBunny-finance/Bunny/blob/main/audits/%5BHAECHI%20AUDIT%5D%20PancakeBunny%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf>`_
 
-
 APR & APY
 ================================================
 
 Let’s assume the APR of the CAKE farm is 365%. This means that on average if we divide 365% by 365 days, we get a daily return of 1%. Now since Bunny compounds this 1%, we can estimate the compounded APR using the following calculation: (1+0.01)^365 - 1 = 3678% Keep in mind that this is an assumption that only holds true if the APR of CAKE farm stays constant through one year. However, this is obviously not the case since the APY also changes by the second. We can use the same calculation for the rest of the Farms as well! Just divide the APR by 365, which would be the average daily yield. (1+daily yield)^365 -1 = Compounded APY.
 
 The new maximizer farms put the daily yields from the Farms, into the CAKE compounding pools. The Stable Coin-BNB Farms have a current APY of 30%, but if we use the maximizer farms the APY increases to about 150%. This strategy is truly unique and advantageous since the principal investment does not get touched, and only the extra yields from the farm get invested in the more volatile, high risk-high reward CAKE pool.
+
+How is the APY Calculated?
+================================================
+
+The APY on pool screen is the sum of the following rates:
+
+[Pool APY]
+This the APY from the auto-compounding rate on the token of the pool you are staking.
+
+[Bunny APY]
+This is the APY in BUNNY rewards you will receive based on the 30% Performance Fee collected from your total pool profits.
+
+[Swap APY]
+This is an estimation of the increase in value of your LP tokens due to the rewards from the swap fees on PancakeSwap.
+
+How often do Auto-Compounding Pools Compound?
+================================================
+The auto compounding varies from pool to pool. The current frequencies are:
+- Cake and Cake Maximizers: At least every 2 hours (harvesting when any user deposit or withdraws)
+- CAKE-BNB flips: Every 2 hours
+- Other flip pools: Every 4 hours
+- Single-Asset "Smart" Vaults: Every 2 hours
+
+Why is there a Claim Button on Auto-Compounding Pools?
+================================================
+The Claim button is an extra option for those that wish to use it. It was a suggested and voted on by the users.
+
+All pools that have "auto-compounding" or "compound cake recursively" in their description are auto-compounding the profits. The BUNNY figure that appears on the Profit line is what you would receive at the moment you choose to Claim.
+

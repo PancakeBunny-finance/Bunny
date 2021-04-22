@@ -42,6 +42,22 @@ We have provided the mathematical formula for calculating the total geometric su
   :align: center
   :alt: Formula
 
+Single Asset Smart Vaults
+================================================
+
+Currently, our single asset vaults feature BNB, ETH, BTCB, USDT, and BUSD. The new Smart Vaults provide users with opportunities to earn interest safely without losing their principal. The loan interest rate model follows TripleSlopeModel. (Source code for AlphaHomora v1 was forked and partially modified.) Any principal amount in these smart vaults that is not used directly for cross chain will be managed and invested in Venus. When cross chain goes live, the single asset vaults will provide liquidity for ETH users, resulting in the loan interest rate model below.
+
+.. image:: /images/interestrate_model.jpg
+  :width: 640
+  :align: center
+  :alt: interestrate_model
+
+1. 0%-50% utilization has interest rate of 10%
+2. 50%-95% utilization has interest rate of 10%-25%
+3. 95%-100% utilization has interest rate of 25%-100%
+
+These Vaults will be the first to use Venus on our platform, exemplifying our goals of diversifying and optimizing yields from various DeFi Platforms. Our Smart Vault will automatically calculate the interest rate and adjust leverage dynamically. (e.g. If borrowing interest is high, we simply deposit into venus. Otherwise, we borrow again, redeposit, and repeat.) This is quite different, and much more innovative than the current single asset Venus vaults that exist on other yield aggregating platforms since we optimize and adjust the leverage, while providing liquidity for our future cross chain product.
+
 Farm profit breakdown
 ================================================
 
