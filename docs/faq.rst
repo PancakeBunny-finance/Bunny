@@ -82,7 +82,13 @@ When you choose to Claim profits from a pool, a 30% performance fee is collected
 Can I make a partial withdrawal?
 ================================================
 
-No, you can only exit and withdraw your whole investment.
+Yes. On the Pool screen:
+
+1. Next to the "Deposit", tap or click 'Withdraw"
+
+2. Enter in the amount of Tokens you wish to withdraw or select "Max" to select all of your Tokens in the pool.
+
+3. Tap the "Withdraw" button at the bottom
 
 Why are the transaction fees so high?
 ================================================
