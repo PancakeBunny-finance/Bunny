@@ -56,7 +56,12 @@ CAKE or the LP tokens are all used from Pancakeswap, we automatically compound y
 Where does BUNNY come from?
 ================================================
 
-BUNNY is minted via smart contracts. For every 1bnb earned in performance fees, 5 BUNNY is newly minted and distributed.
+BUNNY is minted via the project's smart contracts.
+
+When the user executes a Claim on their profits in a given Pool, they receive 70% of the profit's value in the respective auto-compounded farm token, and receive 30% of the profit's value in BUNNY.
+
+This 30% worth of profit is calculated in $ equivalent of BNB, and for every 1 BNB the user gets 3 BUNNY.
+
 
 Where does Swap % come from?
 ================================================
@@ -66,7 +71,9 @@ The swap percentage is an estimation based on the swap fee that liquidity provid
 Which rewards get compounded?
 ================================================
 
-Currently all the farms get compounded except for the BUNNY Staking farm and the BUNNY/BNB farm. The BUNNY rewards that come out of all pools, currently are not compounded. Only the CAKE and flip rewards are auto-compounded.
+Currently, all the farms get compounded except for the BUNNY Staking farm and the BUNNY/BNB farm.
+
+When the user executes a Claim on their profits in a given Pool, they receive 70% of the profit's value in the respective auto-compounded farm token, and receive 30% of the profit's value in BUNNY.
 
 What is the Fee Structure?
 ================================================
@@ -93,7 +100,16 @@ Yes. On the Pool screen:
 Why are the transaction fees so high?
 ================================================
 
-The GAS FEE is set higher to make sure the transactions never fails. The fee can vary among different pools, even on Claim actions. This is due to the complexity of the smart contracts and to avoid failures due to BSC instability. Please note that the actual gas spent in the transaction is usually lower than the stated price You can always check the transaction on bscscan.com to see the actual gas spent.
+The GAS LIMIT is the maximum amount of gas that can be spent on a transaction. In some pools the GAS LIMIT is set higher than others even on claim actions. This is due to the complexity of our contracts and to ensure the transactions do not fail in case of BSC instability or high transactions load.
+
+Take note that the gas spent will be usually half of the gas limit set. You can always check the transaction on bscscan.com to see more details.
+
+Why does my balance decrease?
+================================================
+
+Your balance is the instantaneous sum of your deposited principal and your unclaimed profit at the moment that you claim and immediately redeposit the profit into the pool.
+
+At some points, the balance may decrease because the price of tokens relevant to the pool may have fluctuated.
 
 How does the timer work?
 ================================================
