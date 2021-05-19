@@ -84,7 +84,7 @@ There is a 0.5% withdrawal fee from Farms only if a Withdrawal happens within 72
 
 Performance Fee
 
-When you choose to Claim profits from a pool, a 30% performance fee is collected to reward BUNNY stake holders. In return, all pools are rewarded with BUNNY tokens. For every 1 BNB in fees collected, 5 BUNNY is rewarded.
+When you choose to Claim profits from a pool, a 30% performance fee is collected to reward BUNNY stake holders. In return, all pools are rewarded with BUNNY tokens. For every 1 BNB in fees collected, 3 BUNNY is rewarded.
 
 Can I make a partial withdrawal?
 ================================================

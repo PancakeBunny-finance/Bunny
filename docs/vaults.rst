@@ -15,12 +15,12 @@ In this farm, users can deposit BUNNY/BNB and earn even more BUNNY tokens. There
 CAKE Auto Compounding Farm
 ================================================
 
-The CAKE farm is where you can reap the benefits of automating compounding and the high APY. There should be a withdrawal fee of 0.5% if withdrawn within 72 hours. The 30% performance fee is collected but for every 1BNB in fees collected, we give 5 BUNNY, so you’re getting free money.
+The CAKE farm is where you can reap the benefits of automating compounding and the high APY. There should be a withdrawal fee of 0.5% if withdrawn within 72 hours. The 30% performance fee is collected but for every 1BNB in fees collected, we give 3 BUNNY, so you’re getting free money.
 
 Rest of PancakeSwap Farms
 ================================================
 
-Currently we have CAKE-BNB, ETH-BNB, BTCB-BNB, BUSD-BNB, USDT-BNB, DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD pools, which exist on Pancakeswap. Our smart contracts automatically compound your investments, giving you a higher APY. For these pools, as profit you will be getting the respective LP Token of the pool, as well as BUNNY tokens. 30% of profits will be collected and given as BUNNY tokens. For every 1BNB collected, we give 5 BUNNY. There should be a withdrawal fee of 0.5% if withdrawn within 72 hours. Currently you can only claim your profits, if you claim & exit the pool. We may change this in the future.
+Currently we have CAKE-BNB, ETH-BNB, BTCB-BNB, BUSD-BNB, USDT-BNB, DAI-BNB, USDC-BNB, VAI-BUSD, USDT-BUSD pools, which exist on Pancakeswap. Our smart contracts automatically compound your investments, giving you a higher APY. For these pools, as profit you will be getting the respective LP Token of the pool, as well as BUNNY tokens. 30% of profits will be collected and given as BUNNY tokens. For every 1BNB collected, we give 3 BUNNY. There should be a withdrawal fee of 0.5% if withdrawn within 72 hours. Currently you can only claim your profits, if you claim & exit the pool. We may change this in the future.
 
 Maximizer PancakeSwap Farms
 ================================================
@@ -61,6 +61,4 @@ These Vaults will be the first to use Venus on our platform, exemplifying our go
 Farm profit breakdown
 ================================================
 
-For all of the non Bunny farms, keep in mind that everything is being compounded in the respective token before withdrawal. I.e. cake compounding farm, cake is the only thing being compounded. The same applies to cake maximizer, flip vaults, etc...
-In this example we will use the cake auto-compounding farm. At the time of withdrawal, 30% CAKE profits will be calculated into the $ equivalent of bnb. For every 1 bnb this equals to 5 BUNNY is minted and given. The UI breakdown of Cake and Bunny rewards is just an approximation, and will differ greatly depending on the exact time of withdrawal/claim. Please see the example below for calculation purposes.
--User A deposits 1000 CAKE, and earns a profit of 100 CAKE when he decides to withdraw. At the exact time of withdrawal, CAKE is $22, BNB is $474, and BUNNY is $315. As such User A will receive 70 CAKE as well as (((30 CAKE x  $22)/$474) x 5 BUNNY) = 6.96 BUNNY.
+For all of the non Bunny farms, keep in mind that everything is being compounded in the respective token before withdrawal. I.e. cake compounding farm, cake is the only thing being compounded. The same applies to cake maximizer, flip vaults, etc… In this example we will use the cake auto-compounding farm. At the time of withdrawal, 30% CAKE profits will be calculated into the $ equivalent of bnb. For every 1 bnb this equals to 3 BUNNY is minted and given. The UI breakdown of Cake and Bunny rewards is just an approximation, and will differ greatly depending on the exact time of withdrawal/claim. Please see the example below for calculation purposes. -User A deposits 1000 CAKE, and earns a profit of 100 CAKE when he decides to withdraw. At the exact time of withdrawal, CAKE is $22, BNB is $474, and BUNNY is $315. As such User A will receive 70 CAKE as well as (((30 CAKE x $22)/$474) x 3 BUNNY) = 4.18 BUNNY.
