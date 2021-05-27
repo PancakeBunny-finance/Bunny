@@ -60,7 +60,7 @@ BUNNY is minted via the project's smart contracts.
 
 When the user executes a Claim on their profits in a given Pool, they receive 70% of the profit's value in the respective auto-compounded farm token, and receive 30% of the profit's value in BUNNY.
 
-This 30% worth of profit is calculated in $ equivalent of BNB, and for every 1 BNB the user gets 3 BUNNY.
+This 30% worth of profit is calculated in $ equivalent of BNB, and for every 1 BNB the user gets 15 BUNNY.
 
 
 Where does Swap % come from?
@@ -84,7 +84,7 @@ There is a 0.5% withdrawal fee from Farms only if a Withdrawal happens within 72
 
 Performance Fee
 
-When you choose to Claim profits from a pool, a 30% performance fee is collected to reward BUNNY stake holders. In return, all pools are rewarded with BUNNY tokens. For every 1 BNB in fees collected, 3 BUNNY is rewarded.
+When you choose to Claim profits from a pool, a 30% performance fee is collected to reward BUNNY stake holders. In return, all pools are rewarded with BUNNY tokens. For every 1 BNB in fees collected, 15 BUNNY is rewarded.
 
 Can I make a partial withdrawal?
 ================================================
