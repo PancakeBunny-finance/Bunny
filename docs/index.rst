@@ -42,6 +42,7 @@ GitHub: https://github.com/PancakeBunny-finance/
    bunnytoken
    vaults
    zap
+   pot
    governance
    faq
    contracts
