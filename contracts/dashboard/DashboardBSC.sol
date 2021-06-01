@@ -39,17 +39,18 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "../interfaces/IStrategy.sol";
 import "../interfaces/IBunnyMinter.sol";
 import "../interfaces/IBunnyChef.sol";
+import "../interfaces/IPriceCalculator.sol";
 
-import "../vaults/legacy/BunnyPool.sol";
-import "../vaults/VaultVenus.sol";
-import "./calculator/PriceCalculatorBSC.sol";
+import "../vaults/BunnyPool.sol";
+import "../vaults/venus/VaultVenus.sol";
+import "../vaults/relay/VaultRelayer.sol";
 
 
 contract DashboardBSC is OwnableUpgradeable {
     using SafeMath for uint;
     using SafeDecimal for uint;
 
-    PriceCalculatorBSC public constant priceCalculator = PriceCalculatorBSC(0x542c06a5dc3f27e0fbDc9FB7BC6748f26d54dDb0);
+    IPriceCalculator public constant priceCalculator = IPriceCalculator(0xF5BF8A9249e3cc4cB684E3f23db9669323d4FB7d);
 
     address public constant WBNB = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
     address public constant BUNNY = 0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51;
@@ -58,6 +59,7 @@ contract DashboardBSC is OwnableUpgradeable {
 
     IBunnyChef private constant bunnyChef = IBunnyChef(0x40e31876c4322bd033BAb028474665B12c4d04CE);
     BunnyPool private constant bunnyPool = BunnyPool(0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D);
+    VaultRelayer private constant relayer = VaultRelayer(0x34D3fF7f0476B38f990e9b8571aCAE60f6321C03);
 
     /* ========== STATE VARIABLES ========== */
 
@@ -170,8 +172,8 @@ contract DashboardBSC is OwnableUpgradeable {
 
     /* ========== Pool Information ========== */
 
-    function infoOfPool(address pool, address account) public view returns (PoolConstant.PoolInfoBSC memory) {
-        PoolConstant.PoolInfoBSC memory poolInfo;
+    function infoOfPool(address pool, address account) public view returns (PoolConstant.PoolInfo memory) {
+        PoolConstant.PoolInfo memory poolInfo;
 
         IStrategy strategy = IStrategy(pool);
         (uint pBASE, uint pBUNNY) = profitOfPool(pool, account);
@@ -194,13 +196,33 @@ contract DashboardBSC is OwnableUpgradeable {
             poolInfo.feeDuration = minter.WITHDRAWAL_FEE_FREE_PERIOD();
             poolInfo.feePercentage = minter.WITHDRAWAL_FEE();
         }
+
+        poolInfo.portfolio = portfolioOfPoolInUSD(pool, account);
         return poolInfo;
     }
 
-    function poolsOf(address account, address[] memory pools) public view returns (PoolConstant.PoolInfoBSC[] memory) {
-        PoolConstant.PoolInfoBSC[] memory results = new PoolConstant.PoolInfoBSC[](pools.length);
+    function poolsOf(address account, address[] memory pools) public view returns (PoolConstant.PoolInfo[] memory) {
+        PoolConstant.PoolInfo[] memory results = new PoolConstant.PoolInfo[](pools.length);
         for (uint i = 0; i < pools.length; i++) {
             results[i] = infoOfPool(pools[i], account);
+        }
+        return results;
+    }
+
+    /* ========== Relay Information ========== */
+
+    function infoOfRelay(address pool, address account) public view returns (PoolConstant.RelayInfo memory) {
+        PoolConstant.RelayInfo memory relayInfo;
+        relayInfo.pool = pool;
+        relayInfo.balanceInUSD = relayer.balanceInUSD(pool, account);
+        relayInfo.debtInUSD = relayer.debtInUSD(pool, account);
+        return relayInfo;
+    }
+
+    function relaysOf(address account, address[] memory pools) public view returns (PoolConstant.RelayInfo[] memory) {
+        PoolConstant.RelayInfo[] memory results = new PoolConstant.RelayInfo[](pools.length);
+        for (uint i = 0; i < pools.length; i++) {
+            results[i] = infoOfRelay(pools[i], account);
         }
         return results;
     }

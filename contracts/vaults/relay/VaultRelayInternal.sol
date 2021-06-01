@@ -39,17 +39,17 @@ import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
 
-import "../library/RewardsDistributionRecipientUpgradeable.sol";
-import {PoolConstant} from "../library/PoolConstant.sol";
+import "../../library/RewardsDistributionRecipientUpgradeable.sol";
+import {PoolConstant} from "../../library/PoolConstant.sol";
 
-import "../interfaces/IStrategy.sol";
-import "../interfaces/IMasterChef.sol";
-import "../interfaces/IBunnyMinter.sol";
+import "../../interfaces/IStrategy.sol";
+import "../../interfaces/IMasterChef.sol";
+import "../../interfaces/IBunnyMinter.sol";
 
-import "./VaultController.sol";
+import "../../vaults/VaultController.sol";
 
 
-contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecipientUpgradeable, ReentrancyGuardUpgradeable {
+contract VaultRelayInternal is VaultController, IStrategy, RewardsDistributionRecipientUpgradeable, ReentrancyGuardUpgradeable {
     using SafeMath for uint;
     using SafeBEP20 for IBEP20;
 
@@ -76,7 +76,9 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
     mapping(address => uint) private _balances;
 
     uint public override pid;
-    mapping(address => uint) private _depositedAt;
+    mapping (address => uint) private _depositedAt;
+
+    address public relayer;
 
     /* ========== MODIFIERS ========== */
 
@@ -90,6 +92,11 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
         _;
     }
 
+    modifier onlyRelayer {
+        require(relayer != address(0) && msg.sender == relayer, "VaultRelayInternal: call is not the relayer");
+        _;
+    }
+
     /* ========== EVENTS ========== */
 
     event RewardAdded(uint reward);
@@ -97,7 +104,8 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
 
     /* ========== INITIALIZER ========== */
 
-    function initialize(uint _pid, address _token) external initializer {
+    function initialize(uint _pid, address _relayer) external initializer {
+        (address _token,,,) = CAKE_MASTER_CHEF.poolInfo(_pid);
         __VaultController_init(IBEP20(_token));
         __RewardsDistributionRecipient_init();
         __ReentrancyGuard_init();
@@ -108,8 +116,8 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
         rewardsDuration = 4 hours;
 
         rewardsDistribution = msg.sender;
-        setMinter(0x8cB88701790F650F273c8BB2Cc4c5f439cd65219);
         setRewardsToken(0xEDfcB78e73f7bA6aD2D829bf5D462a0924da28eD);
+        relayer = _relayer;
     }
 
     /* ========== VIEWS ========== */
@@ -118,7 +126,7 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
         return _totalSupply;
     }
 
-    function balance() override external view returns (uint) {
+    function balance() external view override returns (uint) {
         return _totalSupply;
     }
 
@@ -146,7 +154,7 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
         return address(_rewardsToken);
     }
 
-    function priceShare() external view override returns (uint) {
+    function priceShare() external view override returns(uint) {
         return 1e18;
     }
 
@@ -172,62 +180,72 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
         return rewardRate.mul(rewardsDuration);
     }
 
-    /* ========== MUTATIVE FUNCTIONS ========== */
+    /* ========== MUTATIVE FUNCTIONS - IStrategy ========== */
 
-    function deposit(uint amount) override public {
-        _deposit(amount, msg.sender);
+    function deposit(uint) public override {
+        revert("N/A");
     }
 
-    function depositAll() override external {
-        deposit(_stakingToken.balanceOf(msg.sender));
+    function depositAll() external override {
+        revert("N/A");
     }
 
-    function withdraw(uint amount) override public nonReentrant updateReward(msg.sender) {
-        require(amount > 0, "VaultFlipToCake: amount must be greater than zero");
-        _totalSupply = _totalSupply.sub(amount);
-        _balances[msg.sender] = _balances[msg.sender].sub(amount);
-        uint cakeHarvested = _withdrawStakingToken(amount);
-        uint withdrawalFee;
-        if (canMint()) {
-            uint depositTimestamp = _depositedAt[msg.sender];
-            withdrawalFee = _minter.withdrawalFee(amount, depositTimestamp);
-            if (withdrawalFee > 0) {
-                uint performanceFee = withdrawalFee.div(100);
-                _minter.mintForV2(address(_stakingToken), withdrawalFee.sub(performanceFee), performanceFee, msg.sender, depositTimestamp);
-                amount = amount.sub(withdrawalFee);
-            }
-        }
+    function withdraw(uint) external override {
+        revert("N/A");
+    }
 
-        _stakingToken.safeTransfer(msg.sender, amount);
-        emit Withdrawn(msg.sender, amount, withdrawalFee);
+    function withdrawAll() external override {
+        revert("N/A");
+    }
+
+    function getReward() external override {
+        revert("N/A");
+    }
+
+    /* ========== MUTATIVE FUNCTIONS - RelayInternal ========== */
+
+    function deposit(uint amount, address _to) external nonReentrant notPaused updateReward(_to) onlyRelayer {
+        require(amount > 0, "VaultRelayInternal: amount must be greater than zero");
+        _totalSupply = _totalSupply.add(amount);
+        _balances[_to] = _balances[_to].add(amount);
+        _depositedAt[_to] = block.timestamp;
+        _stakingToken.safeTransferFrom(msg.sender, address(this), amount);
+        uint cakeHarvested = _depositStakingToken(amount);
+        emit Deposited(_to, amount);
 
         _harvest(cakeHarvested);
     }
 
-    function withdrawAll() external override {
-        uint _withdraw = withdrawableBalanceOf(msg.sender);
-        if (_withdraw > 0) {
-            withdraw(_withdraw);
-        }
-        getReward();
+    function withdraw(uint amount, address _to) public nonReentrant updateReward(_to) onlyRelayer {
+        require(amount > 0, "VaultRelayInternal: amount must be greater than zero");
+        _totalSupply = _totalSupply.sub(amount);
+        _balances[_to] = _balances[_to].sub(amount);
+        uint cakeHarvested = _withdrawStakingToken(amount);
+
+        _stakingToken.safeTransfer(msg.sender, amount);
+        emit Withdrawn(_to, amount, 0);
+
+        _harvest(cakeHarvested);
     }
 
-    function getReward() public override nonReentrant updateReward(msg.sender) {
-        uint reward = rewards[msg.sender];
+    function withdrawAll(address _to) external onlyRelayer {
+        uint _withdraw = withdrawableBalanceOf(_to);
+        if (_withdraw > 0) {
+            withdraw(_withdraw, _to);
+        }
+        getReward(_to);
+    }
+
+    function getReward(address _to) public nonReentrant updateReward(msg.sender) {
+        uint reward = rewards[_to];
         if (reward > 0) {
-            rewards[msg.sender] = 0;
+            rewards[_to] = 0;
             uint before = IBEP20(CAKE).balanceOf(address(this));
             _rewardsToken.withdraw(reward);
             uint cakeBalance = IBEP20(CAKE).balanceOf(address(this)).sub(before);
-            uint performanceFee;
 
-            if (canMint()) {
-                performanceFee = _minter.performanceFee(cakeBalance);
-                _minter.mintForV2(CAKE, 0, performanceFee, msg.sender, _depositedAt[msg.sender]);
-            }
-
-            IBEP20(CAKE).safeTransfer(msg.sender, cakeBalance.sub(performanceFee));
-            emit ProfitPaid(msg.sender, cakeBalance, performanceFee);
+            IBEP20(CAKE).safeTransfer(msg.sender, cakeBalance);
+            emit ProfitPaid(_to, cakeBalance, 0);
         }
     }
 
@@ -238,16 +256,12 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
 
     /* ========== RESTRICTED FUNCTIONS ========== */
 
-    function setMinter(address newMinter) override public onlyOwner {
-        VaultController.setMinter(newMinter);
-        if (newMinter != address(0)) {
-            IBEP20(CAKE).safeApprove(newMinter, 0);
-            IBEP20(CAKE).safeApprove(newMinter, uint(- 1));
-        }
+    function setMinter(address) override public onlyOwner {
+        revert("N/A");
     }
 
     function setRewardsToken(address newRewardsToken) public onlyOwner {
-        require(address(_rewardsToken) == address(0), "VaultFlipToCake: rewards token already set");
+        require(address(_rewardsToken) == address(0), "VaultRelayInternal: rewards token already set");
 
         _rewardsToken = IStrategy(newRewardsToken);
         IBEP20(CAKE).safeApprove(newRewardsToken, 0);
@@ -259,24 +273,16 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
     }
 
     function setRewardsDuration(uint _rewardsDuration) external onlyOwner {
-        require(periodFinish == 0 || block.timestamp > periodFinish, "VaultFlipToCake: reward duration can only be updated after the period ends");
+        require(periodFinish == 0 || block.timestamp > periodFinish, "VaultRelayInternal: reward duration can only be updated after the period ends");
         rewardsDuration = _rewardsDuration;
         emit RewardsDurationUpdated(rewardsDuration);
     }
 
-    /* ========== PRIVATE FUNCTIONS ========== */
-
-    function _deposit(uint amount, address _to) private nonReentrant notPaused updateReward(_to) {
-        require(amount > 0, "VaultFlipToCake: amount must be greater than zero");
-        _totalSupply = _totalSupply.add(amount);
-        _balances[_to] = _balances[_to].add(amount);
-        _depositedAt[_to] = block.timestamp;
-        _stakingToken.safeTransferFrom(msg.sender, address(this), amount);
-        uint cakeHarvested = _depositStakingToken(amount);
-        emit Deposited(_to, amount);
-
-        _harvest(cakeHarvested);
+    function setRelayer(address newRelayer) external onlyOwner {
+        relayer = newRelayer;
     }
+
+    /* ========== PRIVATE FUNCTIONS ========== */
 
     function _depositStakingToken(uint amount) private returns (uint cakeHarvested) {
         uint before = IBEP20(CAKE).balanceOf(address(this));
@@ -314,7 +320,7 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
         // very high values of rewardRate in the earned and rewardsPerToken functions;
         // Reward + leftover must be less than 2^256 / 10^18 to avoid overflow.
         uint _balance = _rewardsToken.sharesOf(address(this));
-        require(rewardRate <= _balance.div(rewardsDuration), "VaultFlipToCake: reward rate must be in the right range");
+        require(rewardRate <= _balance.div(rewardsDuration), "VaultRelayInternal: reward rate must be in the right range");
 
         lastUpdateTime = block.timestamp;
         periodFinish = block.timestamp.add(rewardsDuration);
@@ -323,10 +329,14 @@ contract VaultFlipToCake is VaultController, IStrategy, RewardsDistributionRecip
 
     /* ========== SALVAGE PURPOSE ONLY ========== */
 
-    // @dev rewardToken(CAKE) must not remain balance in this contract. So dev should be able to salvage reward token transferred by mistake.
     function recoverToken(address tokenAddress, uint tokenAmount) external override onlyOwner {
-        require(tokenAddress != address(_stakingToken), "VaultFlipToCake: cannot recover underlying token");
+        require(tokenAddress != address(_stakingToken) && tokenAddress != _rewardsToken.stakingToken(), "VaultRelayInternal: cannot recover underlying token");
+        IBEP20(tokenAddress).safeTransfer(owner(), tokenAmount);
+        emit Recovered(tokenAddress, tokenAmount);
+    }
 
+    /// dev: TODO Will be removed after beta test (beta test only)
+    function recoverForBetaTest(address tokenAddress, uint tokenAmount) external onlyOwner {
         IBEP20(tokenAddress).safeTransfer(owner(), tokenAmount);
         emit Recovered(tokenAddress, tokenAmount);
     }

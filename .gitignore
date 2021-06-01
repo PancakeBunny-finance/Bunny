@@ -108,3 +108,7 @@ build
 .openzeppelin
 
 docs/.DS_Store
+
+artifacts
+.DS_Store
+cache

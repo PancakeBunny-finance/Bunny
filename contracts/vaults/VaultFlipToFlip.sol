@@ -37,13 +37,13 @@ import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@openzeppelin/contracts/math/Math.sol";
 
 import {PoolConstant} from "../library/PoolConstant.sol";
-import "../interfaces/IPancakeRouter02.sol";
 import "../interfaces/IPancakePair.sol";
+import "../interfaces/IPancakeFactory.sol";
 import "../interfaces/IStrategy.sol";
 import "../interfaces/IMasterChef.sol";
 import "../interfaces/IBunnyMinter.sol";
-import "../zap/IZap.sol";
 
+import "../zap/ZapBSC.sol";
 import "./VaultController.sol";
 
 
@@ -53,13 +53,12 @@ contract VaultFlipToFlip is VaultController, IStrategy {
 
     /* ========== CONSTANTS ============= */
 
-    IPancakeRouter02 private constant ROUTER = IPancakeRouter02(0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F);
     IBEP20 private constant CAKE = IBEP20(0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82);
     IBEP20 private constant WBNB = IBEP20(0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c);
     IMasterChef private constant CAKE_MASTER_CHEF = IMasterChef(0x73feaa1eE314F8c655E354234017bE2193C9E24E);
     PoolConstant.PoolTypes public constant override poolType = PoolConstant.PoolTypes.FlipToFlip;
 
-    IZap public constant zapBSC = IZap(0xCBEC8e7AB969F6Eb873Df63d04b4eAFC353574b1);
+    ZapBSC public constant zapBSC = ZapBSC(0xdC2bBB0D33E0e7Dea9F5b98F46EDBaC823586a0C);
 
     uint private constant DUST = 1000;
 
@@ -88,17 +87,13 @@ contract VaultFlipToFlip is VaultController, IStrategy {
 
     /* ========== INITIALIZER ========== */
 
-    function initialize(uint _pid) external initializer {
-        require(_pid != 0, "VaultFlipToFlip: pid must not be zero");
-
-        (address _token,,,) = CAKE_MASTER_CHEF.poolInfo(_pid);
+    function initialize(uint _pid, address _token) external initializer {
         __VaultController_init(IBEP20(_token));
-        setFlipToken(_token);
+
+        _stakingToken.safeApprove(address(CAKE_MASTER_CHEF), uint(- 1));
         pid = _pid;
 
-        CAKE.safeApprove(address(ROUTER), 0);
-        CAKE.safeApprove(address(ROUTER), uint(~0));
-        CAKE.safeApprove(address(zapBSC), uint(-1));
+        CAKE.safeApprove(address(zapBSC), uint(- 1));
     }
 
     /* ========== VIEW FUNCTIONS ========== */
@@ -175,7 +170,7 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         uint withdrawalFee = canMint() ? _minter.withdrawalFee(principal, depositTimestamp) : 0;
         uint performanceFee = canMint() ? _minter.performanceFee(profit) : 0;
         if (withdrawalFee.add(performanceFee) > DUST) {
-            _minter.mintFor(address(_stakingToken), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
+            _minter.mintForV2(address(_stakingToken), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
 
             if (performanceFee > 0) {
                 emit ProfitPaid(msg.sender, profit, performanceFee);
@@ -226,7 +221,7 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         uint depositTimestamp = _depositedAt[msg.sender];
         uint withdrawalFee = canMint() ? _minter.withdrawalFee(amount, depositTimestamp) : 0;
         if (withdrawalFee > DUST) {
-            _minter.mintFor(address(_stakingToken), withdrawalFee, 0, msg.sender, depositTimestamp);
+            _minter.mintForV2(address(_stakingToken), withdrawalFee, 0, msg.sender, depositTimestamp);
             amount = amount.sub(withdrawalFee);
         }
 
@@ -246,7 +241,7 @@ contract VaultFlipToFlip is VaultController, IStrategy {
         uint depositTimestamp = _depositedAt[msg.sender];
         uint performanceFee = canMint() ? _minter.performanceFee(amount) : 0;
         if (performanceFee > DUST) {
-            _minter.mintFor(address(_stakingToken), 0, performanceFee, msg.sender, depositTimestamp);
+            _minter.mintForV2(address(_stakingToken), 0, performanceFee, msg.sender, depositTimestamp);
             amount = amount.sub(performanceFee);
         }
 
@@ -255,18 +250,6 @@ contract VaultFlipToFlip is VaultController, IStrategy {
     }
 
     /* ========== PRIVATE FUNCTIONS ========== */
-
-    function setFlipToken(address _token) private {
-        _token0 = IPancakePair(_token).token0();
-        _token1 = IPancakePair(_token).token1();
-
-        _stakingToken.safeApprove(address(CAKE_MASTER_CHEF), uint(~0));
-
-        IBEP20(_token0).safeApprove(address(ROUTER), 0);
-        IBEP20(_token0).safeApprove(address(ROUTER), uint(~0));
-        IBEP20(_token1).safeApprove(address(ROUTER), 0);
-        IBEP20(_token1).safeApprove(address(ROUTER), uint(~0));
-    }
 
     function _depositTo(uint _amount, address _to) private notPaused updateCakeHarvested {
         uint _pool = balance();

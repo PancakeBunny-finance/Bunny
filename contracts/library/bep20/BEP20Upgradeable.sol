@@ -4,10 +4,11 @@ pragma solidity ^0.6.0;
 
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/IBEP20.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/math/SafeMathUpgradeable.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
+
 
 abstract contract BEP20Upgradeable is IBEP20, OwnableUpgradeable {
-    using SafeMathUpgradeable for uint256;
+    using SafeMath for uint;
 
     mapping (address => uint256) private _balances;
     mapping (address => mapping (address => uint256)) private _allowances;
@@ -18,13 +19,11 @@ abstract contract BEP20Upgradeable is IBEP20, OwnableUpgradeable {
 
     uint256[50] private __gap;
 
-    constructor() public {
-    }
-
     /**
      * @dev sets initials supply and the owner
      */
     function __BEP20__init(string memory name, string memory symbol, uint8 decimals) internal initializer {
+        __Ownable_init();
         _name = name;
         _symbol = symbol;
         _decimals = decimals;

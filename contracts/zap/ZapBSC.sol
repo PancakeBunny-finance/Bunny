@@ -34,12 +34,14 @@ pragma solidity ^0.6.12;
 
 import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 import "../interfaces/IPancakePair.sol";
 import "../interfaces/IPancakeRouter02.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "../interfaces/IZap.sol";
 
-contract ZapBSC is OwnableUpgradeable {
+
+contract ZapBSC is IZap, OwnableUpgradeable {
     using SafeMath for uint;
     using SafeBEP20 for IBEP20;
 
@@ -56,7 +58,7 @@ contract ZapBSC is OwnableUpgradeable {
     address private constant BTCB = 0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c;
     address private constant ETH = 0x2170Ed0880ac9A755fd29B2688956BD959F933F8;
 
-    IPancakeRouter02 private constant ROUTER = IPancakeRouter02(0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F);
+    IPancakeRouter02 private constant ROUTER = IPancakeRouter02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
 
     /* ========== STATE VARIABLES ========== */
 
@@ -80,6 +82,8 @@ contract ZapBSC is OwnableUpgradeable {
         setNotFlip(VAI);
         setNotFlip(BTCB);
         setNotFlip(ETH);
+
+        setRoutePairAddress(VAI, BUSD);
     }
 
     receive() external payable {}
@@ -97,7 +101,7 @@ contract ZapBSC is OwnableUpgradeable {
 
     /* ========== External Functions ========== */
 
-    function zapInToken(address _from, uint amount, address _to) external {
+    function zapInToken(address _from, uint amount, address _to) external override {
         IBEP20(_from).safeTransferFrom(msg.sender, address(this), amount);
         _approveTokenIfNeeded(_from);
 
@@ -121,11 +125,11 @@ contract ZapBSC is OwnableUpgradeable {
         }
     }
 
-    function zapIn(address _to) external payable {
+    function zapIn(address _to) external payable override {
         _swapBNBToFlip(_to, msg.value, msg.sender);
     }
 
-    function zapOut(address _from, uint amount) external {
+    function zapOut(address _from, uint amount) external override {
         IBEP20(_from).safeTransferFrom(msg.sender, address(this), amount);
         _approveTokenIfNeeded(_from);
 
@@ -147,7 +151,7 @@ contract ZapBSC is OwnableUpgradeable {
 
     function _approveTokenIfNeeded(address token) private {
         if (IBEP20(token).allowance(address(this), address(ROUTER)) == 0) {
-            IBEP20(token).safeApprove(address(ROUTER), uint(~0));
+            IBEP20(token).safeApprove(address(ROUTER), uint(- 1));
         }
     }
 
@@ -279,7 +283,7 @@ contract ZapBSC is OwnableUpgradeable {
 
     /* ========== RESTRICTED FUNCTIONS ========== */
 
-    function setRoutePairAddress(address asset, address route) external onlyOwner {
+    function setRoutePairAddress(address asset, address route) public onlyOwner {
         routePairAddresses[asset] = route;
     }
 

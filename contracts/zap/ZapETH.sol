@@ -38,9 +38,11 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 import "../interfaces/IUniswapV2Pair.sol";
 import "../interfaces/IUniswapV2Router02.sol";
-import "./IWETH.sol";
+import "../interfaces/IZap.sol";
+import "../interfaces/IWETH.sol";
 
-contract ZapETH is OwnableUpgradeable {
+
+contract ZapETH is IZap, OwnableUpgradeable {
     using SafeMath for uint;
     using SafeERC20 for IERC20;
 
@@ -85,7 +87,7 @@ contract ZapETH is OwnableUpgradeable {
 
     /* ========== External Functions ========== */
 
-    function zapInToken(address _from, uint amount, address _to) external {
+    function zapInToken(address _from, uint amount, address _to) external override {
         IERC20(_from).safeTransferFrom(msg.sender, address(this), amount);
         _approveTokenIfNeeded(_from);
 
@@ -109,11 +111,11 @@ contract ZapETH is OwnableUpgradeable {
         }
     }
 
-    function zapIn(address _to) external payable {
+    function zapIn(address _to) external payable override {
         _swapETHToLP(_to, msg.value, msg.sender);
     }
 
-    function zapOut(address _from, uint amount) external {
+    function zapOut(address _from, uint amount) external override {
         IERC20(_from).safeTransferFrom(msg.sender, address(this), amount);
         _approveTokenIfNeeded(_from);
 
@@ -135,7 +137,7 @@ contract ZapETH is OwnableUpgradeable {
 
     function _approveTokenIfNeeded(address token) private {
         if (IERC20(token).allowance(address(this), address(ROUTER)) == 0) {
-            IERC20(token).safeApprove(address(ROUTER), uint(~0));
+            IERC20(token).safeApprove(address(ROUTER), uint(- 1));
         }
     }
 

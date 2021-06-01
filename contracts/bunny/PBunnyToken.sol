@@ -32,38 +32,20 @@ pragma solidity ^0.6.12;
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
 
+import "../library/bep20/BEP20Upgradeable.sol";
 
-library PoolConstant {
 
-    enum PoolTypes {
-        BunnyStake, // no perf fee
-        BunnyFlip_deprecated, // deprecated
-        CakeStake, FlipToFlip, FlipToCake,
-        Bunny, // no perf fee
-        BunnyBNB,
-        Venus,
-        Collateral
+contract PBunnyToken is BEP20Upgradeable {
+
+    /* ========== INITIALIZER ========== */
+
+    function initialize() external initializer {
+        __BEP20__init("Platinum Bunny Token", "pBUNNY", 18);
     }
 
-    struct PoolInfo {
-        address pool;
-        uint balance;
-        uint principal;
-        uint available;
-        uint tvl;
-        uint utilized;
-        uint liquidity;
-        uint pBASE;
-        uint pBUNNY;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
-        uint portfolio;
-    }
+    /* ========== RESTRICTED FUNCTIONS ========== */
 
-    struct RelayInfo {
-        address pool;
-        uint balanceInUSD;
-        uint debtInUSD;
+    function mint(uint _amount) public onlyOwner {
+        _mint(owner(), _amount);
     }
 }

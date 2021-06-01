@@ -55,7 +55,8 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
     /* ========== CONSTANTS ============= */
 
     address private constant CAKE = 0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82;
-    address private constant BUNNY_BNB = 0x7Bb89460599Dbf32ee3Aa50798BBcEae2A5F7f6a;
+    address private constant BUNNY_BNB = 0x5aFEf8567414F29f0f927A0F2787b188624c10E2;
+    uint public constant override pid = 323;
     IMasterChef private constant CAKE_MASTER_CHEF = IMasterChef(0x73feaa1eE314F8c655E354234017bE2193C9E24E);
     PoolConstant.PoolTypes public constant override poolType = PoolConstant.PoolTypes.BunnyBNB;
 
@@ -75,7 +76,7 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
     uint private _totalSupply;
     mapping(address => uint) private _balances;
 
-    uint public override pid;
+
     mapping(address => uint) private _depositedAt;
 
     /* ========== MODIFIERS ========== */
@@ -102,9 +103,9 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
         __RewardsDistributionRecipient_init();
         __ReentrancyGuard_init();
 
-        _stakingToken.safeApprove(address(CAKE_MASTER_CHEF), uint(~0));
+        _stakingToken.safeApprove(address(CAKE_MASTER_CHEF), uint(- 1));
 
-        rewardsDuration = 24 hours;
+        rewardsDuration = 4 hours;
         rewardsDistribution = msg.sender;
         setRewardsToken(0xEDfcB78e73f7bA6aD2D829bf5D462a0924da28eD);
     }
@@ -169,7 +170,7 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
         return rewardRate.mul(rewardsDuration);
     }
 
-    function pidAttached() public view returns (bool) {
+    function pidAttached() public pure returns (bool) {
         return pid != 0;
     }
 
@@ -190,16 +191,14 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
         _totalSupply = _totalSupply.sub(amount);
         _balances[msg.sender] = _balances[msg.sender].sub(amount);
 
-        if (pidAttached()) {
-            CAKE_MASTER_CHEF.withdraw(pid, amount);
-        }
+        uint cakeHarvested = _withdrawStakingToken(amount);
 
         uint withdrawalFee;
         if (canMint()) {
             uint depositTimestamp = _depositedAt[msg.sender];
             withdrawalFee = _minter.withdrawalFee(amount, depositTimestamp);
             if (withdrawalFee > 0) {
-                _minter.mintFor(address(_stakingToken), withdrawalFee, 0, msg.sender, depositTimestamp);
+                _minter.mintForV2(address(_stakingToken), withdrawalFee, 0, msg.sender, depositTimestamp);
                 amount = amount.sub(withdrawalFee);
             }
         }
@@ -207,7 +206,7 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
         _stakingToken.safeTransfer(msg.sender, amount);
         emit Withdrawn(msg.sender, amount, withdrawalFee);
 
-        _harvest();
+        _harvest(cakeHarvested);
     }
 
     function withdrawAll() external override {
@@ -222,13 +221,14 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
         uint reward = rewards[msg.sender];
         if (reward > 0) {
             rewards[msg.sender] = 0;
+            uint before = IBEP20(CAKE).balanceOf(address(this));
             _rewardsToken.withdraw(reward);
-            uint cakeBalance = IBEP20(CAKE).balanceOf(address(this));
+            uint cakeBalance = IBEP20(CAKE).balanceOf(address(this)).sub(before);
             uint performanceFee;
 
             if (canMint()) {
                 performanceFee = _minter.performanceFee(cakeBalance);
-                _minter.mintFor(CAKE, 0, performanceFee, msg.sender, _depositedAt[msg.sender]);
+                _minter.mintForV2(CAKE, 0, performanceFee, msg.sender, _depositedAt[msg.sender]);
             }
 
             IBEP20(CAKE).safeTransfer(msg.sender, cakeBalance.sub(performanceFee));
@@ -240,10 +240,8 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
     }
 
     function harvest() public override {
-        if (pidAttached()) {
-            CAKE_MASTER_CHEF.withdraw(pid, 0);
-        }
-        _harvest();
+        uint cakeHarvested = _withdrawStakingToken(0);
+        _harvest(cakeHarvested);
     }
 
     /* ========== RESTRICTED FUNCTIONS ========== */
@@ -252,7 +250,7 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
         VaultController.setMinter(newMinter);
         if (newMinter != address(0)) {
             IBEP20(CAKE).safeApprove(newMinter, 0);
-            IBEP20(CAKE).safeApprove(newMinter, uint(~0));
+            IBEP20(CAKE).safeApprove(newMinter, uint(- 1));
         }
     }
 
@@ -261,21 +259,12 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
         VaultController.setBunnyChef(IBunnyChef(_chef));
     }
 
-    function setPid(uint _pid) public onlyOwner {
-        require(pid == 0, "VaultBunnyBNB: setPid only once");
-        (address _token,,,) = CAKE_MASTER_CHEF.poolInfo(_pid);
-        if (_token == address(_stakingToken)) {
-            pid = _pid;
-            CAKE_MASTER_CHEF.deposit(pid, _stakingToken.balanceOf(address(this)));
-        }
-    }
-
     function setRewardsToken(address newRewardsToken) public onlyOwner {
         require(address(_rewardsToken) == address(0), "VaultBunnyBNB: rewards token already set");
 
         _rewardsToken = IStrategy(newRewardsToken);
         IBEP20(CAKE).safeApprove(newRewardsToken, 0);
-        IBEP20(CAKE).safeApprove(newRewardsToken, uint(~0));
+        IBEP20(CAKE).safeApprove(newRewardsToken, uint(- 1));
     }
 
     function notifyRewardAmount(uint reward) public override onlyRewardsDistribution {
@@ -289,6 +278,17 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
     }
 
     /* ========== PRIVATE FUNCTIONS ========== */
+    function _withdrawStakingToken(uint amount) private returns(uint cakeHarvested) {
+        uint before = IBEP20(CAKE).balanceOf(address(this));
+        CAKE_MASTER_CHEF.withdraw(pid, amount);
+        cakeHarvested = IBEP20(CAKE).balanceOf(address(this)).sub(before);
+    }
+
+    function _depositStakingToken(uint amount) private returns(uint cakeHarvested) {
+        uint before = IBEP20(CAKE).balanceOf(address(this));
+        CAKE_MASTER_CHEF.deposit(pid, amount);
+        cakeHarvested = IBEP20(CAKE).balanceOf(address(this)).sub(before);
+    }
 
     function _deposit(uint amount, address _to) private nonReentrant notPaused updateReward(_to) {
         require(amount > 0, "VaultBunnyBNB: amount must be greater than zero");
@@ -297,17 +297,14 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
         _depositedAt[_to] = block.timestamp;
         _stakingToken.safeTransferFrom(msg.sender, address(this), amount);
 
-        _bunnyChef.notifyDeposited(msg.sender, amount);
-        if (pidAttached()) {
-            CAKE_MASTER_CHEF.deposit(pid, amount);
-        }
+        _bunnyChef.notifyDeposited(_to, amount);
+        uint cakeHarvested = _depositStakingToken(amount);
 
         emit Deposited(_to, amount);
-        _harvest();
+        _harvest(cakeHarvested);
     }
 
-    function _harvest() private {
-        uint cakeAmount = IBEP20(CAKE).balanceOf(address(this));
+    function _harvest(uint cakeAmount) private {
         uint _before = _rewardsToken.sharesOf(address(this));
         _rewardsToken.deposit(cakeAmount);
         uint amount = _rewardsToken.sharesOf(address(this)).sub(_before);
@@ -340,9 +337,29 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
 
     /* ========== SALVAGE PURPOSE ONLY ========== */
 
+    // @dev rewardToken(CAKE) must not remain balance in this contract. So dev should be able to salvage reward token transferred by mistake.
     function recoverToken(address tokenAddress, uint tokenAmount) external override onlyOwner {
-        require(tokenAddress != address(_stakingToken) && tokenAddress != _rewardsToken.stakingToken(), "VaultBunnyBNB: cannot recover underlying token");
+        require(tokenAddress != address(_stakingToken), "VaultBunnyBNB: cannot recover underlying token");
+
         IBEP20(tokenAddress).safeTransfer(owner(), tokenAmount);
         emit Recovered(tokenAddress, tokenAmount);
+    }
+
+    /* ========== MIGRATE PANCAKE V1 to V2 ========== */
+
+    function migrate(address account, uint amount) public {
+        if (amount == 0) return;
+        _deposit(amount, account);
+    }
+
+    function setPidToken(uint, address token) external onlyOwner {
+        require(_totalSupply == 0);
+        _stakingToken = IBEP20(token);
+
+        _stakingToken.safeApprove(address(CAKE_MASTER_CHEF), 0);
+        _stakingToken.safeApprove(address(CAKE_MASTER_CHEF), uint(- 1));
+
+        _stakingToken.safeApprove(address(_minter), 0);
+        _stakingToken.safeApprove(address(_minter), uint(- 1));
     }
 }

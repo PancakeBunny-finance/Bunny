@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;
+pragma solidity 0.6.12;
 
 /*
   ___                      _   _
@@ -32,38 +32,33 @@ pragma solidity ^0.6.12;
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
 
+import "@pancakeswap/pancake-swap-lib/contracts/access/Ownable.sol";
+import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
 
-library PoolConstant {
+import "../interfaces/IBank.sol";
 
-    enum PoolTypes {
-        BunnyStake, // no perf fee
-        BunnyFlip_deprecated, // deprecated
-        CakeStake, FlipToFlip, FlipToCake,
-        Bunny, // no perf fee
-        BunnyBNB,
-        Venus,
-        Collateral
+
+contract BankConfig is IBankConfig, Ownable {
+    /// The portion of interests allocated to the reserve pool.
+    uint public override getReservePoolBps;
+
+    /// Interest rate model
+    InterestModel public interestModel;
+
+    constructor(uint _reservePoolBps, InterestModel _interestModel) public {
+        setParams(_reservePoolBps, _interestModel);
     }
 
-    struct PoolInfo {
-        address pool;
-        uint balance;
-        uint principal;
-        uint available;
-        uint tvl;
-        uint utilized;
-        uint liquidity;
-        uint pBASE;
-        uint pBUNNY;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
-        uint portfolio;
+    /// @dev Set all the basic parameters. Must only be called by the owner.
+    /// @param _reservePoolBps The new interests allocated to the reserve pool value.
+    /// @param _interestModel The new interest rate model contract.
+    function setParams(uint _reservePoolBps, InterestModel _interestModel) public onlyOwner {
+        getReservePoolBps = _reservePoolBps;
+        interestModel = _interestModel;
     }
 
-    struct RelayInfo {
-        address pool;
-        uint balanceInUSD;
-        uint debtInUSD;
+    /// @dev Return the interest rate per second, using 1e18 as denom.
+    function getInterestRate(uint debt, uint floating) external view override returns (uint) {
+        return interestModel.getInterestRate(debt, floating);
     }
 }

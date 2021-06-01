@@ -68,7 +68,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
 
     function initialize() external initializer {
         __VaultController_init(CAKE);
-        CAKE.safeApprove(address(CAKE_MASTER_CHEF), uint(~0));
+        CAKE.safeApprove(address(CAKE_MASTER_CHEF), uint(- 1));
 
         setMinter(0x8cB88701790F650F273c8BB2Cc4c5f439cd65219);
     }
@@ -79,9 +79,8 @@ contract VaultCakeToCake is VaultController, IStrategy {
         return totalShares;
     }
 
-    function balance() public view override returns (uint) {
-        (uint amount,) = CAKE_MASTER_CHEF.userInfo(pid, address(this));
-        return CAKE.balanceOf(address(this)).add(amount);
+    function balance() public view override returns (uint amount) {
+        (amount,) = CAKE_MASTER_CHEF.userInfo(pid, address(this));
     }
 
     function balanceOf(address account) public view override returns(uint) {
@@ -147,7 +146,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
         delete _principal[msg.sender];
         delete _depositedAt[msg.sender];
 
-        _withdrawTokenWithCorrection(amount);
+        uint cakeHarvested = _withdrawStakingToken(amount);
 
         uint profit = amount > principal ? amount.sub(principal) : 0;
         uint withdrawalFee = canMint() ? _minter.withdrawalFee(principal, depositTimestamp) : 0;
@@ -164,12 +163,12 @@ contract VaultCakeToCake is VaultController, IStrategy {
         CAKE.safeTransfer(msg.sender, amount);
         emit Withdrawn(msg.sender, amount, withdrawalFee);
 
-        _harvest();
+        _harvest(cakeHarvested);
     }
 
     function harvest() external override {
-        CAKE_MASTER_CHEF.leaveStaking(0);
-        _harvest();
+        uint cakeHarvested = _withdrawStakingToken(0);
+        _harvest(cakeHarvested);
     }
 
     function withdraw(uint shares) external override onlyWhitelisted {
@@ -177,11 +176,11 @@ contract VaultCakeToCake is VaultController, IStrategy {
         totalShares = totalShares.sub(shares);
         _shares[msg.sender] = _shares[msg.sender].sub(shares);
 
-        _withdrawTokenWithCorrection(amount);
+        uint cakeHarvested = _withdrawStakingToken(amount);
         CAKE.safeTransfer(msg.sender, amount);
         emit Withdrawn(msg.sender, amount, 0);
 
-        _harvest();
+        _harvest(cakeHarvested);
     }
 
     // @dev underlying only + withdrawal fee + no perf fee
@@ -192,7 +191,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
         _shares[msg.sender] = _shares[msg.sender].sub(shares);
         _principal[msg.sender] = _principal[msg.sender].sub(amount);
 
-        _withdrawTokenWithCorrection(amount);
+        uint cakeHarvested = _withdrawStakingToken(amount);
         uint depositTimestamp = _depositedAt[msg.sender];
         uint withdrawalFee = canMint() ? _minter.withdrawalFee(amount, depositTimestamp) : 0;
         if (withdrawalFee > DUST) {
@@ -203,7 +202,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
         CAKE.safeTransfer(msg.sender, amount);
         emit Withdrawn(msg.sender, amount, withdrawalFee);
 
-        _harvest();
+        _harvest(cakeHarvested);
     }
 
     function getReward() external override {
@@ -213,7 +212,7 @@ contract VaultCakeToCake is VaultController, IStrategy {
         _shares[msg.sender] = _shares[msg.sender].sub(shares);
         _cleanupIfDustShares();
 
-        _withdrawTokenWithCorrection(amount);
+        uint cakeHarvested = _withdrawStakingToken(amount);
         uint depositTimestamp = _depositedAt[msg.sender];
         uint performanceFee = canMint() ? _minter.performanceFee(amount) : 0;
         if (performanceFee > DUST) {
@@ -224,13 +223,24 @@ contract VaultCakeToCake is VaultController, IStrategy {
         CAKE.safeTransfer(msg.sender, amount);
         emit ProfitPaid(msg.sender, amount, performanceFee);
 
-        _harvest();
+        _harvest(cakeHarvested);
     }
 
     /* ========== PRIVATE FUNCTIONS ========== */
 
-    function _harvest() private {
-        uint cakeAmount = CAKE.balanceOf(address(this));
+    function _depositStakingToken(uint amount) private returns(uint cakeHarvested) {
+        uint before = CAKE.balanceOf(address(this));
+        CAKE_MASTER_CHEF.enterStaking(amount);
+        cakeHarvested = CAKE.balanceOf(address(this)).add(amount).sub(before);
+    }
+
+    function _withdrawStakingToken(uint amount) private returns(uint cakeHarvested) {
+        uint before = CAKE.balanceOf(address(this));
+        CAKE_MASTER_CHEF.leaveStaking(amount);
+        cakeHarvested = CAKE.balanceOf(address(this)).sub(amount).sub(before);
+    }
+
+    function _harvest(uint cakeAmount) private {
         if (cakeAmount > 0) {
             emit Harvested(cakeAmount);
             CAKE_MASTER_CHEF.enterStaking(cakeAmount);
@@ -250,17 +260,10 @@ contract VaultCakeToCake is VaultController, IStrategy {
         totalShares = totalShares.add(shares);
         _shares[_to] = _shares[_to].add(shares);
 
-        CAKE_MASTER_CHEF.enterStaking(_amount);
+        uint cakeHarvested = _depositStakingToken(_amount);
         emit Deposited(msg.sender, _amount);
 
-        _harvest();
-    }
-
-    function _withdrawTokenWithCorrection(uint amount) private {
-        uint cakeBalance = CAKE.balanceOf(address(this));
-        if (cakeBalance < amount) {
-            CAKE_MASTER_CHEF.leaveStaking(amount.sub(cakeBalance));
-        }
+        _harvest(cakeHarvested);
     }
 
     function _cleanupIfDustShares() private {
@@ -269,5 +272,14 @@ contract VaultCakeToCake is VaultController, IStrategy {
             totalShares = totalShares.sub(shares);
             delete _shares[msg.sender];
         }
+    }
+
+    /* ========== SALVAGE PURPOSE ONLY ========== */
+
+    // @dev _stakingToken(CAKE) must not remain balance in this contract. So dev should be able to salvage staking token transferred by mistake.
+    function recoverToken(address _token, uint amount) virtual external override onlyOwner {
+        IBEP20(_token).safeTransfer(owner(), amount);
+
+        emit Recovered(_token, amount);
     }
 }

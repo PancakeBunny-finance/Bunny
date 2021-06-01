@@ -44,14 +44,14 @@ import "../interfaces/IVenusPriceOracle.sol";
 import "../interfaces/IVToken.sol";
 import "../interfaces/IVaultVenusBridge.sol";
 
-import "../vaults/VaultVenus.sol";
+import "../vaults/venus/VaultVenus.sol";
 
 
 contract SafeVenus is OwnableUpgradeable {
     using SafeMath for uint;
     using SafeDecimal for uint;
 
-    IPriceCalculator private constant PRICE_CALCULATOR = IPriceCalculator(0x542c06a5dc3f27e0fbDc9FB7BC6748f26d54dDb0);
+    IPriceCalculator private constant PRICE_CALCULATOR = IPriceCalculator(0xF5BF8A9249e3cc4cB684E3f23db9669323d4FB7d);
     IVenusDistribution private constant VENUS_UNITROLLER = IVenusDistribution(0xfD36E2c2a6789Db23113685031d7F16329158384);
 
     address private constant XVS = 0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63;
@@ -91,6 +91,44 @@ contract SafeVenus is OwnableUpgradeable {
         uint borrowAmount = supplyFactor > accountBorrow ? supplyFactor.sub(accountBorrow).mul(1e18).div(uint(1e18).sub(collateralRatioLimit)) : 0;
         uint redeemAmount = accountBorrow > supplyFactor ? accountBorrow.sub(supplyFactor).mul(1e18).div(uint(1e18).sub(collateralRatioLimit)) : uint(- 1);
         return (Math.min(borrowAmount, safeLiquidity), Math.min(redeemAmount, safeLiquidity));
+    }
+
+    function safeBorrowAmount(address payable vault) public returns (uint borrowable) {
+        VaultVenus vaultVenus = VaultVenus(vault);
+        IVToken vToken = vaultVenus.vToken();
+        uint collateralRatioLimit = vaultVenus.collateralRatioLimit();
+        uint stakingTokenPriceInUSD = valueOfUnderlying(vToken, 1e18);
+
+        (, uint accountLiquidityInUSD,) = VENUS_UNITROLLER.getAccountLiquidity(address(vaultVenus.venusBridge()));
+        uint accountLiquidity = accountLiquidityInUSD.mul(1e18).div(stakingTokenPriceInUSD);
+        uint marketSupply = vToken.totalSupply().mul(vToken.exchangeRateCurrent()).div(1e18);
+        uint marketLiquidity = marketSupply > vToken.totalBorrowsCurrent() ? marketSupply.sub(vToken.totalBorrowsCurrent()) : 0;
+        uint safeLiquidity = Math.min(marketLiquidity, accountLiquidity).mul(990).div(1000);
+
+        (uint accountBorrow, uint accountSupply) = venusBorrowAndSupply(vault);
+        uint supplyFactor = collateralRatioLimit.mul(accountSupply).div(1e18);
+        uint borrowAmount = supplyFactor > accountBorrow ? supplyFactor.sub(accountBorrow).mul(1e18).div(uint(1e18).sub(collateralRatioLimit)) : 0;
+        return Math.min(borrowAmount, safeLiquidity);
+    }
+
+    function safeRedeemAmount(address payable vault) public returns (uint redeemable) {
+        VaultVenus vaultVenus = VaultVenus(vault);
+        IVToken vToken = vaultVenus.vToken();
+
+        (, uint collateralFactorMantissa,) = VENUS_UNITROLLER.markets(address(vToken));
+        uint collateralRatioLimit = collateralFactorMantissa.mul(vaultVenus.collateralRatioFactor()).div(1000);
+        uint stakingTokenPriceInUSD = valueOfUnderlying(vToken, 1e18);
+
+        (, uint accountLiquidityInUSD,) = VENUS_UNITROLLER.getAccountLiquidity(address(vaultVenus.venusBridge()));
+        uint accountLiquidity = accountLiquidityInUSD.mul(1e18).div(stakingTokenPriceInUSD);
+        uint marketSupply = vToken.totalSupply().mul(vToken.exchangeRateCurrent()).div(1e18);
+        uint marketLiquidity = marketSupply > vToken.totalBorrowsCurrent() ? marketSupply.sub(vToken.totalBorrowsCurrent()) : 0;
+        uint safeLiquidity = Math.min(marketLiquidity, accountLiquidity).mul(990).div(1000);
+
+        (uint accountBorrow, uint accountSupply) = venusBorrowAndSupply(vault);
+        uint supplyFactor = collateralRatioLimit.mul(accountSupply).div(1e18);
+        uint redeemAmount = accountBorrow > supplyFactor ? accountBorrow.sub(supplyFactor).mul(1e18).div(uint(1e18).sub(collateralRatioLimit)) : uint(- 1);
+        return Math.min(redeemAmount, safeLiquidity);
     }
 
     function venusBorrowAndSupply(address payable vault) public returns (uint borrow, uint supply) {

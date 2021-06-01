@@ -8,7 +8,7 @@ interface IBunnyMinterV2 {
     function withdrawalFee(uint amount, uint depositedAt) view external returns(uint);
     function performanceFee(uint profit) view external returns(uint);
     function mintFor(address flip, uint _withdrawalFee, uint _performanceFee, address to, uint depositedAt) external payable;
-    function mintForBunnyBNB(uint amount, uint duration, address to) external;
+    function mintForV2(address flip, uint _withdrawalFee, uint _performanceFee, address to, uint depositedAt) external payable;
 
     function bunnyPerProfitBNB() view external returns(uint);
     function WITHDRAWAL_FEE_FREE_PERIOD() view external returns(uint);

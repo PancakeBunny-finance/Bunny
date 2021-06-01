@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
+pragma experimental ABIEncoderV2;
 
 /*
   ___                      _   _
@@ -32,38 +33,26 @@ pragma solidity ^0.6.12;
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
 
+interface IVaultCollateral {
+    function WITHDRAWAL_FEE_PERIOD() external view returns (uint);
+    function WITHDRAWAL_FEE_UNIT() external view returns (uint);
+    function WITHDRAWAL_FEE() external view returns (uint);
 
-library PoolConstant {
+    function stakingToken() external view returns (address);
+    function collateralValueMin() external view returns (uint);
 
-    enum PoolTypes {
-        BunnyStake, // no perf fee
-        BunnyFlip_deprecated, // deprecated
-        CakeStake, FlipToFlip, FlipToCake,
-        Bunny, // no perf fee
-        BunnyBNB,
-        Venus,
-        Collateral
-    }
+    function balance() external view returns (uint);
+    function availableOf(address account) external view returns (uint);
+    function collateralOf(address account) external view returns (uint);
+    function realizedInETH(address account) external view returns (uint);
+    function depositedAt(address account) external view returns (uint);
 
-    struct PoolInfo {
-        address pool;
-        uint balance;
-        uint principal;
-        uint available;
-        uint tvl;
-        uint utilized;
-        uint liquidity;
-        uint pBASE;
-        uint pBUNNY;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
-        uint portfolio;
-    }
+    function addCollateral(uint amount) external;
+    function addCollateralETH() external payable;
+    function removeCollateral() external;
 
-    struct RelayInfo {
-        address pool;
-        uint balanceInUSD;
-        uint debtInUSD;
-    }
+    event CollateralAdded(address indexed user, uint amount);
+    event CollateralRemoved(address indexed user, uint amount, uint profitInETH);
+    event CollateralUnlocked(address indexed user, uint amount, uint profitInETH, uint lossInETH);
+    event Recovered(address token, uint amount);
 }
