@@ -71,10 +71,10 @@ contract PotBunnyLover is VaultController, PotController {
 
     PotConstant.PotState public state;
 
+    uint public pid;
     uint public minAmount;
     uint public maxAmount;
     uint public burnRatio;
-    address public rewardToken;
 
     uint private _totalSupply;  // total principal
     uint private _currentSupply;
@@ -297,6 +297,7 @@ contract PotBunnyLover is VaultController, PotController {
     /* ========== PRIVATE FUNCTIONS ========== */
 
     function _harvest() private {
+        if (_totalSupply == 0) return;
         uint WBNBBefore = WBNB.balanceOf(address(this));
         BUNNYPool.getReward();
         uint balanceWBNB = WBNB.balanceOf(address(this)).sub(WBNBBefore);

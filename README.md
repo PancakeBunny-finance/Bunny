@@ -12,9 +12,10 @@ roadmap: http://bit.ly/bunny_roadmap
 - Timelock: [0x85c9162A51E03078bdCd08D4232Bab13ed414cC3](https://bscscan.com/address/0x85c9162A51E03078bdCd08D4232Bab13ed414cC3)
 - ProxyAdmin: [0x9ceE40FE28FC9de2195dC611291ae810C6B265a8](https://bscscan.com/address/0x9ceE40FE28FC9de2195dC611291ae810C6B265a8)
 
-### BUNNY Pot Contracts
+### BUNNY No Loss JackPot Contracts
 | STAKE     | EARN |     Contract Address |
 |------|-----|--------------|
+| BUNNY | BUNNY | [0x60D8a581d519397E870c5376228cd7E7aBBC243B](https://bscscan.com/address/0x60D8a581d519397E870c5376228cd7E7aBBC243B)|
 | CAKE | CAKE | [0xa9b005d891414E0d6E0353490e099D0CA4C778Fc](https://bscscan.com/address/0xa9b005d891414E0d6E0353490e099D0CA4C778Fc)|
 
 
