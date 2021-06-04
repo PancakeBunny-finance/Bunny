@@ -53,7 +53,6 @@ contract PotCakeLover is VaultController, PotController {
 
     /* ========== CONSTANT ========== */
 
-    bytes32 constant private TREE_KEY = keccak256("Bunny/MultipleWinnerPot");
     address public constant TIMELOCK_ADDRESS = 0x85c9162A51E03078bdCd08D4232Bab13ed414cC3;
 
     IBEP20 private constant BUNNY = IBEP20(0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51);
@@ -93,6 +92,7 @@ contract PotCakeLover is VaultController, PotController {
 
     mapping(uint => PotConstant.PotHistory) private _histories;
 
+    bytes32 private _treeKey;
 
     /* ========== MODIFIERS ========== */
 
@@ -195,10 +195,10 @@ contract PotCakeLover is VaultController, PotController {
         _depositedAt[account] = block.timestamp;
 
         bytes32 accountID = bytes32(uint256(account));
-        uint weightBefore = getWeight(TREE_KEY, accountID);
+        uint weightBefore = getWeight(_getTreeKey(), accountID);
         uint weightCurrent = _calculateWeight(account);
         _totalWeight = _totalWeight.sub(weightBefore).add(weightCurrent);
-        setWeight(TREE_KEY, weightCurrent, accountID);
+        setWeight(_getTreeKey(), weightCurrent, accountID);
 
         uint cakeHarvested = _depositStakingToken(amount);
         _totalHarvested = _totalHarvested.add(cakeHarvested);
@@ -263,7 +263,8 @@ contract PotCakeLover is VaultController, PotController {
         _totalHarvested = 0;
         _currentUsers = 0;
 
-        createTree(TREE_KEY);
+        _treeKey = bytes32(potId);
+        createTree(_treeKey);
     }
 
     function closePot() external onlyKeeper onlyValidState(PotConstant.PotState.Opened) {
@@ -352,7 +353,7 @@ contract PotCakeLover is VaultController, PotController {
 
         for (uint i = 0; i < winnerCount; i++) {
             uint rn = uint256(keccak256(abi.encode(_randomness, i))).mod(_totalWeight);
-            address selected = draw(TREE_KEY, rn);
+            address selected = draw(_getTreeKey(), rn);
 
             _available[selected] = _available[selected].add(_totalHarvested.div(winnerCount));
             history.winners[i] = selected;
@@ -407,5 +408,9 @@ contract PotCakeLover is VaultController, PotController {
         uint amount = _available[account];
         uint denom = Math.max(minAmount, 1);
         return Math.min(amount.mul(10).div(denom), maxAmount.mul(10).div(denom));
+    }
+
+    function _getTreeKey() private view returns(bytes32) {
+        return _treeKey == bytes32(0) ? keccak256("Bunny/MultipleWinnerPot") : _treeKey;
     }
 }

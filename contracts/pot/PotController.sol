@@ -17,6 +17,7 @@ contract PotController is IPotController, PausableUpgradeable, WhitelistUpgradea
 
     uint constant private MAX_TREE_LEAVES = 5;
     IRNGenerator constant private RNGenerator = IRNGenerator(0x2Eb45a1017e9E0793E05aaF0796298d9b871eCad);
+
     /* ========== STATE VARIABLES ========== */
 
     SortitionSumTreeFactory.SortitionSumTrees private _sortitionSumTree;
