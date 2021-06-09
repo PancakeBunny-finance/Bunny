@@ -62,7 +62,6 @@ contract PotBunnyLover is VaultController, PotController {
     IZap private constant ZapBSC = IZap(0xdC2bBB0D33E0e7Dea9F5b98F46EDBaC823586a0C);
     IStrategyLegacy private constant BUNNYPool = IStrategyLegacy(0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D);
 
-    uint private constant WEIGHT_DURATION = 4 hours;
     uint private constant WEIGHT_BASE = 1000;
     uint public constant WINNER_COUNT = 1;
 
@@ -93,7 +92,8 @@ contract PotBunnyLover is VaultController, PotController {
     mapping(uint => PotConstant.PotHistory) private _histories;
 
     bytes32 private _treeKey;
-
+    uint private _boostDuration;
+    
     /* ========== MODIFIERS ========== */
 
     modifier onlyValidState(PotConstant.PotState _state) {
@@ -127,6 +127,7 @@ contract PotBunnyLover is VaultController, PotController {
 
         burnRatio = 10;
         state = PotConstant.PotState.Cooked;
+        _boostDuration = 4 hours;
     }
 
     /* ========== VIEW FUNCTIONS ========== */
@@ -182,6 +183,10 @@ contract PotBunnyLover is VaultController, PotController {
         return _histories[_potId];
     }
 
+    function boostDuration() external view returns(uint) {
+        return _boostDuration;
+    }
+
     /* ========== MUTATIVE FUNCTIONS ========== */
 
     function deposit(uint amount) public onlyValidState(PotConstant.PotState.Opened) onlyValidDeposit(amount) {
@@ -203,6 +208,36 @@ contract PotBunnyLover is VaultController, PotController {
 
         BUNNYPool.deposit(amount);
         emit Deposited(account, amount);
+    }
+
+    function stepToNext() public onlyValidState(PotConstant.PotState.Opened) {
+        address account = msg.sender;
+        uint amount = _available[account];
+        require(amount > 0 && _lastParticipatedPot[account] < potId, "BunnyPot: is not participant");
+        uint available = Math.min(maxAmount, amount);
+
+        address[] memory winners = potHistoryOf(_lastParticipatedPot[account]).winners;
+        for(uint i = 0; i < winners.length; i++) {
+            if (winners[i] == account) {
+                revert("BunnyPot: winner can't step to next");
+            }
+        }
+
+        _participateCount[account] = _participateCount[account].add(1);
+        _currentUsers = _currentUsers.add(1);
+        _currentSupply = _currentSupply.add(available);
+        _lastParticipatedPot[account] = potId;
+        _depositedAt[account] = block.timestamp;
+
+        bytes32 accountID = bytes32(uint256(account));
+
+        uint weightCurrent = _calculateWeight(account);
+        _totalWeight = _totalWeight.add(weightCurrent);
+        setWeight(_getTreeKey(), weightCurrent, accountID);
+
+        if (amount > available) {
+            _stakingToken.safeTransfer(account, amount.sub(available));
+        }
     }
 
     function withdrawAll() public {
@@ -296,6 +331,10 @@ contract PotBunnyLover is VaultController, PotController {
         burnRatio = _burnRatio;
     }
 
+    function setBoostDuration(uint duration) external onlyOwner {
+        _boostDuration = duration;
+    }
+
     /* ========== PRIVATE FUNCTIONS ========== */
 
     function _harvest() private {
@@ -361,15 +400,15 @@ contract PotBunnyLover is VaultController, PotController {
         if (_depositedAt[account] < startedAt) return 0;
 
         uint timestamp = _depositedAt[account].sub(startedAt);
-        if (timestamp < WEIGHT_DURATION) {
+        if (timestamp < _boostDuration) {
             return 28;
-        } else if (timestamp < WEIGHT_DURATION.mul(2)) {
+        } else if (timestamp < _boostDuration.mul(2)) {
             return 24;
-        } else if (timestamp < WEIGHT_DURATION.mul(3)) {
+        } else if (timestamp < _boostDuration.mul(3)) {
             return 20;
-        } else if (timestamp < WEIGHT_DURATION.mul(4)) {
+        } else if (timestamp < _boostDuration.mul(4)) {
             return 16;
-        } else if (timestamp < WEIGHT_DURATION.mul(5)) {
+        } else if (timestamp < _boostDuration.mul(5)) {
             return 12;
         } else {
             return 8;

@@ -62,7 +62,6 @@ contract PotCakeLover is VaultController, PotController {
     IPriceCalculator private constant priceCalculator = IPriceCalculator(0xF5BF8A9249e3cc4cB684E3f23db9669323d4FB7d);
     IZap private constant ZapBSC = IZap(0xdC2bBB0D33E0e7Dea9F5b98F46EDBaC823586a0C);
 
-    uint private constant WEIGHT_DURATION = 4 hours;
     uint private constant WEIGHT_BASE = 1000;
     uint public constant WINNER_COUNT = 1;
 
@@ -93,6 +92,7 @@ contract PotCakeLover is VaultController, PotController {
     mapping(uint => PotConstant.PotHistory) private _histories;
 
     bytes32 private _treeKey;
+    uint private _boostDuration;
 
     /* ========== MODIFIERS ========== */
 
@@ -127,6 +127,7 @@ contract PotCakeLover is VaultController, PotController {
         pid = _pid;
         burnRatio = 10;
         state = PotConstant.PotState.Cooked;
+        _boostDuration = 4 hours;
     }
 
     /* ========== VIEW FUNCTIONS ========== */
@@ -182,6 +183,10 @@ contract PotCakeLover is VaultController, PotController {
         return _histories[_potId];
     }
 
+    function boostDuration() external view returns(uint) {
+        return _boostDuration;
+    }
+
     /* ========== MUTATIVE FUNCTIONS ========== */
 
     function deposit(uint amount) public onlyValidState(PotConstant.PotState.Opened) onlyValidDeposit(amount) {
@@ -203,8 +208,39 @@ contract PotCakeLover is VaultController, PotController {
         uint cakeHarvested = _depositStakingToken(amount);
         _totalHarvested = _totalHarvested.add(cakeHarvested);
         _totalSupply = _totalSupply.add(amount).add(cakeHarvested);
-        _harvest(cakeHarvested);
+
         emit Deposited(account, amount);
+    }
+
+    function stepToNext() public onlyValidState(PotConstant.PotState.Opened) {
+        address account = msg.sender;
+        uint amount = _available[account];
+        require(amount > 0 && _lastParticipatedPot[account] < potId, "BunnyPot: is not participant");
+
+        uint available = Math.min(maxAmount, amount);
+
+        address[] memory winners = potHistoryOf(_lastParticipatedPot[account]).winners;
+        for(uint i = 0; i < winners.length; i++) {
+            if (winners[i] == account) {
+                revert("BunnyPot: winner can't step to next");
+            }
+        }
+
+        _participateCount[account] = _participateCount[account].add(1);
+        _currentUsers = _currentUsers.add(1);
+        _currentSupply = _currentSupply.add(available);
+        _lastParticipatedPot[account] = potId;
+        _depositedAt[account] = block.timestamp;
+
+        bytes32 accountID = bytes32(uint256(account));
+
+        uint weightCurrent = _calculateWeight(account);
+        _totalWeight = _totalWeight.add(weightCurrent);
+        setWeight(_getTreeKey(), weightCurrent, accountID);
+
+        if (amount > available) {
+            _stakingToken.safeTransfer(account, amount.sub(available));
+        }
     }
 
     function withdrawAll() public {
@@ -215,9 +251,8 @@ contract PotCakeLover is VaultController, PotController {
         _totalSupply = _totalSupply.sub(amount);
         delete _available[account];
 
-        uint cakeHarvested = _withdrawStakingToken(amount);
+        _withdrawStakingToken(amount);
         _stakingToken.safeTransfer(account, amount);
-        _harvest(cakeHarvested);
 
         emit Claimed(account, amount);
     }
@@ -230,6 +265,7 @@ contract PotCakeLover is VaultController, PotController {
 
         uint cakeHarvested = _depositStakingToken(amount);
         _totalHarvested = _totalHarvested.add(cakeHarvested);
+
         _harvest(cakeHarvested);
     }
 
@@ -289,13 +325,22 @@ contract PotCakeLover is VaultController, PotController {
 
     function sweep() external onlyOwner {
         (uint staked,) = CAKE_MASTER_CHEF.userInfo(pid, address(this));
-        uint extra = _stakingToken.balanceOf(address(this)).add(staked).sub(_totalSupply);
+        uint balance = _stakingToken.balanceOf(address(this));
+        uint extra = balance.add(staked).sub(_totalSupply);
+
+        if (balance < extra) {
+            _withdrawStakingToken(extra.sub(balance));
+        }
         _stakingToken.safeTransfer(owner(), extra);
     }
 
     function setBurnRatio(uint _burnRatio) external onlyOwner {
         require(_burnRatio <= 100, "BunnyPot: invalid range");
         burnRatio = _burnRatio;
+    }
+
+    function setBoostDuration(uint duration) external onlyOwner {
+        _boostDuration = duration;
     }
 
     /* ========== PRIVATE FUNCTIONS ========== */
@@ -376,15 +421,15 @@ contract PotCakeLover is VaultController, PotController {
         if (_depositedAt[account] < startedAt) return 0;
 
         uint timestamp = _depositedAt[account].sub(startedAt);
-        if (timestamp < WEIGHT_DURATION) {
+        if (timestamp < _boostDuration) {
             return 28;
-        } else if (timestamp < WEIGHT_DURATION.mul(2)) {
+        } else if (timestamp < _boostDuration.mul(2)) {
             return 24;
-        } else if (timestamp < WEIGHT_DURATION.mul(3)) {
+        } else if (timestamp < _boostDuration.mul(3)) {
             return 20;
-        } else if (timestamp < WEIGHT_DURATION.mul(4)) {
+        } else if (timestamp < _boostDuration.mul(4)) {
             return 16;
-        } else if (timestamp < WEIGHT_DURATION.mul(5)) {
+        } else if (timestamp < _boostDuration.mul(5)) {
             return 12;
         } else {
             return 8;
