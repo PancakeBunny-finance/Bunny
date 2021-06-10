@@ -205,9 +205,7 @@ contract PotCakeLover is VaultController, PotController {
         _totalWeight = _totalWeight.sub(weightBefore).add(weightCurrent);
         setWeight(_getTreeKey(), weightCurrent, accountID);
 
-        uint cakeHarvested = _depositStakingToken(amount);
-        _totalHarvested = _totalHarvested.add(cakeHarvested);
-        _totalSupply = _totalSupply.add(amount).add(cakeHarvested);
+        _depositAndHarvest(amount);
 
         emit Deposited(account, amount);
     }
@@ -248,10 +246,9 @@ contract PotCakeLover is VaultController, PotController {
         uint amount = _available[account];
         require(amount > 0 && _lastParticipatedPot[account] < potId, "BunnyPot: is not participant");
 
-        _totalSupply = _totalSupply.sub(amount);
         delete _available[account];
 
-        _withdrawStakingToken(amount);
+        _withdrawAndHarvest(amount);
         _stakingToken.safeTransfer(account, amount);
 
         emit Claimed(account, amount);
@@ -259,25 +256,19 @@ contract PotCakeLover is VaultController, PotController {
 
     function depositDonation(uint amount) public onlyWhitelisted {
         _stakingToken.safeTransferFrom(msg.sender, address(this), amount);
-        _totalSupply = _totalSupply.add(amount);
         _donateSupply = _donateSupply.add(amount);
         _donation[msg.sender] = _donation[msg.sender].add(amount);
 
-        uint cakeHarvested = _depositStakingToken(amount);
-        _totalHarvested = _totalHarvested.add(cakeHarvested);
-
-        _harvest(cakeHarvested);
+        _depositAndHarvest(amount);
     }
 
     function withdrawDonation() public onlyWhitelisted {
         uint amount = _donation[msg.sender];
-        _totalSupply = _totalSupply.sub(amount);
         _donateSupply = _donateSupply.sub(amount);
         delete _donation[msg.sender];
 
-        uint cakeHarvested = _withdrawStakingToken(amount);
+        _withdrawAndHarvest(amount);
         _stakingToken.safeTransfer(msg.sender, amount);
-        _harvest(cakeHarvested);
     }
 
     /* ========== RESTRICTED FUNCTIONS ========== */
@@ -315,12 +306,7 @@ contract PotCakeLover is VaultController, PotController {
 
     function harvest() external onlyKeeper {
         if (_totalSupply == 0) return;
-
-        uint cakeHarvested = _withdrawStakingToken(0);
-        uint harvestShare = cakeHarvested.mul(_currentSupply.add(_donateSupply).add(_totalHarvested)).div(_totalSupply);
-        _totalHarvested = _totalHarvested.add(harvestShare);
-        _totalSupply = _totalSupply.add(harvestShare);
-        _harvest(cakeHarvested);
+        _withdrawAndHarvest(0);
     }
 
     function sweep() external onlyOwner {
@@ -349,20 +335,38 @@ contract PotCakeLover is VaultController, PotController {
         uint before = CAKE.balanceOf(address(this));
         if (pid == 0) {
             CAKE_MASTER_CHEF.enterStaking(amount);
+            cakeHarvested = CAKE.balanceOf(address(this)).add(amount).sub(before);
         } else {
             CAKE_MASTER_CHEF.deposit(pid, amount);
+            cakeHarvested = CAKE.balanceOf(address(this)).sub(before);
         }
-        cakeHarvested = CAKE.balanceOf(address(this)).add(amount).sub(before);
     }
 
     function _withdrawStakingToken(uint amount) private returns (uint cakeHarvested) {
         uint before = CAKE.balanceOf(address(this));
         if (pid == 0) {
             CAKE_MASTER_CHEF.leaveStaking(amount);
+            cakeHarvested = CAKE.balanceOf(address(this)).sub(amount).sub(before);
         } else {
             CAKE_MASTER_CHEF.withdraw(pid, amount);
+            cakeHarvested = CAKE.balanceOf(address(this)).sub(before);
         }
-        cakeHarvested = CAKE.balanceOf(address(this)).sub(amount).sub(before);
+    }
+
+    function _depositAndHarvest(uint amount) private {
+        uint cakeHarvested = _depositStakingToken(amount);
+        uint harvestShare = _totalSupply != 0 ? cakeHarvested.mul(_currentSupply.add(_donateSupply).add(_totalHarvested)).div(_totalSupply) : 0;
+        _totalHarvested = _totalHarvested.add(harvestShare);
+        _totalSupply = _totalSupply.add(harvestShare).add(amount);
+        _harvest(cakeHarvested);
+    }
+
+    function _withdrawAndHarvest(uint amount) private {
+        uint cakeHarvested = _withdrawStakingToken(amount);
+        uint harvestShare = _totalSupply != 0 ? cakeHarvested.mul(_currentSupply.add(_donateSupply).add(_totalHarvested)).div(_totalSupply) : 0;
+        _totalHarvested = _totalHarvested.add(harvestShare);
+        _totalSupply = _totalSupply.add(harvestShare).sub(amount);
+        _harvest(cakeHarvested);
     }
 
     function _harvest(uint amount) private {
