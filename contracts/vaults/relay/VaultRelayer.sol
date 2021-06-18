@@ -35,14 +35,16 @@ pragma experimental ABIEncoderV2;
 
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
-import "../../library/WhitelistUpgradeable.sol";
-import "../../library/SafeToken.sol";
 
 import "../../interfaces/IBank.sol";
-
 import "../../interfaces/IPriceCalculator.sol";
+import "../../library/WhitelistUpgradeable.sol";
+import "../../library/SafeToken.sol";
+import "../../library/PoolConstant.sol";
+
 import "../../zap/ZapBSC.sol";
 import "./VaultRelayInternal.sol";
+
 
 contract VaultRelayer is WhitelistUpgradeable {
     using SafeMath for uint;
@@ -66,6 +68,10 @@ contract VaultRelayer is WhitelistUpgradeable {
 
     mapping(address => uint) public nonces;
     mapping(address => bool) private _testers;
+
+    // pool -> account -> withdrawn history
+    mapping(address => mapping(address => PoolConstant.RelayWithdrawn)) public withdrawnHistories;
+    mapping(address => mapping(address => bool)) public withdrawing;
 
     /* ========== EVENTS ========== */
 
@@ -101,13 +107,16 @@ contract VaultRelayer is WhitelistUpgradeable {
 
     function balanceInUSD(address pool, address account) public view returns (uint) {
         VaultRelayInternal vault = VaultRelayInternal(pool);
-        address flip = vault.stakingToken();
         uint flipBalance = vault.balanceOf(account);
-        uint cakeBalance = vault.earned(account);
+        (, uint flipInUSD) = priceCalculator.valueOfAsset(vault.stakingToken(), flipBalance);
+        return flipInUSD;
+    }
 
-        (, uint flipInUSD) = priceCalculator.valueOfAsset(flip, flipBalance);
+    function earnedInUSD(address pool, address account) public view returns (uint) {
+        VaultRelayInternal vault = VaultRelayInternal(pool);
+        uint cakeBalance = vault.earned(account);
         (, uint cakeInUSD) = priceCalculator.valueOfAsset(CAKE, cakeBalance);
-        return flipInUSD.add(cakeInUSD);
+        return cakeInUSD;
     }
 
     function debtInUSD(address pool, address account) public view returns (uint) {
@@ -117,6 +126,10 @@ contract VaultRelayer is WhitelistUpgradeable {
 
     function isTester(address account) public view returns (bool) {
         return _testers[account];
+    }
+
+    function withdrawnHistoryOf(address pool, address account) public view returns (PoolConstant.RelayWithdrawn memory) {
+        return withdrawnHistories[pool][account];
     }
 
     /**
@@ -166,6 +179,10 @@ contract VaultRelayer is WhitelistUpgradeable {
         _withdraw(pool, signatory);
     }
 
+    function completeWithdraw(address pool, address account) external onlyWhitelisted {
+        delete withdrawing[pool][account];
+    }
+
     function liquidate(address pool, address account) external onlyWhitelisted {
         _withdraw(pool, account);
     }
@@ -180,6 +197,7 @@ contract VaultRelayer is WhitelistUpgradeable {
         (uint liquidity, uint utilized) = bank.getUtilizationInfo();
         bnbAmount = Math.min(bnbAmount, liquidity.sub(utilized));
         require(bnbAmount > 0, "VaultRelayer: not enough amount");
+        require(!withdrawing[pool][account], "VaultRelayer: withdrawing must be complete");
 
         VaultRelayInternal vault = VaultRelayInternal(pool);
         address flip = vault.stakingToken();
@@ -197,15 +215,23 @@ contract VaultRelayer is WhitelistUpgradeable {
         }
 
         vault.deposit(flipAmount, account);
+        delete withdrawnHistories[pool][account];
         emit Deposited(pool, account, flipAmount);
     }
 
     function _withdraw(address pool, address account) private {
         if (VaultRelayInternal(pool).balanceOf(account) == 0) return;
+        withdrawing[pool][account] = true;
 
         (uint flipAmount, uint cakeAmount) = _withdrawInternal(pool, account);
         uint bnbAmount = _zapOutToBNB(pool, flipAmount, cakeAmount);
         (uint profitInETH, uint lossInETH) = bank.repayAll{value : bnbAmount}(pool, account);
+
+        PoolConstant.RelayWithdrawn storage history = withdrawnHistories[pool][account];
+        history.pool = pool;
+        history.account = account;
+        history.profitInETH = history.profitInETH.add(profitInETH);
+        history.lossInETH = history.lossInETH.add(lossInETH);
 
         if (profitInETH > lossInETH) {
             bank.bridgeETH(BRIDGE, profitInETH.sub(lossInETH));
@@ -263,16 +289,5 @@ contract VaultRelayer is WhitelistUpgradeable {
 
         IBEP20(tokenAddress).safeTransfer(owner(), tokenAmount);
         emit Recovered(tokenAddress, tokenAmount);
-    }
-
-    /// @dev TODO remove test functions
-    /* ========== TEST FUNCTIONS ========== */
-
-    function deposit(address pool, address account, uint bnbAmount) external onlyWhitelisted {
-        _deposit(pool, account, bnbAmount);
-    }
-
-    function withdraw(address pool, address account) external onlyWhitelisted {
-        _withdraw(pool, account);
     }
 }

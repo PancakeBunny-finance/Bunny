@@ -83,9 +83,13 @@ contract PriceCalculatorETH is IPriceCalculator, OwnableUpgradeable {
         return uint(price).mul(1e10);
     }
 
-    function priceOfBNB() view public returns (uint) {
+    function priceOfBNB() view public override returns (uint) {
         (, int price, , ,) = bnbPriceFeed.latestRoundData();
         return uint(price).mul(1e10);
+    }
+
+    function priceOfBunny() view external override returns (uint) {
+        return 0;
     }
 
     function pricesInUSD(address[] memory assets) public view override returns (uint[] memory) {

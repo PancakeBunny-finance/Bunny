@@ -63,7 +63,6 @@ contract PotBunnyLover is VaultController, PotController {
     IStrategyLegacy private constant BUNNYPool = IStrategyLegacy(0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D);
 
     uint private constant WEIGHT_BASE = 1000;
-    uint public constant WINNER_COUNT = 1;
 
     /* ========== STATE VARIABLES ========== */
 
@@ -359,9 +358,9 @@ contract PotBunnyLover is VaultController, PotController {
     function _overCook() private {
         if (_totalWeight == 0) return;
 
-        uint winnerCount = Math.min(WINNER_COUNT, _currentUsers);
         uint buyback = _totalHarvested.mul(burnRatio).div(100);
         _totalHarvested = _totalHarvested.sub(buyback);
+        uint winnerCount = Math.max(1, _totalHarvested.div(1000e18));
 
         if (buyback > 0) {
             BUNNYPool.withdraw(buyback);

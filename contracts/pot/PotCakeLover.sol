@@ -63,7 +63,6 @@ contract PotCakeLover is VaultController, PotController {
     IZap private constant ZapBSC = IZap(0xdC2bBB0D33E0e7Dea9F5b98F46EDBaC823586a0C);
 
     uint private constant WEIGHT_BASE = 1000;
-    uint public constant WINNER_COUNT = 1;
 
     /* ========== STATE VARIABLES ========== */
 
@@ -382,9 +381,10 @@ contract PotCakeLover is VaultController, PotController {
     function _overCook() private {
         if (_totalWeight == 0) return;
 
-        uint winnerCount = Math.min(WINNER_COUNT, _currentUsers);
         uint buyback = _totalHarvested.mul(burnRatio).div(100);
         _totalHarvested = _totalHarvested.sub(buyback);
+        uint winnerCount = Math.max(1, _totalHarvested.div(1000e18));
+
 
         if (buyback > 0) {
             _withdrawStakingToken(buyback);

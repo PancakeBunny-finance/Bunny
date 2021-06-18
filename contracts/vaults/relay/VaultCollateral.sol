@@ -290,10 +290,4 @@ contract VaultCollateral is IVaultCollateral, PausableUpgradeable, WhitelistUpgr
         tokenAddress.safeTransfer(owner(), tokenAmount);
         emit Recovered(tokenAddress, tokenAmount);
     }
-
-    /// dev: TODO Will be removed after beta test (beta test only)
-    function recoverForBetaTest(address tokenAddress, uint tokenAmount) external onlyOwner {
-        tokenAddress.safeTransfer(owner(), tokenAmount);
-        emit Recovered(tokenAddress, tokenAmount);
-    }
 }

@@ -48,8 +48,9 @@ contract BunnyPool is IStrategyLegacy, RewardsDistributionRecipient, ReentrancyG
     uint private constant timestamp90DaysAfterPresaleEnds = 1605585600 + (90 days);
 
     /* ========== BUNNY HELPER ========= */
+
     IStrategyHelper public helper = IStrategyHelper(0xA84c09C1a2cF4918CaEf625682B429398b97A1a0);
-    IPancakeRouter02 private constant ROUTER = IPancakeRouter02(0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F);
+    IPancakeRouter02 private constant ROUTER_V1_DEPRECATED = IPancakeRouter02(0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F);
 
     /* ========== CONSTRUCTOR ========== */
 
@@ -59,7 +60,7 @@ contract BunnyPool is IStrategyLegacy, RewardsDistributionRecipient, ReentrancyG
         _stakePermission[msg.sender] = true;
         _stakePermission[presaleContract] = true;
 
-        stakingToken.safeApprove(address(ROUTER), uint(- 1));
+        stakingToken.safeApprove(address(ROUTER_V1_DEPRECATED), uint(- 1));
     }
 
     /* ========== VIEWS ========== */
@@ -195,20 +196,20 @@ contract BunnyPool is IStrategyLegacy, RewardsDistributionRecipient, ReentrancyG
         if (reward > 0) {
             rewards[msg.sender] = 0;
             reward = _flipToWBNB(reward);
-            IBEP20(ROUTER.WETH()).safeTransfer(msg.sender, reward);
+            IBEP20(ROUTER_V1_DEPRECATED.WETH()).safeTransfer(msg.sender, reward);
             emit RewardPaid(msg.sender, reward);
         }
     }
 
     function _flipToWBNB(uint amount) private returns(uint reward) {
-        address wbnb = ROUTER.WETH();
-        (uint rewardBunny,) = ROUTER.removeLiquidity(
+        address wbnb = ROUTER_V1_DEPRECATED.WETH();
+        (uint rewardBunny,) = ROUTER_V1_DEPRECATED.removeLiquidity(
             address(stakingToken), wbnb,
             amount, 0, 0, address(this), block.timestamp);
         address[] memory path = new address[](2);
         path[0] = address(stakingToken);
         path[1] = wbnb;
-        ROUTER.swapExactTokensForTokens(rewardBunny, 0, path, address(this), block.timestamp);
+        ROUTER_V1_DEPRECATED.swapExactTokensForTokens(rewardBunny, 0, path, address(this), block.timestamp);
 
         reward = IBEP20(wbnb).balanceOf(address(this));
     }
@@ -246,7 +247,7 @@ contract BunnyPool is IStrategyLegacy, RewardsDistributionRecipient, ReentrancyG
         require(address(rewardsToken) == address(0), "set rewards token already");
 
         rewardsToken = IBEP20(_rewardsToken);
-        IBEP20(_rewardsToken).safeApprove(address(ROUTER), uint(- 1));
+        IBEP20(_rewardsToken).safeApprove(address(ROUTER_V1_DEPRECATED), uint(- 1));
     }
 
     function setHelper(IStrategyHelper _helper) external onlyOwner {

@@ -36,13 +36,14 @@ pragma solidity ^0.6.12;
 library PoolConstant {
 
     enum PoolTypes {
-        BunnyStake, // no perf fee
+        BunnyStake_deprecated, // no perf fee
         BunnyFlip_deprecated, // deprecated
         CakeStake, FlipToFlip, FlipToCake,
         Bunny, // no perf fee
         BunnyBNB,
         Venus,
-        Collateral
+        Collateral,
+        BunnyToBunny
     }
 
     struct PoolInfo {
@@ -65,5 +66,13 @@ library PoolConstant {
         address pool;
         uint balanceInUSD;
         uint debtInUSD;
+        uint earnedInUSD;
+    }
+
+    struct RelayWithdrawn {
+        address pool;
+        address account;
+        uint profitInETH;
+        uint lossInETH;
     }
 }

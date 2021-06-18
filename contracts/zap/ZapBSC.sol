@@ -57,6 +57,7 @@ contract ZapBSC is IZap, OwnableUpgradeable {
     address private constant VAI = 0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7;
     address private constant BTCB = 0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c;
     address private constant ETH = 0x2170Ed0880ac9A755fd29B2688956BD959F933F8;
+    address private constant DOT = 0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402;
 
     IPancakeRouter02 private constant ROUTER = IPancakeRouter02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
 
@@ -82,8 +83,11 @@ contract ZapBSC is IZap, OwnableUpgradeable {
         setNotFlip(VAI);
         setNotFlip(BTCB);
         setNotFlip(ETH);
+        setNotFlip(DOT);
 
         setRoutePairAddress(VAI, BUSD);
+        setRoutePairAddress(USDC, BUSD);
+        setRoutePairAddress(DAI, BUSD);
     }
 
     receive() external payable {}

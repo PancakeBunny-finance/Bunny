@@ -109,7 +109,7 @@ contract DashboardBSC is OwnableUpgradeable {
         profit = 0;
         profitInBNB = 0;
 
-        if (poolType == PoolConstant.PoolTypes.BunnyStake) {
+        if (poolType == PoolConstant.PoolTypes.BunnyStake_deprecated) {
             // profit as bnb
             (profit,) = priceCalculator.valueOfAsset(address(bunnyPool.rewardsToken()), bunnyPool.earned(account));
             profitInBNB = profit;
@@ -119,7 +119,7 @@ contract DashboardBSC is OwnableUpgradeable {
             profit = bunnyChef.pendingBunny(pool, account);
             (profitInBNB,) = priceCalculator.valueOfAsset(BUNNY, profit);
         }
-        else if (poolType == PoolConstant.PoolTypes.CakeStake || poolType == PoolConstant.PoolTypes.FlipToFlip || poolType == PoolConstant.PoolTypes.Venus) {
+        else if (poolType == PoolConstant.PoolTypes.CakeStake || poolType == PoolConstant.PoolTypes.FlipToFlip || poolType == PoolConstant.PoolTypes.Venus || poolType == PoolConstant.PoolTypes.BunnyToBunny) {
             // profit as underlying
             IStrategy strategy = IStrategy(pool);
             profit = strategy.earned(account);
@@ -154,7 +154,7 @@ contract DashboardBSC is OwnableUpgradeable {
     /* ========== TVL Calculation ========== */
 
     function tvlOfPool(address pool) public view returns (uint tvl) {
-        if (poolTypes[pool] == PoolConstant.PoolTypes.BunnyStake) {
+        if (poolTypes[pool] == PoolConstant.PoolTypes.BunnyStake_deprecated) {
             (, tvl) = priceCalculator.valueOfAsset(address(bunnyPool.stakingToken()), bunnyPool.balance());
         }
         else {
@@ -190,7 +190,7 @@ contract DashboardBSC is OwnableUpgradeable {
         poolInfo.pBUNNY = pBUNNY;
 
         PoolConstant.PoolTypes poolType = poolTypeOf(pool);
-        if (poolType != PoolConstant.PoolTypes.BunnyStake && strategy.minter() != address(0)) {
+        if (poolType != PoolConstant.PoolTypes.BunnyStake_deprecated && strategy.minter() != address(0)) {
             IBunnyMinter minter = IBunnyMinter(strategy.minter());
             poolInfo.depositedAt = strategy.depositedAt(account);
             poolInfo.feeDuration = minter.WITHDRAWAL_FEE_FREE_PERIOD();
@@ -216,6 +216,7 @@ contract DashboardBSC is OwnableUpgradeable {
         relayInfo.pool = pool;
         relayInfo.balanceInUSD = relayer.balanceInUSD(pool, account);
         relayInfo.debtInUSD = relayer.debtInUSD(pool, account);
+        relayInfo.earnedInUSD = relayer.earnedInUSD(pool, account);
         return relayInfo;
     }
 
@@ -233,7 +234,7 @@ contract DashboardBSC is OwnableUpgradeable {
         PoolConstant.PoolTypes poolType = poolTypes[pool];
 
         address stakingToken;
-        if (poolType == PoolConstant.PoolTypes.BunnyStake) {
+        if (poolType == PoolConstant.PoolTypes.BunnyStake_deprecated) {
             stakingToken = BUNNY;
         } else {
             stakingToken = IStrategy(pool).stakingToken();
