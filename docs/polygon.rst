@@ -5,11 +5,15 @@ Polygon
 Pre-Liquidity Period
 
 Schedule:
+
 Start: 02:00 on 23 June (UTC)
+
 End: 24:00 on 30 June (UTC)
 
 Limits:
+
 No total cap
+
 No limit per wallet
 
 Based on 1 ETH staked during this pre-launch window, users will receive a bonus of 750 polyBUNNY according to the following mechanism:
@@ -29,4 +33,5 @@ Based on 1 ETH staked during this pre-launch window, users will receive a bonus 
 7. Staked pre-launch polyBUNNY-ETH LP and polyBUNNY tokens locked up for up to 90 days, subject to the ratio of pre-launch polyBUNNY to polyBUNNY minted post-launch.
 
 Initial APR for polyBUNNY/ETH: 400%
+
 Initial APR for polyBUNNY staking pool: 800%
