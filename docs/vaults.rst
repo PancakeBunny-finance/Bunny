@@ -1,5 +1,5 @@
 ************************
-Vaults
+Vaults (BSC)
 ************************
 
 BUNNY Staking Farm
