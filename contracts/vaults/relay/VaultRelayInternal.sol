@@ -228,15 +228,7 @@ contract VaultRelayInternal is VaultController, IStrategy, RewardsDistributionRe
         _harvest(cakeHarvested);
     }
 
-    function withdrawAll(address _to) external onlyRelayer {
-        uint _withdraw = withdrawableBalanceOf(_to);
-        if (_withdraw > 0) {
-            withdraw(_withdraw, _to);
-        }
-        getReward(_to);
-    }
-
-    function getReward(address _to) public nonReentrant updateReward(msg.sender) {
+    function getReward(address _to) public nonReentrant updateReward(_to) onlyRelayer {
         uint reward = rewards[_to];
         if (reward > 0) {
             rewards[_to] = 0;
@@ -247,6 +239,14 @@ contract VaultRelayInternal is VaultController, IStrategy, RewardsDistributionRe
             IBEP20(CAKE).safeTransfer(msg.sender, cakeBalance);
             emit ProfitPaid(_to, cakeBalance, 0);
         }
+    }
+
+    function withdrawAll(address _to) external onlyRelayer {
+        uint _withdraw = withdrawableBalanceOf(_to);
+        if (_withdraw > 0) {
+            withdraw(_withdraw, _to);
+        }
+        getReward(_to);
     }
 
     function harvest() public override {
