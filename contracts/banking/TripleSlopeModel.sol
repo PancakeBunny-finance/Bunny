@@ -18,10 +18,10 @@ contract TripleSlopeModel {
             return uint(10e16) / 365 days;
         } else if (utilization < 9500) {
             // Between 50% and 95% - 10%-25% APY
-            return (10e16 + utilization.sub(5000).mul(15e16).div(10000)) / 365 days;
+            return (10e16 + utilization.sub(5000).mul(15e16).div(4500)) / 365 days;
         } else if (utilization < 10000) {
             // Between 95% and 100% - 25%-100% APY
-            return (25e16 + utilization.sub(7500).mul(75e16).div(10000)) / 365 days;
+            return (25e16 + utilization.sub(9500).mul(75e16).div(500)) / 365 days;
         } else {
             // Not possible, but just in case - 100% APY
             return uint(100e16) / 365 days;
