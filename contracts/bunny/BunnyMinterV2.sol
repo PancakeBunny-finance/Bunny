@@ -63,7 +63,6 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
     ZapBSC private constant zap = ZapBSC(0xdC2bBB0D33E0e7Dea9F5b98F46EDBaC823586a0C);
     IPancakeRouter02 private constant router = IPancakeRouter02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
 
-
     /* ========== STATE VARIABLES ========== */
 
     address public bunnyChef;
@@ -91,6 +90,10 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
         require(msg.sender == bunnyChef, "BunnyMinterV2: caller not the bunny chef");
         _;
     }
+
+    /* ========== EVENTS ========== */
+
+    event PerformanceFee(address indexed asset, uint amount, uint value);
 
     receive() external payable {}
 
@@ -201,7 +204,8 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
             return;
         }
 
-        if (shouldMarketBuy() == false) {
+        bool marketBuy = shouldMarketBuy();
+        if (marketBuy == false) {
             if (asset == address(0)) { // means BNB
                 SafeToken.safeTransferETH(TREASURY, feeSum);
             } else {
@@ -222,10 +226,17 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
             _performanceFee = _performanceFee.mul(floatingRateEmission().sub(1e18)).div(floatingRateEmission());
         }
 
-        (uint contribution, ) = priceCalculator.valueOfAsset(asset, _performanceFee);
-        uint mintBunny = amountBunnyToMint(contribution);
+        (uint contributionInBNB, uint contributionInUSD) = priceCalculator.valueOfAsset(asset, _performanceFee);
+        uint mintBunny = amountBunnyToMint(contributionInBNB);
         if (mintBunny == 0) return;
         _mint(mintBunny, to);
+
+        if (marketBuy) {
+            uint usd = contributionInUSD.mul(floatingRateEmission()).div(floatingRateEmission().sub(1e18));
+            emit PerformanceFee(asset, _performanceFee, usd);
+        } else {
+            emit PerformanceFee(asset, _performanceFee, contributionInUSD);
+        }
     }
 
     /* ========== PancakeSwap V2 FUNCTIONS ========== */
