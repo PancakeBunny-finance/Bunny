@@ -292,6 +292,8 @@ contract VaultBunnyBNB is VaultController, IStrategy, RewardsDistributionRecipie
 
     function _deposit(uint amount, address _to) private nonReentrant notPaused updateReward(_to) {
         require(amount > 0, "VaultBunnyBNB: amount must be greater than zero");
+        _bunnyChef.updateRewardsOf(address(this));
+
         _totalSupply = _totalSupply.add(amount);
         _balances[_to] = _balances[_to].add(amount);
         _depositedAt[_to] = block.timestamp;

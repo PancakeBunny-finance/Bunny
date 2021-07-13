@@ -173,6 +173,8 @@ contract VaultBunny is VaultController, IStrategy, ReentrancyGuardUpgradeable {
 
     function _deposit(uint amount, address _to) private nonReentrant notPaused {
         require(amount > 0, "VaultBunny: amount must be greater than zero");
+        _bunnyChef.updateRewardsOf(address(this));
+
         _totalSupply = _totalSupply.add(amount);
         _balances[_to] = _balances[_to].add(amount);
         _depositedAt[_to] = block.timestamp;

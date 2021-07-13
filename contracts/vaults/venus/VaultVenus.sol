@@ -112,7 +112,7 @@ contract VaultVenus is VaultController, IStrategy, ReentrancyGuardUpgradeable {
     }
 
     modifier accrueBank {
-        if (bank != address (0)) {
+        if (bank != address(0)) {
             IBank(bank).executeAccrue();
         }
         _;
@@ -208,64 +208,64 @@ contract VaultVenus is VaultController, IStrategy, ReentrancyGuardUpgradeable {
 
     /* ========== RESTRICTED FUNCTIONS ========== */
 
-//    function setVenusBridge(address payable newBridge) public payable onlyOwner {
-//        require(newBridge != address(0), "VenusVault: bridge must be non-zero address");
-//        if (_stakingToken.allowance(address(this), address(newBridge)) == 0) {
-//            _stakingToken.safeApprove(address(newBridge), uint(- 1));
-//        }
-//
-//        uint _balanceBefore;
-//        if (address(venusBridge) != address(0) && totalShares > 0) {
-//            _balanceBefore = balance();
-//
-//            venusBridge.harvest();
-//            _decreaseCollateral(uint(- 1));
-//
-//            (venusBorrow, venusSupply) = safeVenus.venusBorrowAndSupply(address(this));
-//            require(venusBorrow == 0 && venusSupply == 0, "VaultVenus: borrow and supply must be zero");
-//            venusBridge.migrateTo(newBridge);
-//        }
-//
-//        venusBridge = IVaultVenusBridge(newBridge);
-//        uint _balanceAfter = balance();
-//        if (_balanceAfter < _balanceBefore && address(_stakingToken) != WBNB) {
-//            uint migrationCost = _balanceBefore.sub(_balanceAfter);
-//            _stakingToken.transferFrom(owner(), address(venusBridge), migrationCost);
-//            venusBridge.deposit(address(this), migrationCost);
-//        }
-//
-//        IVaultVenusBridge.MarketInfo memory market = venusBridge.infoOf(address(this));
-//        require(market.token != address(0) && market.vToken != address(0), "VaultVenus: invalid market info");
-//        _increaseCollateral(safeVenus.safeCompoundDepth(address(this)));
-//    }
-//
-//    function setMinter(address newMinter) public override onlyOwner {
-//        VaultController.setMinter(newMinter);
-//    }
-//
-//    function setBunnyChef(IBunnyChef newChef) public override onlyOwner {
-//        require(address(_bunnyChef) == address(0), "VaultVenus: bunnyChef exists");
-//        VaultController.setBunnyChef(IBunnyChef(newChef));
-//    }
-//
-//    function setCollateralFactors(uint _collateralRatioFactor, uint _collateralDepth) external onlyOwner {
-//        require(_collateralRatioFactor < COLLATERAL_RATIO_EMERGENCY, "VenusVault: invalid collateral ratio factor");
-//
-//        collateralRatioFactor = _collateralRatioFactor;
-//        collateralDepth = _collateralDepth;
-//        _increaseCollateral(safeVenus.safeCompoundDepth(address(this)));
-//        emit CollateralFactorsUpdated(_collateralRatioFactor, _collateralDepth);
-//    }
-//
-//    function setCollateralRatioSystem(uint _collateralRatioSystem) external onlyOwner {
-//        require(_collateralRatioSystem <= COLLATERAL_RATIO_SYSTEM_DEFAULT, "VenusVault: invalid collateral ratio system");
-//        collateralRatioSystem = _collateralRatioSystem;
-//    }
-//
-//    function setReserveRatio(uint _reserveRatio) external onlyOwner {
-//        require(_reserveRatio < 1000, "VaultVenus: invalid reserve ratio");
-//        reserveRatio = _reserveRatio;
-//    }
+    //    function setVenusBridge(address payable newBridge) public payable onlyOwner {
+    //        require(newBridge != address(0), "VenusVault: bridge must be non-zero address");
+    //        if (_stakingToken.allowance(address(this), address(newBridge)) == 0) {
+    //            _stakingToken.safeApprove(address(newBridge), uint(- 1));
+    //        }
+    //
+    //        uint _balanceBefore;
+    //        if (address(venusBridge) != address(0) && totalShares > 0) {
+    //            _balanceBefore = balance();
+    //
+    //            venusBridge.harvest();
+    //            _decreaseCollateral(uint(- 1));
+    //
+    //            (venusBorrow, venusSupply) = safeVenus.venusBorrowAndSupply(address(this));
+    //            require(venusBorrow == 0 && venusSupply == 0, "VaultVenus: borrow and supply must be zero");
+    //            venusBridge.migrateTo(newBridge);
+    //        }
+    //
+    //        venusBridge = IVaultVenusBridge(newBridge);
+    //        uint _balanceAfter = balance();
+    //        if (_balanceAfter < _balanceBefore && address(_stakingToken) != WBNB) {
+    //            uint migrationCost = _balanceBefore.sub(_balanceAfter);
+    //            _stakingToken.transferFrom(owner(), address(venusBridge), migrationCost);
+    //            venusBridge.deposit(address(this), migrationCost);
+    //        }
+    //
+    //        IVaultVenusBridge.MarketInfo memory market = venusBridge.infoOf(address(this));
+    //        require(market.token != address(0) && market.vToken != address(0), "VaultVenus: invalid market info");
+    //        _increaseCollateral(safeVenus.safeCompoundDepth(address(this)));
+    //    }
+    //
+    //    function setMinter(address newMinter) public override onlyOwner {
+    //        VaultController.setMinter(newMinter);
+    //    }
+    //
+    //    function setBunnyChef(IBunnyChef newChef) public override onlyOwner {
+    //        require(address(_bunnyChef) == address(0), "VaultVenus: bunnyChef exists");
+    //        VaultController.setBunnyChef(IBunnyChef(newChef));
+    //    }
+    //
+    //    function setCollateralFactors(uint _collateralRatioFactor, uint _collateralDepth) external onlyOwner {
+    //        require(_collateralRatioFactor < COLLATERAL_RATIO_EMERGENCY, "VenusVault: invalid collateral ratio factor");
+    //
+    //        collateralRatioFactor = _collateralRatioFactor;
+    //        collateralDepth = _collateralDepth;
+    //        _increaseCollateral(safeVenus.safeCompoundDepth(address(this)));
+    //        emit CollateralFactorsUpdated(_collateralRatioFactor, _collateralDepth);
+    //    }
+    //
+    //    function setCollateralRatioSystem(uint _collateralRatioSystem) external onlyOwner {
+    //        require(_collateralRatioSystem <= COLLATERAL_RATIO_SYSTEM_DEFAULT, "VenusVault: invalid collateral ratio system");
+    //        collateralRatioSystem = _collateralRatioSystem;
+    //    }
+    //
+    //    function setReserveRatio(uint _reserveRatio) external onlyOwner {
+    //        require(_reserveRatio < 1000, "VaultVenus: invalid reserve ratio");
+    //        reserveRatio = _reserveRatio;
+    //    }
 
     function setVenusExitRatio(uint _ratio) external onlyOwner {
         require(_ratio <= VENUS_EXIT_BASE);
@@ -359,6 +359,10 @@ contract VaultVenus is VaultController, IStrategy, ReentrancyGuardUpgradeable {
         amount = balanceAvailable().sub(_before);
 
         uint shares = totalShares == 0 ? amount : amount.mul(totalShares).div(_balance);
+        if (address(_bunnyChef) != address(0)) {
+            _bunnyChef.updateRewardsOf(address(this));
+        }
+
         totalShares = totalShares.add(shares);
         _shares[msg.sender] = _shares[msg.sender].add(shares);
         _principal[msg.sender] = _principal[msg.sender].add(amount);
@@ -383,6 +387,10 @@ contract VaultVenus is VaultController, IStrategy, ReentrancyGuardUpgradeable {
         venusBridge.deposit{value : amount}(address(this), amount);
 
         uint shares = totalShares == 0 ? amount : amount.mul(totalShares).div(_balance);
+        if (address(_bunnyChef) != address(0)) {
+            _bunnyChef.updateRewardsOf(address(this));
+        }
+
         totalShares = totalShares.add(shares);
         _shares[msg.sender] = _shares[msg.sender].add(shares);
         _principal[msg.sender] = _principal[msg.sender].add(amount);
