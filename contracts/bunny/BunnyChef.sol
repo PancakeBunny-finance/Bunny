@@ -212,7 +212,7 @@ contract BunnyChef is IBunnyChef, OwnableUpgradeable {
         }
     }
 
-    function updateRewardsOf(address vault) public updateRewards(vault) {
+    function updateRewardsOf(address vault) public override updateRewards(vault) {
     }
 
     /* ========== SALVAGE PURPOSE ONLY ========== */

@@ -58,4 +58,6 @@ interface IBunnyChef {
     function notifyDeposited(address user, uint amount) external;
     function notifyWithdrawn(address user, uint amount) external;
     function safeBunnyTransfer(address user) external returns (uint);
+
+    function updateRewardsOf(address vault) external;
 }
