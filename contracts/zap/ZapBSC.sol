@@ -39,7 +39,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "../interfaces/IPancakePair.sol";
 import "../interfaces/IPancakeRouter02.sol";
 import "../interfaces/IZap.sol";
-
+import "../interfaces/ISafeSwapBNB.sol";
 
 contract ZapBSC is IZap, OwnableUpgradeable {
     using SafeMath for uint;
@@ -66,6 +66,7 @@ contract ZapBSC is IZap, OwnableUpgradeable {
     mapping(address => bool) private notFlip;
     mapping(address => address) private routePairAddresses;
     address[] public tokens;
+    address public safeSwapBNB;
 
     /* ========== INITIALIZER ========== */
 
@@ -121,7 +122,7 @@ contract ZapBSC is IZap, OwnableUpgradeable {
                 uint otherAmount = _swap(_from, sellAmount, other, address(this));
                 ROUTER.addLiquidity(_from, other, amount.sub(sellAmount), otherAmount, 0, 0, msg.sender, block.timestamp);
             } else {
-                uint bnbAmount = _swapTokenForBNB(_from, amount, address(this));
+                uint bnbAmount = _from == WBNB ? _safeSwapToBNB(amount) : _swapTokenForBNB(_from, amount, address(this));
                 _swapBNBToFlip(_to, bnbAmount, msg.sender);
             }
         } else {
@@ -285,6 +286,14 @@ contract ZapBSC is IZap, OwnableUpgradeable {
         return amounts[amounts.length - 1];
     }
 
+    function _safeSwapToBNB(uint amount) private returns (uint) {
+        require(IBEP20(WBNB).balanceOf(msg.sender) >= amount, "Not enough WBNB balance");
+        require(safeSwapBNB != address(0), "safeSwapBNB is not set");
+        uint beforeBNB = address(this).balance;
+        ISafeSwapBNB(safeSwapBNB).withdraw(amount);
+        return (address(this).balance).sub(beforeBNB);
+    }
+
     /* ========== RESTRICTED FUNCTIONS ========== */
 
     function setRoutePairAddress(address asset, address route) public onlyOwner {
@@ -324,5 +333,11 @@ contract ZapBSC is IZap, OwnableUpgradeable {
         }
 
         IBEP20(token).transfer(owner(), IBEP20(token).balanceOf(address(this)));
+    }
+
+    function setSafeSwapBNB(address _safeSwapBNB) external onlyOwner {
+        require(safeSwapBNB == address(0), "safeSwapBNB already set!");
+        safeSwapBNB = _safeSwapBNB;
+        IBEP20(WBNB).approve(_safeSwapBNB, uint(-1));
     }
 }
