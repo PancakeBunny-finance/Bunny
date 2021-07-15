@@ -287,8 +287,8 @@ contract ZapBSC is IZap, OwnableUpgradeable {
     }
 
     function _safeSwapToBNB(uint amount) private returns (uint) {
-        require(IBEP20(WBNB).balanceOf(msg.sender) >= amount, "Not enough WBNB balance");
-        require(safeSwapBNB != address(0), "safeSwapBNB is not set");
+        require(IBEP20(WBNB).balanceOf(address(this)) >= amount, "Zap: Not enough WBNB balance");
+        require(safeSwapBNB != address(0), "Zap: safeSwapBNB is not set");
         uint beforeBNB = address(this).balance;
         ISafeSwapBNB(safeSwapBNB).withdraw(amount);
         return (address(this).balance).sub(beforeBNB);
@@ -336,7 +336,7 @@ contract ZapBSC is IZap, OwnableUpgradeable {
     }
 
     function setSafeSwapBNB(address _safeSwapBNB) external onlyOwner {
-        require(safeSwapBNB == address(0), "safeSwapBNB already set!");
+        require(safeSwapBNB == address(0), "Zap: safeSwapBNB already set!");
         safeSwapBNB = _safeSwapBNB;
         IBEP20(WBNB).approve(_safeSwapBNB, uint(-1));
     }
