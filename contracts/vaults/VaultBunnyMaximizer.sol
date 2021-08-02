@@ -176,15 +176,9 @@ contract VaultBunnyMaximizer is VaultController, IStrategy, ReentrancyGuardUpgra
         IStrategyLegacy(BUNNY_POOL).deposit(harvested);
     }
 
-    function withdraw(uint shares) external override onlyWhitelisted {
-        uint amount = balance().mul(shares).div(totalShares);
-        totalShares = totalShares.sub(shares);
-        _shares[msg.sender] = _shares[msg.sender].sub(shares);
-
-        IStrategyLegacy(BUNNY_POOL).withdraw(amount);
-
-        _stakingToken.safeTransfer(msg.sender, amount);
-        emit Withdrawn(msg.sender, amount, 0);
+    function withdraw(uint) external override onlyWhitelisted {
+        // we don't use withdraw function.
+        revert("N/A");
     }
 
     // @dev underlying only + withdrawal fee + no perf fee
