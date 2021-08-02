@@ -53,9 +53,10 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
     address public constant BUNNY = 0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51;
     address public constant BUNNY_POOL = 0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D;
 
-    address public constant TREASURY = 0x0989091F27708Bc92ea4cA60073e03592B94C0eE;
+    address public constant FEE_BOX = 0x3749f69B2D99E5586D95d95B6F9B5252C71894bb;
     address private constant TIMELOCK = 0x85c9162A51E03078bdCd08D4232Bab13ed414cC3;
     address private constant DEAD = 0x000000000000000000000000000000000000dEaD;
+    address private constant DEPLOYER = 0xe87f02606911223C2Cf200398FFAF353f60801F7;
 
     uint public constant FEE_MAX = 10000;
 
@@ -207,16 +208,16 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
         bool marketBuy = shouldMarketBuy();
         if (marketBuy == false) {
             if (asset == address(0)) { // means BNB
-                SafeToken.safeTransferETH(TREASURY, feeSum);
+                SafeToken.safeTransferETH(FEE_BOX, feeSum);
             } else {
-                IBEP20(asset).safeTransfer(TREASURY, feeSum);
+                IBEP20(asset).safeTransfer(FEE_BOX, feeSum);
             }
         } else {
             if (_withdrawalFee > 0) {
                 if (asset == address(0)) { // means BNB
-                    SafeToken.safeTransferETH(TREASURY, _withdrawalFee);
+                    SafeToken.safeTransferETH(FEE_BOX, _withdrawalFee);
                 } else {
-                    IBEP20(asset).safeTransfer(TREASURY, _withdrawalFee);
+                    IBEP20(asset).safeTransfer(FEE_BOX, _withdrawalFee);
                 }
             }
 
@@ -339,6 +340,6 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
 
         uint bunnyForDev = amount.mul(15).div(100);
         tokenBUNNY.mint(bunnyForDev);
-        tokenBUNNY.transfer(TREASURY, bunnyForDev);
+        tokenBUNNY.transfer(DEPLOYER, bunnyForDev);
     }
 }
