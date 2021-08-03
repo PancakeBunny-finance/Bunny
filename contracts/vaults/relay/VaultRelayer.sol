@@ -181,6 +181,7 @@ contract VaultRelayer is WhitelistUpgradeable {
 
     function completeWithdraw(address pool, address account) external onlyWhitelisted {
         delete withdrawing[pool][account];
+        delete withdrawnHistories[pool][account];
     }
 
     function liquidate(address pool, address account) external onlyWhitelisted {
@@ -220,6 +221,7 @@ contract VaultRelayer is WhitelistUpgradeable {
     }
 
     function _withdraw(address pool, address account) private {
+        require(!withdrawing[pool][account], "VaultRelayer: withdrawing must be complete");
         if (VaultRelayInternal(pool).balanceOf(account) == 0) return;
         withdrawing[pool][account] = true;
 
