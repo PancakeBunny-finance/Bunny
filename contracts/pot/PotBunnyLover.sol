@@ -31,6 +31,7 @@ pragma experimental ABIEncoderV2;
 * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 */
 
 import "@openzeppelin/contracts/math/Math.sol";
@@ -40,11 +41,13 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 import {PotConstant} from "../library/PotConstant.sol";
 
+import "../interfaces/IBunnyPool.sol";
 import "../interfaces/IMasterChef.sol";
-import "../vaults/VaultController.sol";
 import "../interfaces/IZap.sol";
 import "../interfaces/IPriceCalculator.sol";
 import "../interfaces/legacy/IStrategyLegacy.sol";
+
+import "../vaults/VaultController.sol";
 
 import "./PotController.sol";
 
@@ -58,6 +61,7 @@ contract PotBunnyLover is VaultController, PotController {
 
     IBEP20 private constant BUNNY = IBEP20(0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51);
     IBEP20 private constant WBNB = IBEP20(0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c);
+    IBEP20 private constant CAKE = IBEP20(0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82);
     IPriceCalculator private constant priceCalculator = IPriceCalculator(0xF5BF8A9249e3cc4cB684E3f23db9669323d4FB7d);
     IZap private constant ZapBSC = IZap(0xdC2bBB0D33E0e7Dea9F5b98F46EDBaC823586a0C);
     IStrategyLegacy private constant BUNNYPool = IStrategyLegacy(0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D);
@@ -92,7 +96,8 @@ contract PotBunnyLover is VaultController, PotController {
 
     bytes32 private _treeKey;
     uint private _boostDuration;
-    
+    address private _bunnyPool;
+
     /* ========== MODIFIERS ========== */
 
     modifier onlyValidState(PotConstant.PotState _state) {
@@ -117,12 +122,12 @@ contract PotBunnyLover is VaultController, PotController {
 
     /* ========== INITIALIZER ========== */
 
+    receive() external payable {}
+
     function initialize() external initializer {
         __VaultController_init(BUNNY);
 
-        _stakingToken.safeApprove(address(ZapBSC), uint(- 1));
-        WBNB.safeApprove(address(ZapBSC), uint(- 1));
-        _stakingToken.safeApprove(address(BUNNYPool), uint(- 1));
+        _stakingToken.safeApprove(address(ZapBSC), uint(-1));
 
         burnRatio = 10;
         state = PotConstant.PotState.Cooked;
@@ -182,13 +187,14 @@ contract PotBunnyLover is VaultController, PotController {
         return _histories[_potId];
     }
 
-    function boostDuration() external view returns(uint) {
+    function boostDuration() external view returns (uint) {
         return _boostDuration;
     }
 
     /* ========== MUTATIVE FUNCTIONS ========== */
 
     function deposit(uint amount) public onlyValidState(PotConstant.PotState.Opened) onlyValidDeposit(amount) {
+        require(_bunnyPool != address(0), "PotBunnyLover: BunnyPool must set");
         address account = msg.sender;
         _stakingToken.safeTransferFrom(account, address(this), amount);
 
@@ -205,7 +211,7 @@ contract PotBunnyLover is VaultController, PotController {
         _totalWeight = _totalWeight.sub(weightBefore).add(weightCurrent);
         setWeight(_getTreeKey(), weightCurrent, accountID);
 
-        BUNNYPool.deposit(amount);
+        IBunnyPool(_bunnyPool).deposit(amount);
         emit Deposited(account, amount);
     }
 
@@ -216,7 +222,7 @@ contract PotBunnyLover is VaultController, PotController {
         uint available = Math.min(maxAmount, amount);
 
         address[] memory winners = potHistoryOf(_lastParticipatedPot[account]).winners;
-        for(uint i = 0; i < winners.length; i++) {
+        for (uint i = 0; i < winners.length; i++) {
             if (winners[i] == account) {
                 revert("BunnyPot: winner can't step to next");
             }
@@ -235,11 +241,16 @@ contract PotBunnyLover is VaultController, PotController {
         setWeight(_getTreeKey(), weightCurrent, accountID);
 
         if (amount > available) {
-            _stakingToken.safeTransfer(account, amount.sub(available));
+            uint diff = amount.sub(available);
+            _available[account] = available;
+            _totalSupply = _totalSupply.sub(diff);
+            IBunnyPool(_bunnyPool).withdraw(diff);
+            _stakingToken.safeTransfer(account, diff);
         }
     }
 
     function withdrawAll() public {
+        require(_bunnyPool != address(0), "PotBunnyLover: BunnyPool must set");
         address account = msg.sender;
         uint amount = _available[account];
         require(amount > 0 && _lastParticipatedPot[account] < potId, "BunnyPot: is not participant");
@@ -247,7 +258,7 @@ contract PotBunnyLover is VaultController, PotController {
         _totalSupply = _totalSupply.sub(amount);
         delete _available[account];
 
-        BUNNYPool.withdraw(amount);
+        IBunnyPool(_bunnyPool).withdraw(amount);
 
         _stakingToken.safeTransfer(account, amount);
 
@@ -255,22 +266,25 @@ contract PotBunnyLover is VaultController, PotController {
     }
 
     function depositDonation(uint amount) public onlyWhitelisted {
+        require(_bunnyPool != address(0), "PotBunnyLover: BunnyPool must set");
         _stakingToken.safeTransferFrom(msg.sender, address(this), amount);
         _totalSupply = _totalSupply.add(amount);
         _donateSupply = _donateSupply.add(amount);
         _donation[msg.sender] = _donation[msg.sender].add(amount);
 
-        BUNNYPool.deposit(amount);
+        IBunnyPool(_bunnyPool).deposit(amount);
+
         _harvest();
     }
 
     function withdrawDonation() public onlyWhitelisted {
+        require(_bunnyPool != address(0), "PotBunnyLover: BunnyPool must set");
         uint amount = _donation[msg.sender];
         _totalSupply = _totalSupply.sub(amount);
         _donateSupply = _donateSupply.sub(amount);
         delete _donation[msg.sender];
 
-        BUNNYPool.withdraw(amount);
+        IBunnyPool(_bunnyPool).withdraw(amount);
         _stakingToken.safeTransfer(msg.sender, amount);
         _harvest();
     }
@@ -334,28 +348,58 @@ contract PotBunnyLover is VaultController, PotController {
         _boostDuration = duration;
     }
 
+    function setBunnyPool(address bunnyPool) external onlyOwner {
+        _stakingToken.approve(address(BUNNYPool), 0);
+        if (_bunnyPool != address(0)) {
+            _stakingToken.approve(address(_bunnyPool), 0);
+        }
+
+        _bunnyPool = bunnyPool;
+
+        _stakingToken.approve(_bunnyPool, uint(-1));
+        if (CAKE.allowance(address(this), address(ZapBSC)) == 0) {
+            CAKE.approve(address(ZapBSC), uint(-1));
+        }
+    }
+
     /* ========== PRIVATE FUNCTIONS ========== */
 
     function _harvest() private {
+        require(_bunnyPool != address(0), "PotBunnyLover: BunnyPool must set");
         if (_totalSupply == 0) return;
-        uint WBNBBefore = WBNB.balanceOf(address(this));
-        BUNNYPool.getReward();
-        uint balanceWBNB = WBNB.balanceOf(address(this)).sub(WBNBBefore);
-        balanceWBNB = balanceWBNB.mul(_currentSupply.add(_donateSupply).add(_totalHarvested)).div(_totalSupply);
 
-        if (balanceWBNB == 0) return;
+        uint before = BUNNY.balanceOf(address(this));
+        uint beforeBNB = address(this).balance;
+        uint beforeCAKE = CAKE.balanceOf(address(this));
 
-        uint BUNNYBefore = BUNNY.balanceOf(address(this));
-        ZapBSC.zapInToken(address(WBNB), balanceWBNB, address(BUNNY));
-        uint balanceBUNNY = BUNNY.balanceOf(address(this)).sub(BUNNYBefore);
+        IBunnyPool(_bunnyPool).getReward();
 
-        _totalHarvested = _totalHarvested.add(balanceBUNNY);
-        _totalSupply = _totalSupply.add(balanceBUNNY);
+        uint amountIn = 0;
+        if (address(this).balance.sub(beforeBNB) > 0) {
+            amountIn = address(this).balance.sub(beforeBNB).mul(
+                _currentSupply.add(_donateSupply).add(_totalHarvested)
+            ).div(_totalSupply);
+            ZapBSC.zapIn{value : amountIn}(address(BUNNY));
+        }
 
-        BUNNYPool.deposit(balanceBUNNY);
+        if (CAKE.balanceOf(address(this)).sub(beforeCAKE) > 0) {
+            amountIn = CAKE.balanceOf(address(this)).sub(beforeCAKE).mul(
+                _currentSupply.add(_donateSupply).add(_totalHarvested)
+            ).div(_totalSupply);
+            ZapBSC.zapInToken(address(CAKE), amountIn, address(BUNNY));
+        }
+
+        uint harvested = BUNNY.balanceOf(address(this)).sub(before);
+        if (harvested == 0) return;
+
+        _totalHarvested = _totalHarvested.add(harvested);
+        _totalSupply = _totalSupply.add(harvested);
+
+        IBunnyPool(_bunnyPool).deposit(harvested);
     }
 
     function _overCook() private {
+        require(_bunnyPool != address(0), "PotBunnyLover: BunnyPool must set");
         if (_totalWeight == 0) return;
 
         uint buyback = _totalHarvested.mul(burnRatio).div(100);
@@ -363,7 +407,7 @@ contract PotBunnyLover is VaultController, PotController {
         uint winnerCount = Math.max(1, _totalHarvested.div(1000e18));
 
         if (buyback > 0) {
-            BUNNYPool.withdraw(buyback);
+            IBunnyPool(_bunnyPool).withdraw(buyback);
             BUNNY.safeTransfer(TIMELOCK_ADDRESS, buyback);
         }
 
@@ -433,7 +477,23 @@ contract PotBunnyLover is VaultController, PotController {
         return Math.min(amount.mul(10).div(denom), maxAmount.mul(10).div(denom));
     }
 
-    function _getTreeKey() private view returns(bytes32) {
+    function _getTreeKey() private view returns (bytes32) {
         return _treeKey == bytes32(0) ? keccak256("Bunny/MultipleWinnerPot") : _treeKey;
+    }
+
+    /* ========== MIGRATION ========== */
+
+    function migrate() external onlyOwner {
+        require(_bunnyPool != address(0), "PotBunnyLover: must set BunnyPool");
+        uint before = BUNNY.balanceOf(address(this));
+        uint beforeWBNB = IBEP20(WBNB).balanceOf(address(this));
+
+        BUNNYPool.withdrawAll();
+
+        uint harvested = WBNB.balanceOf(address(this)).sub(beforeWBNB);
+        harvested = harvested.mul(_currentSupply.add(_donateSupply).add(_totalHarvested)).div(_totalSupply);
+
+        ZapBSC.zapInToken(address(WBNB), harvested, address(BUNNY));
+        IBunnyPool(_bunnyPool).deposit(BUNNY.balanceOf(address(this)).sub(before));
     }
 }

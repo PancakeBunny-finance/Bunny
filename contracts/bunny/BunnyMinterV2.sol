@@ -30,6 +30,7 @@ pragma solidity ^0.6.12;
 * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 */
 
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
@@ -37,7 +38,7 @@ import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
 
 import "../interfaces/IBunnyMinterV2.sol";
-import "../interfaces/IStakingRewards.sol";
+import "../interfaces/IBunnyPool.sol";
 import "../interfaces/IPriceCalculator.sol";
 
 import "../zap/ZapBSC.sol";
@@ -51,7 +52,7 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
 
     address public constant WBNB = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
     address public constant BUNNY = 0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51;
-    address public constant BUNNY_POOL = 0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D;
+    address public constant BUNNY_POOL_V1 = 0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D;
 
     address public constant FEE_BOX = 0x3749f69B2D99E5586D95d95B6F9B5252C71894bb;
     address private constant TIMELOCK = 0x85c9162A51E03078bdCd08D4232Bab13ed414cC3;
@@ -79,6 +80,8 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
 
     uint private _floatingRateEmission;
     uint private _freThreshold;
+
+    address public bunnyPool;
 
     /* ========== MODIFIERS ========== */
 
@@ -108,7 +111,7 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
         _deprecated_bunnyPerProfitBNB = 5e18;
         _deprecated_bunnyPerBunnyBNBFlip = 6e18;
 
-        IBEP20(BUNNY).approve(BUNNY_POOL, uint(- 1));
+        IBEP20(BUNNY).approve(BUNNY_POOL_V1, uint(- 1));
     }
 
     /* ========== RESTRICTED FUNCTIONS ========== */
@@ -152,6 +155,12 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
 
     function setFREThreshold(uint threshold) external onlyOwner {
         _freThreshold = threshold;
+    }
+
+    function setBunnyPool(address _bunnyPool) external onlyOwner {
+        IBEP20(BUNNY).approve(BUNNY_POOL_V1, 0);
+        bunnyPool = _bunnyPool;
+        IBEP20(BUNNY).approve(_bunnyPool, uint(-1));
     }
 
     /* ========== VIEWS ========== */
@@ -340,6 +349,10 @@ contract BunnyMinterV2 is IBunnyMinterV2, OwnableUpgradeable {
 
         uint bunnyForDev = amount.mul(15).div(100);
         tokenBUNNY.mint(bunnyForDev);
-        tokenBUNNY.transfer(DEPLOYER, bunnyForDev);
+        if (bunnyPool == address(0)) {
+            tokenBUNNY.transfer(DEPLOYER, bunnyForDev);
+        } else {
+            IBunnyPool(bunnyPool).depositOnBehalf(bunnyForDev, DEPLOYER);
+        }
     }
 }
