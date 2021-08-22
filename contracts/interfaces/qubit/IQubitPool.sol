@@ -1,18 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
+pragma experimental ABIEncoderV2;
 
 /*
-  ___                      _   _
- | _ )_  _ _ _  _ _ _  _  | | | |
- | _ \ || | ' \| ' \ || | |_| |_|
- |___/\_,_|_||_|_||_\_, | (_) (_)
-                    |__/
+      ___       ___       ___       ___       ___
+     /\  \     /\__\     /\  \     /\  \     /\  \
+    /::\  \   /:/ _/_   /::\  \   _\:\  \    \:\  \
+    \:\:\__\ /:/_/\__\ /::\:\__\ /\/::\__\   /::\__\
+     \::/  / \:\/:/  / \:\::/  / \::/\/__/  /:/\/__/
+     /:/  /   \::/  /   \::/  /   \:\__\    \/__/
+     \/__/     \/__/     \/__/     \/__/
 
 *
 * MIT License
 * ===========
 *
-* Copyright (c) 2020 BunnyFinance
+* Copyright (c) 2021 QubitFinance
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,51 +36,20 @@ pragma solidity ^0.6.12;
 * SOFTWARE.
 */
 
+import "../IVaultController.sol";
 
-library PoolConstant {
+interface IQubitPool is IVaultController {
 
-    enum PoolTypes {
-        BunnyStake_deprecated, // no perf fee
-        BunnyFlip_deprecated, // deprecated
-        CakeStake, FlipToFlip, FlipToCake,
-        Bunny, // no perf fee
-        BunnyBNB,
-        Venus,
-        Collateral,
-        BunnyToBunny,
-        FlipToReward,
-        BunnyV2,
-        Qubit,
-        bQBT
-    }
+    /* ========== Dashboard ========== */
+    function balance() external view returns (uint);
+    function principalOf(address account) external view returns (uint);
+    function withdrawableBalanceOf(address account) external view returns (uint);
+    function earned(address account) external view returns (uint);
+    function priceShare() external view returns (uint);
+    function depositedAt(address account) external view returns (uint);
+    function rewardsToken() external view returns (address);
 
-    struct PoolInfo {
-        address pool;
-        uint balance;
-        uint principal;
-        uint available;
-        uint tvl;
-        uint utilized;
-        uint liquidity;
-        uint pBASE;
-        uint pBUNNY;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
-        uint portfolio;
-    }
-
-    struct RelayInfo {
-        address pool;
-        uint balanceInUSD;
-        uint debtInUSD;
-        uint earnedInUSD;
-    }
-
-    struct RelayWithdrawn {
-        address pool;
-        address account;
-        uint profitInETH;
-        uint lossInETH;
-    }
+    /* ========== Interface ========== */
+    function stake(uint _amount) external;
+    function notifyRewardAmount(uint reward) external;
 }

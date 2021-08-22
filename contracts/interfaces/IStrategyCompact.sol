@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
+pragma experimental ABIEncoderV2;
 
 /*
   ___                      _   _
@@ -33,51 +34,21 @@ pragma solidity ^0.6.12;
 * SOFTWARE.
 */
 
+import "../library/PoolConstant.sol";
+import "./IVaultController.sol";
 
-library PoolConstant {
+interface IStrategyCompact is IVaultController {
 
-    enum PoolTypes {
-        BunnyStake_deprecated, // no perf fee
-        BunnyFlip_deprecated, // deprecated
-        CakeStake, FlipToFlip, FlipToCake,
-        Bunny, // no perf fee
-        BunnyBNB,
-        Venus,
-        Collateral,
-        BunnyToBunny,
-        FlipToReward,
-        BunnyV2,
-        Qubit,
-        bQBT
-    }
+    /* ========== Dashboard ========== */
 
-    struct PoolInfo {
-        address pool;
-        uint balance;
-        uint principal;
-        uint available;
-        uint tvl;
-        uint utilized;
-        uint liquidity;
-        uint pBASE;
-        uint pBUNNY;
-        uint depositedAt;
-        uint feeDuration;
-        uint feePercentage;
-        uint portfolio;
-    }
+    function balance() external view returns (uint);
+    function balanceOf(address account) external view returns(uint);
+    function principalOf(address account) external view returns (uint);
+    function withdrawableBalanceOf(address account) external view returns (uint);
+    function earned(address account) external view returns (uint);
+    function priceShare() external view returns (uint);
+    function depositedAt(address account) external view returns (uint);
+    function rewardsToken() external view returns (address);
 
-    struct RelayInfo {
-        address pool;
-        uint balanceInUSD;
-        uint debtInUSD;
-        uint earnedInUSD;
-    }
 
-    struct RelayWithdrawn {
-        address pool;
-        address account;
-        uint profitInETH;
-        uint lossInETH;
-    }
 }
