@@ -39,7 +39,6 @@ import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
 
 import "../../library/SafeToken.sol";
 import "../../library/WhitelistUpgradeable.sol";
-import "../../library/Exponential.sol";
 
 import "../../interfaces/IPancakeRouter02.sol";
 import "../../interfaces/qubit/IQDistributor.sol";
@@ -47,12 +46,12 @@ import "../../interfaces/qubit/IQToken.sol";
 import "../../interfaces/qubit/IVaultQubitBridge.sol";
 import "../../interfaces/qubit/IQore.sol";
 import "../../interfaces/qubit/IQubitLocker.sol";
-import "../../interfaces/qubit/IQubitPool.sol";
+import "../../interfaces/qubit/IRewardDistributed.sol";
 import "../../interfaces/IWETH.sol";
 
 import "../../interfaces/IPriceCalculator.sol";
 
-contract VaultQubitBridge is WhitelistUpgradeable, Exponential, IVaultQubitBridge {
+contract VaultQubitBridge is WhitelistUpgradeable, IVaultQubitBridge {
     using SafeMath for uint;
     using SafeBEP20 for IBEP20;
     using SafeToken for address;
@@ -72,7 +71,8 @@ contract VaultQubitBridge is WhitelistUpgradeable, Exponential, IVaultQubitBridg
 
     /* ========== STATE VARIABLES ========== */
 
-    IQubitPool public qubitPool;
+    IRewardDistributed public qubitPool;
+    IRewardDistributed public vaultFlipToQBT;
 
     MarketInfo[] private _marketList;
     mapping(address => MarketInfo) markets;
@@ -168,6 +168,7 @@ contract VaultQubitBridge is WhitelistUpgradeable, Exponential, IVaultQubitBridg
 
         IBEP20(token).safeApprove(address(PANCAKE_ROUTER), uint(-1));
         IBEP20(token).safeApprove(qToken, uint(-1));
+        QBT.safeApprove(vault, uint(-1));
 
         address[] memory qubitMarkets = new address[](1);
         qubitMarkets[0] = qToken;
@@ -216,15 +217,23 @@ contract VaultQubitBridge is WhitelistUpgradeable, Exponential, IVaultQubitBridg
 
         // bQBT reward = claimed * (boostRatio - 1) * 0.1
         uint rewardForBunnyQBT = claimed.mul(boostRatio.sub(1e18)).div(1e18).mul(10).div(100);
+        claimed = claimed.sub(rewardForBunnyQBT);
+
         if (address(qubitPool) != address(0)) {
+            if (address(vaultFlipToQBT) != address(0)) {
+                uint rewardForVaultFlipToQBT = rewardForBunnyQBT.div(2);
+                QBT.transfer(address(vaultFlipToQBT), rewardForVaultFlipToQBT);
+                vaultFlipToQBT.notifyRewardAmount(rewardForVaultFlipToQBT);
+                rewardForBunnyQBT = rewardForBunnyQBT.sub(rewardForVaultFlipToQBT);
+            }
+
             QBT.transfer(address(qubitPool), rewardForBunnyQBT);
             qubitPool.notifyRewardAmount(rewardForBunnyQBT);
         }
 
         _qbtBefore = QBT.balanceOf(address(this));
-        _swapShortage(msg.sender, claimed.sub(rewardForBunnyQBT));
-        claimed = claimed.sub(rewardForBunnyQBT).sub(_qbtBefore.sub(QBT.balanceOf(address(this))));
-
+        _swapShortage(msg.sender, claimed);
+        claimed = claimed.sub(_qbtBefore.sub(QBT.balanceOf(address(this))));
         QBT.transfer(msg.sender, claimed);
         return claimed;
     }
@@ -233,7 +242,12 @@ contract VaultQubitBridge is WhitelistUpgradeable, Exponential, IVaultQubitBridg
 
     function setQubitPool(address _qubitPool) external onlyOwner {
         require(address(qubitPool) == address(0), "VaultQubitBridge: qubitPool is already set");
-        qubitPool = IQubitPool(_qubitPool);
+        qubitPool = IRewardDistributed(_qubitPool);
+    }
+
+    function setVaultFlipToQBT(address _vaultFlipToQBT) external onlyOwner {
+        require(address(vaultFlipToQBT) == address(0), "VaultQubitBridge: vaultFlipToQBT is already set");
+        vaultFlipToQBT = IRewardDistributed(_vaultFlipToQBT);
     }
 
     function lockup(uint _amount) external override onlyWhitelisted {
@@ -312,7 +326,6 @@ contract VaultQubitBridge is WhitelistUpgradeable, Exponential, IVaultQubitBridg
         uint nextBorrowInterest = IQToken(market.qToken).borrowRatePerSec().mul(vaultBorrow).mul(market.rewardsDuration).mul(2).div(1e18);
         uint nextSupplyInterest = IQToken(market.qToken).supplyRatePerSec().mul(vaultSupply).mul(market.rewardsDuration).mul(2).div(1e18);
         shortage = nextBorrowInterest > nextSupplyInterest ? shortage.add(nextBorrowInterest).sub(nextSupplyInterest) : shortage;
-
         if (shortage > 0) {
             if (market.token == WBNB) {
                 address[] memory path = new address[](2);

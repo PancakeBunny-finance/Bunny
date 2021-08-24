@@ -22,8 +22,8 @@ roadmap: http://bit.ly/bunny_roadmap
 
 
 ### BUNNY Pools Contracts
-- BUNNY Pool (Earn Fee distributions): [0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D](https://bscscan.com/address/0xCADc8CB26c8C7cB46500E61171b5F27e9bd7889D)
 - BUNNY Maximizer (Earn BUNNY): [0xC004a3b5Af216e9c2c59a9EA8BC3Ee07aF667329](https://bscscan.com/address/0xC004a3b5Af216e9c2c59a9EA8BC3Ee07aF667329)
+- BUNNY Pool V2 (Earn Fee distributions): [0x4fd0143a3DA1E4BA762D42fF53BE5Fab633e014D](https://bscscan.com/address/0x4fd0143a3DA1E4BA762D42fF53BE5Fab633e014D)
 - BUNNY-BNB Pool (Earn BUNNY): [0xa6C29a422D1612293669156a34f2793526783622](https://bscscan.com/address/0xa6C29a422D1612293669156a34f2793526783622)
 
 #### Cake Maximizer - Deposit FLIP, Earn CAKE

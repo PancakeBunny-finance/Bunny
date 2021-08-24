@@ -241,15 +241,8 @@ contract QubitPool is BEP20Upgradeable, IQubitPool, RewardsDistributionRecipient
         uint amount = Math.min(_amount, _staking[msg.sender]);
         _staking[msg.sender] = _staking[msg.sender].sub(amount);
 
-        uint depositTimestamp = _depositedAt[msg.sender];
-        uint withdrawalFee = canMint() ? _minter.withdrawalFee(amount, depositTimestamp) : 0;
-        if (withdrawalFee > DUST) {
-            _minter.mintForV2(_stakingToken, withdrawalFee, 0, msg.sender, depositTimestamp);
-            amount = amount.sub(withdrawalFee);
-        }
-
         address(this).safeTransfer(msg.sender, amount);
-        emit Withdrawn(msg.sender, amount, withdrawalFee);
+        emit Withdrawn(msg.sender, amount, 0);
     }
 
     function withdrawAll() public {
