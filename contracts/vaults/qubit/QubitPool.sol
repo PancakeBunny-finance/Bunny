@@ -239,6 +239,8 @@ contract QubitPool is BEP20Upgradeable, IQubitPool, RewardsDistributionRecipient
 
     function withdraw(uint _amount) public updateReward(msg.sender) nonReentrant {
         uint amount = Math.min(_amount, _staking[msg.sender]);
+
+        totalStaking = totalStaking.sub(amount);
         _staking[msg.sender] = _staking[msg.sender].sub(amount);
 
         address(this).safeTransfer(msg.sender, amount);
