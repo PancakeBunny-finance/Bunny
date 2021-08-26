@@ -230,6 +230,8 @@ contract VaultFlipToQBT is VaultController, IRewardDistributed, RewardsDistribut
             require(newMinter == BUNNY.getOwner(), "VaultFlipToQBT: not bunny minter");
             QBT.safeApprove(newMinter, 0);
             QBT.safeApprove(newMinter, uint(-1));
+            _stakingToken.safeApprove(newMinter, 0);
+            _stakingToken.safeApprove(newMinter, uint(-1));
         }
     }
 
