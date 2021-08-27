@@ -166,7 +166,10 @@ contract VaultQubitBridge is WhitelistUpgradeable, IVaultQubitBridge {
         _marketList.push(market);
         markets[vault] = market;
 
-        IBEP20(token).safeApprove(address(PANCAKE_ROUTER), uint(-1));
+        // QBT is already approved at initialization
+        if (token != address(QBT)) {
+            IBEP20(token).safeApprove(address(PANCAKE_ROUTER), uint(-1));
+        }
         IBEP20(token).safeApprove(qToken, uint(-1));
         QBT.safeApprove(vault, uint(-1));
 
