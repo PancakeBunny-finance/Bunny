@@ -150,8 +150,8 @@ contract VaultFlipToQBT is VaultController, IRewardDistributed, RewardsDistribut
     function rewardPerToken() public view returns (uint) {
         return
         _totalSupply == 0
-            ? rewardPerTokenStored
-            : rewardPerTokenStored.add(lastTimeRewardApplicable().sub(lastUpdateTime).mul(rewardRate).mul(1e18).div(_totalSupply));
+        ? rewardPerTokenStored
+        : rewardPerTokenStored.add(lastTimeRewardApplicable().sub(lastUpdateTime).mul(rewardRate).mul(1e18).div(_totalSupply));
     }
 
     function earned(address account) override public view returns (uint) {
@@ -225,7 +225,6 @@ contract VaultFlipToQBT is VaultController, IRewardDistributed, RewardsDistribut
     /* ========== RESTRICTED FUNCTIONS ========== */
 
     function setMinter(address newMinter) public override onlyOwner {
-        _minter = IBunnyMinterV2(newMinter);
         if (newMinter != address(0)) {
             require(newMinter == BUNNY.getOwner(), "VaultFlipToQBT: not bunny minter");
             QBT.safeApprove(newMinter, 0);
@@ -233,6 +232,9 @@ contract VaultFlipToQBT is VaultController, IRewardDistributed, RewardsDistribut
             _stakingToken.safeApprove(newMinter, 0);
             _stakingToken.safeApprove(newMinter, uint(-1));
         }
+        if (address(_minter) != address(0)) QBT.safeApprove(address(_minter), 0);
+        if (address(_minter) != address(0)) _stakingToken.safeApprove(address(_minter), 0);
+        _minter = IBunnyMinterV2(newMinter);
     }
 
     function notifyRewardAmount(uint reward) public override(IRewardDistributed, RewardsDistributionRecipientUpgradeable) onlyRewardsDistribution {

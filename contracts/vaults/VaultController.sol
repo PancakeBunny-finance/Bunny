@@ -31,6 +31,7 @@ pragma experimental ABIEncoderV2;
 * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 */
 
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/SafeBEP20.sol";
@@ -112,12 +113,13 @@ abstract contract VaultController is IVaultController, PausableUpgradeable, Whit
 
     function setMinter(address newMinter) virtual public onlyOwner {
         // can zero
-        _minter = IBunnyMinterV2(newMinter);
         if (newMinter != address(0)) {
             require(newMinter == BUNNY.getOwner(), 'VaultController: not bunny minter');
             _stakingToken.safeApprove(newMinter, 0);
             _stakingToken.safeApprove(newMinter, uint(- 1));
         }
+        if (address(_minter) != address(0)) _stakingToken.safeApprove(address(_minter), 0);
+        _minter = IBunnyMinterV2(newMinter);
     }
 
     function setBunnyChef(IBunnyChef newBunnyChef) virtual public onlyOwner {

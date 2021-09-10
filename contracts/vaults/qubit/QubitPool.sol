@@ -178,7 +178,6 @@ contract QubitPool is BEP20Upgradeable, IQubitPool, RewardsDistributionRecipient
     /* ========== RESTRICTED FUNCTIONS - Minter ========== */
 
     function setMinter(address newMinter) public onlyOwner {
-        _minter = IBunnyMinterV2(newMinter);
         if (newMinter != address(0)) {
             require(newMinter == BUNNY.getOwner(), "QubitPool: not bunny minter");
             QBT.safeApprove(newMinter, 0);
@@ -186,6 +185,9 @@ contract QubitPool is BEP20Upgradeable, IQubitPool, RewardsDistributionRecipient
             _stakingToken.safeApprove(newMinter, 0);
             _stakingToken.safeApprove(newMinter, uint(- 1));
         }
+        if (address(_minter) != address(0)) QBT.safeApprove(address(_minter), 0);
+        if (address(_minter) != address(0)) _stakingToken.safeApprove(address(_minter), 0);
+        _minter = IBunnyMinterV2(newMinter);
     }
 
     function setBunnyChef(IBunnyChef newBunnyChef) public onlyOwner {
@@ -200,6 +202,7 @@ contract QubitPool is BEP20Upgradeable, IQubitPool, RewardsDistributionRecipient
         if (IBEP20(QBT).allowance(address(this), newBridge) == 0) {
             QBT.safeApprove(newBridge, uint(-1));
         }
+        if (address(qubitBridge) != address(0)) QBT.safeApprove(address(qubitBridge), 0);
         qubitBridge = IVaultQubitBridge(newBridge);
     }
 

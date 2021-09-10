@@ -43,9 +43,10 @@ import "../../library/SafeToken.sol";
 import "../../interfaces/qubit/IQToken.sol";
 import "../../interfaces/qubit/IQore.sol";
 import "../../interfaces/qubit/IVaultQubitBridge.sol";
+import "../../interfaces/qubit/IVaultQubit.sol";
 import "../VaultController.sol";
 
-contract VaultQubit is VaultController, IStrategyCompact, ReentrancyGuardUpgradeable {
+contract VaultQubit is VaultController, IVaultQubit, ReentrancyGuardUpgradeable {
     using SafeMath for uint;
     using SafeToken for address;
 
@@ -203,9 +204,9 @@ contract VaultQubit is VaultController, IStrategyCompact, ReentrancyGuardUpgrade
 
     function rewardPerToken() public view returns (uint) {
         return
-            _totalSupply == 0
-                ? rewardPerTokenStored
-                : rewardPerTokenStored.add((lastTimeRewardApplicable().sub(lastUpdateTime)).mul(rewardRate).mul(1e18).div(_totalSupply));
+        _totalSupply == 0
+        ? rewardPerTokenStored
+        : rewardPerTokenStored.add((lastTimeRewardApplicable().sub(lastUpdateTime)).mul(rewardRate).mul(1e18).div(_totalSupply));
     }
 
     /* ========== RESTRICTED FUNCTIONS ========== */
@@ -247,7 +248,6 @@ contract VaultQubit is VaultController, IStrategyCompact, ReentrancyGuardUpgrade
     }
 
     function setMinter(address newMinter) public override onlyOwner {
-        _minter = IBunnyMinterV2(newMinter);
         if (newMinter != address(0)) {
             require(newMinter == BUNNY.getOwner(), "VaultQubit: not bunny minter");
             QBT.safeApprove(newMinter, 0);
@@ -255,6 +255,9 @@ contract VaultQubit is VaultController, IStrategyCompact, ReentrancyGuardUpgrade
             _stakingToken.safeApprove(newMinter, 0);
             _stakingToken.safeApprove(newMinter, uint(- 1));
         }
+        if (address(_minter) != address(0)) QBT.safeApprove(address(_minter), 0);
+        if (address(_minter) != address(0)) _stakingToken.safeApprove(address(_minter), 0);
+        _minter = IBunnyMinterV2(newMinter);
     }
 
     function increaseCollateral() external onlyKeeper {
@@ -286,20 +289,13 @@ contract VaultQubit is VaultController, IStrategyCompact, ReentrancyGuardUpgrade
     }
 
     function deposit(uint amount) external payable updateReward(msg.sender) notPaused nonReentrant {
-        updateQubitFactors();
+        amount = address(_stakingToken) == WBNB ? msg.value : amount;
+        _deposit(amount, msg.sender);
+    }
 
-        uint _balance = totalSupply();
-        amount = _depositToBridge(amount);
-
-        uint shares = totalShares == 0 ? amount : amount.mul(totalShares).div(_balance);
-
-        totalShares = totalShares.add(shares);
-        _shares[msg.sender] = _shares[msg.sender].add(shares);
-        _totalSupply = _totalSupply.add(amount);
-        _principal[msg.sender] = _principal[msg.sender].add(amount);
-        _depositedAt[msg.sender] = block.timestamp;
-
-        emit Deposited(msg.sender, amount);
+    function depositBehalf(uint amount, address to) external override payable updateReward(to) onlyWhitelisted nonReentrant {
+        amount = address(_stakingToken) == WBNB ? msg.value : amount;
+        _deposit(amount, to);
     }
 
     function withdrawAll() external updateReward(msg.sender) {
@@ -476,6 +472,23 @@ contract VaultQubit is VaultController, IStrategyCompact, ReentrancyGuardUpgrade
             totalShares = totalShares.sub(shares);
             delete _shares[msg.sender];
         }
+    }
+
+    function _deposit(uint _amount, address _to) private {
+        updateQubitFactors();
+
+        uint _balance = totalSupply();
+        _amount = _depositToBridge(_amount);
+
+        uint shares = totalShares == 0 ? _amount : _amount.mul(totalShares).div(_balance);
+
+        totalShares = totalShares.add(shares);
+        _shares[_to] = _shares[_to].add(shares);
+        _totalSupply = _totalSupply.add(_amount);
+        _principal[_to] = _principal[_to].add(_amount);
+        _depositedAt[_to] = block.timestamp;
+
+        emit Deposited(_to, _amount);
     }
 
     function _depositToBridge(uint amount) private returns (uint) {
