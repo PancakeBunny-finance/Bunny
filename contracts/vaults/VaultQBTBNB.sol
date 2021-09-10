@@ -10,9 +10,6 @@ import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol
 import "../library/RewardsDistributionRecipientUpgradeable.sol";
 import "../library/PausableUpgradeable.sol";
 
-import "../interfaces/legacy/IStrategyHelper.sol";
-import "../interfaces/IPancakeRouter02.sol";
-import "../interfaces/legacy/IStrategyLegacy.sol";
 import "../interfaces/IPriceCalculator.sol";
 import "../interfaces/IPresaleLocker.sol";
 
@@ -47,7 +44,6 @@ contract VaultQBTBNB is IPresaleLocker, RewardsDistributionRecipientUpgradeable,
     mapping(address => uint256) private _presaleBalances;
     uint256 public presaleEndTime; //1626652800 2021-07-19 00:00:00 UTC
     address public presaleContract;
-    uint256 public rewardTotalSupply;
 
     /* ========== MODIFIERS ========== */
 
@@ -105,7 +101,9 @@ contract VaultQBTBNB is IPresaleLocker, RewardsDistributionRecipientUpgradeable,
     function withdrawableBalanceOf(address account) public view override returns (uint) {
         if (block.timestamp <= presaleEndTime) {
             return 0;
-        } if (block.timestamp > presaleEndTime + rewardsDuration) {
+        }
+
+        if (block.timestamp > presaleEndTime + 3 days) {
             return _balances[account];
         } else {
             uint withdrawablePresaleBalance = _presaleBalances[account].mul((block.timestamp).sub(presaleEndTime)).div(rewardsDuration);
