@@ -31,6 +31,7 @@ pragma experimental ABIEncoderV2;
 * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 */
 
 import "@openzeppelin/contracts/math/Math.sol";
@@ -47,9 +48,10 @@ import "../../interfaces/IVaultVenusBridge.sol";
 import "../../interfaces/IBank.sol";
 import "../VaultController.sol";
 import "./VaultVenusBridgeOwner.sol";
+import "../../interfaces/qubit/IVaultQubit.sol";
+import "../../interfaces/IVaultVenus.sol";
 
-
-contract VaultVenus is VaultController, IStrategy, ReentrancyGuardUpgradeable {
+contract VaultVenus is VaultController, IVaultVenus, ReentrancyGuardUpgradeable {
     using SafeMath for uint;
     using SafeToken for address;
 
@@ -97,6 +99,8 @@ contract VaultVenus is VaultController, IStrategy, ReentrancyGuardUpgradeable {
 
     uint public venusExitRatio;
     uint public collateralRatioSystem;
+
+    address public migrationVault;
 
     /* ========== EVENTS ========== */
 
@@ -306,9 +310,16 @@ contract VaultVenus is VaultController, IStrategy, ReentrancyGuardUpgradeable {
         uint _balanceAfter = balance();
         if (_balanceAfter < _balanceBefore && address(_stakingToken) != WBNB) {
             uint migrationCost = _balanceBefore.sub(_balanceAfter);
-            _stakingToken.transferFrom(owner(), address(venusBridge), migrationCost);
+            _stakingToken.safeTransferFrom(owner(), address(venusBridge), migrationCost);
             venusBridge.deposit(address(this), migrationCost);
         }
+    }
+
+    function setMigrationVault(address _vault) external onlyOwner {
+        IVaultQubit qubitVault = IVaultQubit(_vault);
+        require(qubitVault.stakingToken() == address(_stakingToken), "VaultVenus: Invalid migration vault address");
+
+        migrationVault = _vault;
     }
 
     /* ========== BANKING FUNCTIONS ========== */
@@ -403,49 +414,7 @@ contract VaultVenus is VaultController, IStrategy, ReentrancyGuardUpgradeable {
     }
 
     function withdrawAll() external override accrueBank {
-        updateVenusFactors();
-        uint amount = balanceOf(msg.sender);
-        require(_hasSufficientBalance(amount), "VaultVenus: insufficient balance");
-
-        uint principal = principalOf(msg.sender);
-        uint available = balanceAvailable();
-        uint depositTimestamp = _depositedAt[msg.sender];
-        if (available < amount) {
-            _decreaseCollateral(_getBufferedAmountMin(amount));
-            amount = balanceOf(msg.sender);
-            available = balanceAvailable();
-        }
-
-        amount = Math.min(amount, available);
-        uint shares = _shares[msg.sender];
-        if (address(_bunnyChef) != address(0)) {
-            _bunnyChef.notifyWithdrawn(msg.sender, shares);
-            uint bunnyAmount = _bunnyChef.safeBunnyTransfer(msg.sender);
-            emit BunnyPaid(msg.sender, bunnyAmount, 0);
-        }
-
-        totalShares = totalShares.sub(shares);
-        delete _shares[msg.sender];
-        delete _principal[msg.sender];
-        delete _depositedAt[msg.sender];
-
-        uint profit = amount > principal ? amount.sub(principal) : 0;
-        uint withdrawalFee = canMint() ? _minter.withdrawalFee(principal, depositTimestamp) : 0;
-        uint performanceFee = canMint() ? _minter.performanceFee(profit) : 0;
-        if (withdrawalFee.add(performanceFee) > DUST) {
-            venusBridge.withdraw(address(this), withdrawalFee.add(performanceFee));
-            if (address(_stakingToken) == WBNB) {
-                _minter.mintFor{value : withdrawalFee.add(performanceFee)}(address(0), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
-            } else {
-                _minter.mintFor(address(_stakingToken), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
-            }
-
-            if (performanceFee > 0) {
-                emit ProfitPaid(msg.sender, profit, performanceFee);
-            }
-            amount = amount.sub(withdrawalFee).sub(performanceFee);
-        }
-
+        (uint amount, uint withdrawalFee) = _getExitAmount();
         amount = _getAmountWithExitRatio(amount);
         venusBridge.withdraw(msg.sender, amount);
         if (collateralRatio > collateralRatioLimit) {
@@ -555,6 +524,31 @@ contract VaultVenus is VaultController, IStrategy, ReentrancyGuardUpgradeable {
         _increaseCollateral(3);
     }
 
+    function migrateTo() external override accrueBank {
+        require(migrationVault != address(0), "VaultVenus: !migrationVault");
+        IVaultQubit qubitVault = IVaultQubit(migrationVault);
+
+        (uint amount, uint withdrawalFee) = _getExitAmount();
+
+        amount = _getAmountWithExitRatio(amount);
+
+        venusBridge.withdraw(address(this), amount);
+
+        if (_stakingToken.allowance(address(this), migrationVault) == 0) {
+            _stakingToken.safeApprove(migrationVault, uint(- 1));
+        }
+
+        if (address(_stakingToken) == WBNB) {
+            qubitVault.depositBehalf{value: amount}(amount, msg.sender);
+        } else {
+            qubitVault.depositBehalf(amount, msg.sender);
+        }
+        if (collateralRatio > collateralRatioLimit) {
+            _decreaseCollateral(0);
+        }
+        emit Withdrawn(msg.sender, amount, withdrawalFee);
+    }
+
     /* ========== PRIVATE FUNCTIONS ========== */
 
     function _hasSufficientBalance(uint amount) private view returns (bool) {
@@ -632,6 +626,52 @@ contract VaultVenus is VaultController, IStrategy, ReentrancyGuardUpgradeable {
                 updateVenusFactors();
             }
         }
+    }
+
+    function _getExitAmount() private returns (uint, uint) {
+        updateVenusFactors();
+        uint amount = balanceOf(msg.sender);
+        require(_hasSufficientBalance(amount), "VaultVenus: insufficient balance");
+
+        uint principal = principalOf(msg.sender);
+        uint available = balanceAvailable();
+        uint depositTimestamp = _depositedAt[msg.sender];
+        if (available < amount) {
+            _decreaseCollateral(_getBufferedAmountMin(amount));
+            amount = balanceOf(msg.sender);
+            available = balanceAvailable();
+        }
+
+        amount = Math.min(amount, available);
+        uint shares = _shares[msg.sender];
+        if (address(_bunnyChef) != address(0)) {
+            _bunnyChef.notifyWithdrawn(msg.sender, shares);
+            uint bunnyAmount = _bunnyChef.safeBunnyTransfer(msg.sender);
+            emit BunnyPaid(msg.sender, bunnyAmount, 0);
+        }
+
+        totalShares = totalShares.sub(shares);
+        delete _shares[msg.sender];
+        delete _principal[msg.sender];
+        delete _depositedAt[msg.sender];
+
+        uint profit = amount > principal ? amount.sub(principal) : 0;
+        uint withdrawalFee = canMint() ? _minter.withdrawalFee(principal, depositTimestamp) : 0;
+        uint performanceFee = canMint() ? _minter.performanceFee(profit) : 0;
+        if (withdrawalFee.add(performanceFee) > DUST) {
+            venusBridge.withdraw(address(this), withdrawalFee.add(performanceFee));
+            if (address(_stakingToken) == WBNB) {
+                _minter.mintFor{value : withdrawalFee.add(performanceFee)}(address(0), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
+            } else {
+                _minter.mintFor(address(_stakingToken), withdrawalFee, performanceFee, msg.sender, depositTimestamp);
+            }
+
+            if (performanceFee > 0) {
+                emit ProfitPaid(msg.sender, profit, performanceFee);
+            }
+            amount = amount.sub(withdrawalFee).sub(performanceFee);
+        }
+        return (amount, withdrawalFee);
     }
 
     /* ========== SALVAGE PURPOSE ONLY ========== */
