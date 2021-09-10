@@ -88,7 +88,6 @@ contract BunnyPoolV2 is IBunnyPool, VaultController, ReentrancyGuardUpgradeable 
     event RewardsAdded(uint[] amounts);
     event RewardsPaid(address indexed user, address token, uint amount);
     event BunnyPaid(address indexed user, uint profit, uint performanceFee);
-    event Recovered(address token, uint amount);
 
     /* ========== INITIALIZER ========== */
 
@@ -182,6 +181,7 @@ contract BunnyPoolV2 is IBunnyPool, VaultController, ReentrancyGuardUpgradeable 
     }
 
     function notifyRewardAmounts(uint[] memory amounts) external override onlyRewardsDistribution updateRewards(address(0)) {
+        require(amounts.length == _rewardTokens.length, "BunnyPoolV2: invalid length of amounts");
         for (uint i = 0; i < _rewardTokens.length; i++) {
             RewardInfo storage rewardInfo = rewards[_rewardTokens[i]];
             if (block.timestamp >= periodFinish) {
