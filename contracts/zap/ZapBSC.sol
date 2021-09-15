@@ -30,6 +30,7 @@ pragma solidity ^0.6.12;
 * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 */
 
 import "@pancakeswap/pancake-swap-lib/contracts/math/SafeMath.sol";
@@ -120,6 +121,7 @@ contract ZapBSC is IZap, OwnableUpgradeable {
                 _approveTokenIfNeeded(other);
                 uint sellAmount = amount.div(2);
                 uint otherAmount = _swap(_from, sellAmount, other, address(this));
+                pair.skim(address(this));
                 ROUTER.addLiquidity(_from, other, amount.sub(sellAmount), otherAmount, 0, 0, msg.sender, block.timestamp);
             } else {
                 uint bnbAmount = _from == WBNB ? _safeSwapToBNB(amount) : _swapTokenForBNB(_from, amount, address(this));
@@ -144,6 +146,11 @@ contract ZapBSC is IZap, OwnableUpgradeable {
             IPancakePair pair = IPancakePair(_from);
             address token0 = pair.token0();
             address token1 = pair.token1();
+
+            if (pair.balanceOf(_from) > 0) {
+                pair.burn(address(this));
+            }
+
             if (token0 == WBNB || token1 == WBNB) {
                 ROUTER.removeLiquidityETH(token0 != WBNB ? token0 : token1, amount, 0, 0, msg.sender, block.timestamp);
             } else {
@@ -174,6 +181,7 @@ contract ZapBSC is IZap, OwnableUpgradeable {
                 uint tokenAmount = _swapBNBForToken(token, swapValue, address(this));
 
                 _approveTokenIfNeeded(token);
+                pair.skim(address(this));
                 ROUTER.addLiquidityETH{value : amount.sub(swapValue)}(token, tokenAmount, 0, 0, receiver, block.timestamp);
             } else {
                 uint swapValue = amount.div(2);
@@ -182,6 +190,7 @@ contract ZapBSC is IZap, OwnableUpgradeable {
 
                 _approveTokenIfNeeded(token0);
                 _approveTokenIfNeeded(token1);
+                pair.skim(address(this));
                 ROUTER.addLiquidity(token0, token1, token0Amount, token1Amount, 0, 0, receiver, block.timestamp);
             }
         }
