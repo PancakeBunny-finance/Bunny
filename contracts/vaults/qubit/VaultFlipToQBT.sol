@@ -164,18 +164,8 @@ contract VaultFlipToQBT is VaultController, IRewardDistributed, RewardsDistribut
 
     /* ========== MUTATIVE FUNCTIONS ========== */
 
-    function deposit(uint amount) public {
-        require(amount > 0, "VaultFlipToQBT: amount must be greater than zero");
-
-        uint _before = _stakingToken.balanceOf(address(this));
-        _stakingToken.safeTransferFrom(msg.sender, address(this), amount);
-        amount = _stakingToken.balanceOf(address(this)).sub(_before);
-
-        _totalSupply = _totalSupply.add(amount);
-        _balances[msg.sender] = _balances[msg.sender].add(amount);
-        _depositedAt[msg.sender] = block.timestamp;
-
-        emit Deposited(msg.sender, amount);
+    function deposit(uint amount) public updateReward(msg.sender) {
+        _depositTo(amount, msg.sender);
     }
 
     function withdraw(uint amount) public nonReentrant updateReward(msg.sender) {
@@ -248,6 +238,20 @@ contract VaultFlipToQBT is VaultController, IRewardDistributed, RewardsDistribut
     }
 
     /* ========== PRIVATE FUNCTIONS ========== */
+
+    function _depositTo(uint amount, address to) private {
+        require(amount > 0, "VaultFlipToQBT: amount must be greater than zero");
+
+        uint _before = _stakingToken.balanceOf(address(this));
+        _stakingToken.safeTransferFrom(msg.sender, address(this), amount);
+        amount = _stakingToken.balanceOf(address(this)).sub(_before);
+
+        _totalSupply = _totalSupply.add(amount);
+        _balances[to] = _balances[to].add(amount);
+        _depositedAt[to] = block.timestamp;
+
+        emit Deposited(to, amount);
+    }
 
     function _notifyRewardAmount(uint reward) private updateReward(address(0)) {
         if (block.timestamp >= periodFinish) {

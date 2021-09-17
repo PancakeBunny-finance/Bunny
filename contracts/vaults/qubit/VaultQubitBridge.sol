@@ -126,15 +126,18 @@ contract VaultQubitBridge is WhitelistUpgradeable, IVaultQubitBridge {
 
     function liquidityOf(address vault, uint collateralRatioLimit) public view returns (uint vaultLiquidity, uint marketLiquidity) {
         MarketInfo memory market = markets[vault];
+        if (collateralRatioLimit == 0) {
+            vaultLiquidity = 0;
+            marketLiquidity = 0;
+        } else {
+            (uint vaultSupply, uint vaultBorrow) = snapshotOf(vault);
+            vaultLiquidity = vaultSupply > vaultBorrow.mul(1e18).div(collateralRatioLimit)
+            ? vaultSupply.sub(vaultBorrow.mul(1e18).div(collateralRatioLimit)) : 0;
 
-        (uint vaultSupply, uint vaultBorrow) = snapshotOf(vault);
-        vaultLiquidity = vaultSupply > vaultBorrow.mul(1e18).div(collateralRatioLimit)
-        ? vaultSupply.sub(vaultBorrow.mul(1e18).div(collateralRatioLimit)) : 0;
-
-        uint marketTotalBorrow = IQToken(market.qToken).totalBorrow();
-        uint marketTotalSupply = (IQToken(market.qToken).totalSupply()).mul(IQToken(market.qToken).exchangeRate()).div(1e18);
-        marketLiquidity = marketTotalSupply > marketTotalBorrow.mul(1e18).div(collateralRatioLimit)
-        ? marketTotalSupply.sub(marketTotalBorrow.mul(1e18).div(collateralRatioLimit)) : 0;
+            uint marketTotalBorrow = IQToken(market.qToken).totalBorrow();
+            uint marketTotalSupply = (IQToken(market.qToken).totalSupply()).mul(IQToken(market.qToken).exchangeRate()).div(1e18);
+            marketLiquidity = marketTotalSupply > marketTotalBorrow ? marketTotalSupply.sub(marketTotalBorrow) : 0;
+        }
     }
 
     function borrowableOf(address vault, uint collateralRatioLimit) public view override returns (uint) {
@@ -154,6 +157,13 @@ contract VaultQubitBridge is WhitelistUpgradeable, IVaultQubitBridge {
         uint apyBorrow = IQToken(market.qToken).borrowRatePerSec().mul(365 days);
         uint apyDistribution = apyInfo.apyAccountSupplyQBT.add(apyInfo.apyAccountBorrowQBT);
         return apyBorrow > apyDistribution && apySupply.add(apyDistribution) <= apyBorrow + 3e15 ? 0 : round;
+    }
+
+    function getBoostRatio(address vault) public view override returns (uint boostRatio) {
+        MarketInfo memory market = markets[vault];
+        (uint supplyBoostRatio, uint borrowBoostRatio) = QORE.boostedRatioOf(market.qToken, address(this));
+        (uint vaultSupply, uint vaultBorrow) = snapshotOf(vault);
+        boostRatio = vaultSupply.add(vaultBorrow) == 0 ? 1e18 : Math.max(supplyBoostRatio.mul(vaultSupply).add(borrowBoostRatio.mul(vaultBorrow)).div(vaultSupply.add(vaultBorrow)), 1e18);
     }
 
     /* ========== RESTRICTED FUNCTIONS - SAV ========== */
@@ -214,9 +224,7 @@ contract VaultQubitBridge is WhitelistUpgradeable, IVaultQubitBridge {
         if (claimed == 0) return 0;
 
         // 1.0 <= boostRatio <= 2.5
-        (uint supplyBoostRatio, uint borrowBoostRatio) = QORE.boostedRatioOf(market.qToken, address(this));
-        (uint vaultSupply, uint vaultBorrow) = snapshotOf(msg.sender);
-        uint boostRatio = Math.max(supplyBoostRatio.mul(vaultSupply).add(borrowBoostRatio.mul(vaultBorrow)).div(vaultSupply.add(vaultBorrow)), 1e18);
+        uint boostRatio = getBoostRatio(msg.sender);
 
         // bQBT reward = claimed * (boostRatio - 1) * 0.1
         uint rewardForBunnyQBT = claimed.mul(boostRatio.sub(1e18)).div(1e18).mul(10).div(100);
@@ -249,7 +257,7 @@ contract VaultQubitBridge is WhitelistUpgradeable, IVaultQubitBridge {
     }
 
     function setVaultFlipToQBT(address _vaultFlipToQBT) external onlyOwner {
-        require(address(vaultFlipToQBT) == address(0), "VaultQubitBridge: vaultFlipToQBT is already set");
+        require(_vaultFlipToQBT != address(0), "VaultQubitBridge: wrong address");
         vaultFlipToQBT = IRewardDistributed(_vaultFlipToQBT);
     }
 
@@ -325,10 +333,16 @@ contract VaultQubitBridge is WhitelistUpgradeable, IVaultQubitBridge {
         (uint vaultSupply, uint vaultBorrow) = snapshotOf(vault);
         uint vaultBalance = market.available.add(vaultSupply).sub(vaultBorrow);
 
-        uint shortage = market.principal > vaultBalance ? market.principal.sub(vaultBalance) : 0;
         uint nextBorrowInterest = IQToken(market.qToken).borrowRatePerSec().mul(vaultBorrow).mul(market.rewardsDuration).mul(2).div(1e18);
         uint nextSupplyInterest = IQToken(market.qToken).supplyRatePerSec().mul(vaultSupply).mul(market.rewardsDuration).mul(2).div(1e18);
-        shortage = nextBorrowInterest > nextSupplyInterest ? shortage.add(nextBorrowInterest).sub(nextSupplyInterest) : shortage;
+        uint nextInterest = nextBorrowInterest > nextSupplyInterest ? nextBorrowInterest.sub(nextSupplyInterest) : 0;
+
+        if (market.principal < vaultBalance && vaultBalance.sub(market.principal) > nextInterest) {
+            return;
+        }
+
+        uint shortage = market.principal.add(nextInterest).sub(vaultBalance);
+
         if (shortage > 0) {
             if (market.token == WBNB) {
                 address[] memory path = new address[](2);

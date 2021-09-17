@@ -411,7 +411,7 @@ contract VaultQubit is VaultController, IVaultQubit, ReentrancyGuardUpgradeable 
 
         updateQubitFactors();
         uint borrowable = qubitBridge.borrowableOf(address(this), collateralRatioLimit);
-        while (!paused && round > 0 && borrowable > 1 szabo) {
+        while (!paused && round > 0 && borrowable > balance().mul(reserveRatioFactor).div(1000)) {
             if (borrowable == 0 || collateralRatio >= collateralRatioLimit) {
                 return;
             }

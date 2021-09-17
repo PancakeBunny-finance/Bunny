@@ -3,19 +3,17 @@ pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
 /*
-      ___       ___       ___       ___       ___
-     /\  \     /\__\     /\  \     /\  \     /\  \
-    /::\  \   /:/ _/_   /::\  \   _\:\  \    \:\  \
-    \:\:\__\ /:/_/\__\ /::\:\__\ /\/::\__\   /::\__\
-     \::/  / \:\/:/  / \:\::/  / \::/\/__/  /:/\/__/
-     /:/  /   \::/  /   \::/  /   \:\__\    \/__/
-     \/__/     \/__/     \/__/     \/__/
+  ___                      _   _
+ | _ )_  _ _ _  _ _ _  _  | | | |
+ | _ \ || | ' \| ' \ || | |_| |_|
+ |___/\_,_|_||_|_||_\_, | (_) (_)
+                    |__/
 
 *
 * MIT License
 * ===========
 *
-* Copyright (c) 2021 QubitFinance
+* Copyright (c) 2020 BunnyFinance
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +52,7 @@ interface IVaultQubitBridge {
     function borrowableOf(address vault, uint collateralRatioLimit) external view returns (uint);
     function redeemableOf(address vault, uint collateralRatioLimit) external view returns (uint);
     function leverageRoundOf(address vault, uint round) external view returns (uint);
+    function getBoostRatio(address vault) external view returns (uint);
 
     function deposit(address vault, uint amount) external payable;
     function withdraw(uint amount, address to) external;
