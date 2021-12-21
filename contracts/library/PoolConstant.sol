@@ -48,7 +48,8 @@ library PoolConstant {
         FlipToReward,
         BunnyV2,
         Qubit,
-        bQBT, flipToQBT
+        bQBT, flipToQBT,
+        Multiplexer
     }
 
     struct PoolInfo {

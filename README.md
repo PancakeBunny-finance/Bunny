@@ -72,6 +72,14 @@ roadmap: http://bit.ly/bunny_roadmap
 | USDC | [0xEe3Ee0BEb7919eDD31a4506d7d4C93940f2ACED6](https://bscscan.com/address/0xEe3Ee0BEb7919eDD31a4506d7d4C93940f2ACED6)|
 | bQBT | [0x33F93897e914a7482A262Ef10A94319840EB8D05](https://bscscan.com/address/0x33F93897e914a7482A262Ef10A94319840EB8D05)|
 
+#### Leveraged Farming Vaults
+| STAKE     |   Leverage Level  | Contract Address |
+|:----------|:-----------------:|:----------------:|
+| CAKE-BNB  |   x2   | [0xfb8358f34133c275B0393E3883BDd8764Cb610DE](https://bscscan.com/address/0xfb8358f34133c275B0393E3883BDd8764Cb610DE)|
+| USDT-BUSD |   x3   | [0xD75f3E4e8ed51ec98ED57386Cb47DF457308Ad08](https://bscscan.com/address/0xD75f3E4e8ed51ec98ED57386Cb47DF457308Ad08)|
+| ETH-BNB   |   x3   | [0xb04D1A8266Ff97Ee9f48d48Ad2F2868b77F1C668](https://bscscan.com/address/0xb04D1A8266Ff97Ee9f48d48Ad2F2868b77F1C668)|
+
+
 
 # Contact Us
 - Twitter: [@pancakebunnyfin](https://twitter.com/pancakebunnyfin)
