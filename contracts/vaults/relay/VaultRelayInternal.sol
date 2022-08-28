@@ -275,7 +275,7 @@ contract VaultRelayInternal is VaultController, IStrategy, RewardsDistributionRe
     function setRewardsDuration(uint _rewardsDuration) external onlyOwner {
         require(periodFinish == 0 || block.timestamp > periodFinish, "VaultRelayInternal: reward duration can only be updated after the period ends");
         rewardsDuration = _rewardsDuration;
-        emit RewardsDurationUpdated(rewardsDuration);
+        emit RewardsDurationUpdated(_rewardsDuration);
     }
 
     function setRelayer(address newRelayer) external onlyOwner {

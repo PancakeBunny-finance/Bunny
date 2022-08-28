@@ -296,7 +296,7 @@ contract BunnyPool is IStrategyLegacy, RewardsDistributionRecipient, ReentrancyG
     function setRewardsDuration(uint256 _rewardsDuration) external onlyOwner {
         require(periodFinish == 0 || block.timestamp > periodFinish, "period");
         rewardsDuration = _rewardsDuration;
-        emit RewardsDurationUpdated(rewardsDuration);
+        emit RewardsDurationUpdated(_rewardsDuration);
     }
 
     /* ========== MODIFIERS ========== */
