@@ -210,7 +210,7 @@ contract VaultQBTBNB is IPresaleLocker, RewardsDistributionRecipientUpgradeable,
     function setRewardsDuration(uint256 _rewardsDuration) external onlyOwner {
         require(periodFinish == 0 || block.timestamp > periodFinish, "VaultQBTBNB: period");
         rewardsDuration = _rewardsDuration;
-        emit RewardsDurationUpdated(rewardsDuration);
+        emit RewardsDurationUpdated(_rewardsDuration);
     }
 
     function setPresaleEndTime(uint _endTime) external override onlyPresale {

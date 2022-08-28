@@ -210,7 +210,7 @@ contract QubitPool is BEP20Upgradeable, IQubitPool, RewardsDistributionRecipient
         require(periodFinish == 0 || block.timestamp > periodFinish, "QubitPool: Not time to set duration");
         rewardsDuration = _rewardsDuration;
 
-        emit RewardsDurationUpdated(rewardsDuration);
+        emit RewardsDurationUpdated(_rewardsDuration);
     }
 
     function notifyRewardAmount(uint reward) external override(IQubitPool, RewardsDistributionRecipientUpgradeable) onlyRewardsDistribution {

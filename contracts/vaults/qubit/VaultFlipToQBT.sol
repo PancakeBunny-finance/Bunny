@@ -234,7 +234,7 @@ contract VaultFlipToQBT is VaultController, IRewardDistributed, RewardsDistribut
     function setRewardsDuration(uint _rewardsDuration) external onlyOwner {
         require(periodFinish == 0 || block.timestamp > periodFinish, "VaultFlipToQBT: reward duration can only be updated after the period ends");
         rewardsDuration = _rewardsDuration;
-        emit RewardsDurationUpdated(rewardsDuration);
+        emit RewardsDurationUpdated(_rewardsDuration);
     }
 
     /* ========== PRIVATE FUNCTIONS ========== */
